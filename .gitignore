@@ -1,0 +1,8 @@
+# config.json for github PAT and other api-key
+config/.config.json
+
+.venv
+
+.vscode
+
+

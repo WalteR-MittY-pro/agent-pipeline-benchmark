@@ -1,0 +1,5309 @@
+[
+    {
+        "repo_name": "Theano/Theano",
+        "url": "https://github.com/Theano/Theano",
+        "stars": 9985,
+        "total_code_bytes": 8774810,
+        "qualified_languages": {
+            "Python": 0.9384,
+            "C/C++": 0.05
+        },
+        "description": "Theano was a Python library that allows you to define, optimize, and evaluate mathematical expressions involving multi-dimensional arrays efficiently. It is being continued as PyTensor: www.github.com/pymc-devs/pytensor"
+    },
+    {
+        "repo_name": "JingMatrix/LSPosed",
+        "url": "https://github.com/JingMatrix/LSPosed",
+        "stars": 9938,
+        "total_code_bytes": 1492655,
+        "qualified_languages": {
+            "Java": 0.7392,
+            "C/C++": 0.1966
+        },
+        "description": "LSPosed Framework resuscitated"
+    },
+    {
+        "repo_name": "happydog-intj/JsBridge",
+        "url": "https://github.com/happydog-intj/JsBridge",
+        "stars": 9927,
+        "total_code_bytes": 71362,
+        "qualified_languages": {
+            "Java": 0.7197,
+            "JavaScript/TypeScript": 0.1252
+        },
+        "description": "android java and javascript bridge, inspired by wechat webview jsbridge"
+    },
+    {
+        "repo_name": "helloqingfeng/Awsome-Front-End-learning-resource",
+        "url": "https://github.com/helloqingfeng/Awsome-Front-End-learning-resource",
+        "stars": 9907,
+        "total_code_bytes": 996296,
+        "qualified_languages": {
+            "PHP": 0.591,
+            "JavaScript/TypeScript": 0.371
+        },
+        "description": ":octocat:GitHub最全的前端资源汇总仓库（包括前端学习、开发资源、求职面试等）"
+    },
+    {
+        "repo_name": "openvinotoolkit/openvino",
+        "url": "https://github.com/openvinotoolkit/openvino",
+        "stars": 9854,
+        "total_code_bytes": 94191890,
+        "qualified_languages": {
+            "C/C++": 0.9074,
+            "Python": 0.0814
+        },
+        "description": "OpenVINO™ is an open source toolkit for optimizing and deploying AI inference"
+    },
+    {
+        "repo_name": "facebookresearch/pytorch3d",
+        "url": "https://github.com/facebookresearch/pytorch3d",
+        "stars": 9820,
+        "total_code_bytes": 5230408,
+        "qualified_languages": {
+            "Python": 0.8093,
+            "C/C++": 0.1113
+        },
+        "description": "PyTorch3D is FAIR's library of reusable components for deep learning with 3D data"
+    },
+    {
+        "repo_name": "kyutai-labs/moshi",
+        "url": "https://github.com/kyutai-labs/moshi",
+        "stars": 9808,
+        "total_code_bytes": 1389165,
+        "qualified_languages": {
+            "Python": 0.5137,
+            "Rust": 0.4142,
+            "JavaScript/TypeScript": 0.0668
+        },
+        "description": "Moshi is a speech-text foundation model and full-duplex spoken dialogue framework. It uses Mimi, a state-of-the-art streaming neural audio codec."
+    },
+    {
+        "repo_name": "sigoden/dufs",
+        "url": "https://github.com/sigoden/dufs",
+        "stars": 9807,
+        "total_code_bytes": 260770,
+        "qualified_languages": {
+            "Rust": 0.8402,
+            "JavaScript/TypeScript": 0.1143
+        },
+        "description": "A file server that supports static serving, uploading, searching, accessing control, webdav..."
+    },
+    {
+        "repo_name": "frappe/frappe",
+        "url": "https://github.com/frappe/frappe",
+        "stars": 9794,
+        "total_code_bytes": 9070916,
+        "qualified_languages": {
+            "Python": 0.5842,
+            "JavaScript/TypeScript": 0.3221
+        },
+        "description": "Low code web framework for real world applications, in Python and Javascript"
+    },
+    {
+        "repo_name": "humanlayer/humanlayer",
+        "url": "https://github.com/humanlayer/humanlayer",
+        "stars": 9778,
+        "total_code_bytes": 3425333,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6081,
+            "Go": 0.3358
+        },
+        "description": "The best way to get AI coding agents to solve hard problems in complex codebases."
+    },
+    {
+        "repo_name": "danielmiessler/Personal_AI_Infrastructure",
+        "url": "https://github.com/danielmiessler/Personal_AI_Infrastructure",
+        "stars": 9726,
+        "total_code_bytes": 19056300,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7921,
+            "Python": 0.0918
+        },
+        "description": "Agentic AI Infrastructure for magnifying HUMAN capabilities."
+    },
+    {
+        "repo_name": "microsoft/magentic-ui",
+        "url": "https://github.com/microsoft/magentic-ui",
+        "stars": 9717,
+        "total_code_bytes": 1704226,
+        "qualified_languages": {
+            "Python": 0.7045,
+            "JavaScript/TypeScript": 0.2844
+        },
+        "description": "A research prototype of a human-centered web agent"
+    },
+    {
+        "repo_name": "git-bug/git-bug",
+        "url": "https://github.com/git-bug/git-bug",
+        "stars": 9712,
+        "total_code_bytes": 1051389,
+        "qualified_languages": {
+            "Go": 0.8412,
+            "JavaScript/TypeScript": 0.1114
+        },
+        "description": "Distributed, offline-first bug tracker embedded in git"
+    },
+    {
+        "repo_name": "microsoft/Windows-universal-samples",
+        "url": "https://github.com/microsoft/Windows-universal-samples",
+        "stars": 9702,
+        "total_code_bytes": 9772010,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7255,
+            "C/C++": 0.0845
+        },
+        "description": "API samples for the Universal Windows Platform."
+    },
+    {
+        "repo_name": "spinnaker/spinnaker",
+        "url": "https://github.com/spinnaker/spinnaker",
+        "stars": 9697,
+        "total_code_bytes": 53497845,
+        "qualified_languages": {
+            "Java": 0.4061,
+            "JavaScript/TypeScript": 0.1721
+        },
+        "description": "Spinnaker is an open source, multi-cloud continuous delivery platform for releasing software changes with high velocity and confidence."
+    },
+    {
+        "repo_name": "ostris/ai-toolkit",
+        "url": "https://github.com/ostris/ai-toolkit",
+        "stars": 9696,
+        "total_code_bytes": 4123653,
+        "qualified_languages": {
+            "Python": 0.8857,
+            "JavaScript/TypeScript": 0.102
+        },
+        "description": "The ultimate training toolkit for finetuning diffusion models"
+    },
+    {
+        "repo_name": "niedev/RTranslator",
+        "url": "https://github.com/niedev/RTranslator",
+        "stars": 9682,
+        "total_code_bytes": 9782953,
+        "qualified_languages": {
+            "C/C++": 0.8493,
+            "Java": 0.1261
+        },
+        "description": "Open source real-time translation app for Android that runs locally"
+    },
+    {
+        "repo_name": "WebKit/WebKit",
+        "url": "https://github.com/WebKit/WebKit",
+        "stars": 9669,
+        "total_code_bytes": 1358260156,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4712,
+            "C/C++": 0.1556
+        },
+        "description": "Home of the WebKit project, the browser engine used by Safari, Mail, App Store and many other applications on macOS, iOS and Linux."
+    },
+    {
+        "repo_name": "browseros-ai/BrowserOS",
+        "url": "https://github.com/browseros-ai/BrowserOS",
+        "stars": 9666,
+        "total_code_bytes": 1203499,
+        "qualified_languages": {
+            "C/C++": 0.8539,
+            "Go": 0.0893
+        },
+        "description": "🌐 The open-source Agentic browser; alternative to ChatGPT Atlas, Perplexity Comet, Dia."
+    },
+    {
+        "repo_name": "koral--/android-gif-drawable",
+        "url": "https://github.com/koral--/android-gif-drawable",
+        "stars": 9660,
+        "total_code_bytes": 284827,
+        "qualified_languages": {
+            "Java": 0.5814,
+            "C/C++": 0.4076
+        },
+        "description": "Views and Drawable for displaying animated GIFs on Android"
+    },
+    {
+        "repo_name": "react-native-camera/react-native-camera",
+        "url": "https://github.com/react-native-camera/react-native-camera",
+        "stars": 9653,
+        "total_code_bytes": 937657,
+        "qualified_languages": {
+            "Java": 0.5298,
+            "C/C++": 0.0967
+        },
+        "description": "A Camera component for React Native. Also supports barcode scanning!"
+    },
+    {
+        "repo_name": "google/re2",
+        "url": "https://github.com/google/re2",
+        "stars": 9615,
+        "total_code_bytes": 1232560,
+        "qualified_languages": {
+            "C/C++": 0.908,
+            "Python": 0.0506
+        },
+        "description": "RE2 is a fast, safe, thread-friendly alternative to backtracking regular expression engines like those used in PCRE, Perl, and Python. It is a C++ library."
+    },
+    {
+        "repo_name": "gzc/CLRS",
+        "url": "https://github.com/gzc/CLRS",
+        "stars": 9602,
+        "total_code_bytes": 250312,
+        "qualified_languages": {
+            "C/C++": 0.7293,
+            "Python": 0.2589
+        },
+        "description": ":notebook:Solutions to Introduction to Algorithms"
+    },
+    {
+        "repo_name": "sqlfluff/sqlfluff",
+        "url": "https://github.com/sqlfluff/sqlfluff",
+        "stars": 9584,
+        "total_code_bytes": 7288093,
+        "qualified_languages": {
+            "Python": 0.7118,
+            "Rust": 0.11
+        },
+        "description": "A modular SQL linter and auto-formatter with support for multiple dialects and templated code."
+    },
+    {
+        "repo_name": "skypilot-org/skypilot",
+        "url": "https://github.com/skypilot-org/skypilot",
+        "stars": 9565,
+        "total_code_bytes": 14468602,
+        "qualified_languages": {
+            "Python": 0.877,
+            "JavaScript/TypeScript": 0.0857
+        },
+        "description": "Run, manage, and scale AI workloads on any AI infrastructure. Use one system to access & manage all AI compute (Kubernetes, 20+ clouds, or on-prem)."
+    },
+    {
+        "repo_name": "polarsource/polar",
+        "url": "https://github.com/polarsource/polar",
+        "stars": 9540,
+        "total_code_bytes": 14554230,
+        "qualified_languages": {
+            "Python": 0.5945,
+            "JavaScript/TypeScript": 0.3606
+        },
+        "description": "Turn your software into a business."
+    },
+    {
+        "repo_name": "BloopAI/bloop",
+        "url": "https://github.com/BloopAI/bloop",
+        "stars": 9517,
+        "total_code_bytes": 2465534,
+        "qualified_languages": {
+            "Rust": 0.4831,
+            "JavaScript/TypeScript": 0.4172
+        },
+        "description": "bloop is a fast code search engine written in Rust."
+    },
+    {
+        "repo_name": "BYVoid/OpenCC",
+        "url": "https://github.com/BYVoid/OpenCC",
+        "stars": 9514,
+        "total_code_bytes": 318835,
+        "qualified_languages": {
+            "C/C++": 0.7687,
+            "Python": 0.0806
+        },
+        "description": "Conversion between Traditional and Simplified Chinese"
+    },
+    {
+        "repo_name": "gorse-io/gorse",
+        "url": "https://github.com/gorse-io/gorse",
+        "stars": 9513,
+        "total_code_bytes": 1860051,
+        "qualified_languages": {
+            "Go": 0.7269,
+            "C/C++": 0.0797
+        },
+        "description": "AI powered open source recommender system engine supports classical/LLM rankers and multimodal content via embedding"
+    },
+    {
+        "repo_name": "tilt-dev/tilt",
+        "url": "https://github.com/tilt-dev/tilt",
+        "stars": 9508,
+        "total_code_bytes": 5591327,
+        "qualified_languages": {
+            "Go": 0.7949,
+            "JavaScript/TypeScript": 0.1704
+        },
+        "description": "Define your dev environment as code. For microservice apps on Kubernetes."
+    },
+    {
+        "repo_name": "rapidsai/cudf",
+        "url": "https://github.com/rapidsai/cudf",
+        "stars": 9508,
+        "total_code_bytes": 36102820,
+        "qualified_languages": {
+            "C/C++": 0.3912,
+            "Python": 0.2802,
+            "Java": 0.0715
+        },
+        "description": "cuDF - GPU DataFrame Library "
+    },
+    {
+        "repo_name": "ValueCell-ai/valuecell",
+        "url": "https://github.com/ValueCell-ai/valuecell",
+        "stars": 9505,
+        "total_code_bytes": 2518909,
+        "qualified_languages": {
+            "Python": 0.7523,
+            "JavaScript/TypeScript": 0.2311
+        },
+        "description": "ValueCell is a community-driven, multi-agent platform for financial applications."
+    },
+    {
+        "repo_name": "ihmily/DouyinLiveRecorder",
+        "url": "https://github.com/ihmily/DouyinLiveRecorder",
+        "stars": 9499,
+        "total_code_bytes": 468784,
+        "qualified_languages": {
+            "Python": 0.7762,
+            "JavaScript/TypeScript": 0.2008
+        },
+        "description": "可循环值守和多人录制的直播录制软件，支持抖音、TikTok、Youtube、快手、虎牙、斗鱼、B站、小红书、pandatv、sooplive、flextv、popkontv、twitcasting、winktv、百度、微博、酷狗、17Live、Twitch、Acfun、CHZZK、shopee等40+平台直播录制"
+    },
+    {
+        "repo_name": "scrapinghub/portia",
+        "url": "https://github.com/scrapinghub/portia",
+        "stars": 9496,
+        "total_code_bytes": 2778042,
+        "qualified_languages": {
+            "Python": 0.4003,
+            "JavaScript/TypeScript": 0.1769
+        },
+        "description": "Visual scraping for Scrapy"
+    },
+    {
+        "repo_name": "cocos/cocos-engine",
+        "url": "https://github.com/cocos/cocos-engine",
+        "stars": 9461,
+        "total_code_bytes": 39667395,
+        "qualified_languages": {
+            "C/C++": 0.5311,
+            "JavaScript/TypeScript": 0.409
+        },
+        "description": "Cocos simplifies game creation and distribution with Cocos Creator, a free, open-source, cross-platform game engine. Empowering millions of developers to create high-performance, engaging 2D/3D games and instant web entertainment."
+    },
+    {
+        "repo_name": "sjwhitworth/golearn",
+        "url": "https://github.com/sjwhitworth/golearn",
+        "stars": 9448,
+        "total_code_bytes": 595150,
+        "qualified_languages": {
+            "Go": 0.8488,
+            "C/C++": 0.147
+        },
+        "description": "Machine Learning for Go"
+    },
+    {
+        "repo_name": "blackboardsh/electrobun",
+        "url": "https://github.com/blackboardsh/electrobun",
+        "stars": 9431,
+        "total_code_bytes": 2902999,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4395,
+            "C/C++": 0.3345
+        },
+        "description": "Build ultra fast, tiny, and cross-platform desktop apps with Typescript."
+    },
+    {
+        "repo_name": "mcp-use/mcp-use",
+        "url": "https://github.com/mcp-use/mcp-use",
+        "stars": 9420,
+        "total_code_bytes": 5442572,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7998,
+            "Python": 0.1853
+        },
+        "description": "The fullstack MCP framework to develop MCP Apps for ChatGPT / Claude & MCP Servers for AI Agents."
+    },
+    {
+        "repo_name": "NVIDIA/cutlass",
+        "url": "https://github.com/NVIDIA/cutlass",
+        "stars": 9398,
+        "total_code_bytes": 49997412,
+        "qualified_languages": {
+            "C/C++": 0.6059,
+            "Python": 0.0845
+        },
+        "description": "CUDA Templates and Python DSLs for High-Performance Linear Algebra"
+    },
+    {
+        "repo_name": "lancedb/lancedb",
+        "url": "https://github.com/lancedb/lancedb",
+        "stars": 9392,
+        "total_code_bytes": 6111699,
+        "qualified_languages": {
+            "Rust": 0.2763,
+            "Python": 0.2253,
+            "JavaScript/TypeScript": 0.0754
+        },
+        "description": "Developer-friendly OSS embedded retrieval library for multimodal AI. Search More; Manage Less."
+    },
+    {
+        "repo_name": "Oneflow-Inc/oneflow",
+        "url": "https://github.com/Oneflow-Inc/oneflow",
+        "stars": 9391,
+        "total_code_bytes": 25162937,
+        "qualified_languages": {
+            "C/C++": 0.5885,
+            "Python": 0.2849
+        },
+        "description": "OneFlow is a deep learning framework designed to be user-friendly, scalable and efficient."
+    },
+    {
+        "repo_name": "vxcontrol/pentagi",
+        "url": "https://github.com/vxcontrol/pentagi",
+        "stars": 9390,
+        "total_code_bytes": 5563290,
+        "qualified_languages": {
+            "Go": 0.7595,
+            "JavaScript/TypeScript": 0.2072
+        },
+        "description": "✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks"
+    },
+    {
+        "repo_name": "Leantime/leantime",
+        "url": "https://github.com/Leantime/leantime",
+        "stars": 9386,
+        "total_code_bytes": 7102300,
+        "qualified_languages": {
+            "PHP": 0.4905,
+            "JavaScript/TypeScript": 0.1978
+        },
+        "description": "Leantime is a goals focused project management system for non-project managers. Building with ADHD, Autism, and dyslexia in mind."
+    },
+    {
+        "repo_name": "Studio3T/robomongo",
+        "url": "https://github.com/Studio3T/robomongo",
+        "stars": 9369,
+        "total_code_bytes": 1614994,
+        "qualified_languages": {
+            "C/C++": 0.799,
+            "JavaScript/TypeScript": 0.1232
+        },
+        "description": "Native cross-platform MongoDB management tool"
+    },
+    {
+        "repo_name": "dr5hn/countries-states-cities-database",
+        "url": "https://github.com/dr5hn/countries-states-cities-database",
+        "stars": 9343,
+        "total_code_bytes": 235551,
+        "qualified_languages": {
+            "Python": 0.7342,
+            "PHP": 0.2493
+        },
+        "description": "🌍 Discover our global repository of countries, states, and cities!  🏙️ Get comprehensive data in JSON, SQL, PSQL, SQLSERVER, MONGODB, SQLITE, XML, YAML, and CSV formats. Access ISO2, ISO3 codes, country code, capital, native language, timezones (for countries), and more. #countries #states #cities"
+    },
+    {
+        "repo_name": "dstotijn/hetty",
+        "url": "https://github.com/dstotijn/hetty",
+        "stars": 9338,
+        "total_code_bytes": 393593,
+        "qualified_languages": {
+            "Go": 0.5348,
+            "JavaScript/TypeScript": 0.4549
+        },
+        "description": "An HTTP toolkit for security research."
+    },
+    {
+        "repo_name": "Usagi-org/ai-goofish-monitor",
+        "url": "https://github.com/Usagi-org/ai-goofish-monitor",
+        "stars": 9323,
+        "total_code_bytes": 678599,
+        "qualified_languages": {
+            "Python": 0.5781,
+            "JavaScript/TypeScript": 0.1065
+        },
+        "description": "本项目基于 Playwright 和AI过滤的闲鱼多任务实时/定时监控与智能分析工具，配备了功能完善的后台管理界面。帮助用户节省闲鱼商品过滤，能及时找到心仪商品。"
+    },
+    {
+        "repo_name": "bytedance/monolith",
+        "url": "https://github.com/bytedance/monolith",
+        "stars": 9280,
+        "total_code_bytes": 5370129,
+        "qualified_languages": {
+            "Python": 0.5675,
+            "C/C++": 0.3867
+        },
+        "description": "A Lightweight Recommendation System"
+    },
+    {
+        "repo_name": "sosedoff/pgweb",
+        "url": "https://github.com/sosedoff/pgweb",
+        "stars": 9268,
+        "total_code_bytes": 310325,
+        "qualified_languages": {
+            "Go": 0.5474,
+            "JavaScript/TypeScript": 0.1781
+        },
+        "description": "Cross-platform client for PostgreSQL databases"
+    },
+    {
+        "repo_name": "replicate/cog",
+        "url": "https://github.com/replicate/cog",
+        "stars": 9265,
+        "total_code_bytes": 2429416,
+        "qualified_languages": {
+            "Go": 0.5059,
+            "Rust": 0.2088,
+            "Python": 0.059
+        },
+        "description": "Containers for machine learning"
+    },
+    {
+        "repo_name": "chaitin/PandaWiki",
+        "url": "https://github.com/chaitin/PandaWiki",
+        "stars": 9246,
+        "total_code_bytes": 4432337,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6799,
+            "Go": 0.2952
+        },
+        "description": "PandaWiki 是一款 AI 大模型驱动的开源知识库搭建系统，帮助你快速构建智能化的 产品文档、技术文档、FAQ、博客系统，借助大模型的力量为你提供 AI 创作、AI 问答、AI 搜索等能力。"
+    },
+    {
+        "repo_name": "chakra-core/ChakraCore",
+        "url": "https://github.com/chakra-core/ChakraCore",
+        "stars": 9242,
+        "total_code_bytes": 97569184,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5276,
+            "C/C++": 0.4317
+        },
+        "description": "ChakraCore is an open source Javascript engine with a C API."
+    },
+    {
+        "repo_name": "jgamblin/Mirai-Source-Code",
+        "url": "https://github.com/jgamblin/Mirai-Source-Code",
+        "stars": 9232,
+        "total_code_bytes": 369237,
+        "qualified_languages": {
+            "C/C++": 0.8609,
+            "Go": 0.1061
+        },
+        "description": "Leaked Mirai Source Code for Research/IoC Development Purposes"
+    },
+    {
+        "repo_name": "mrousavy/react-native-vision-camera",
+        "url": "https://github.com/mrousavy/react-native-vision-camera",
+        "stars": 9231,
+        "total_code_bytes": 801772,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2617,
+            "C/C++": 0.0673
+        },
+        "description": "📸 A powerful, high-performance React Native Camera library."
+    },
+    {
+        "repo_name": "happyfish100/fastdfs",
+        "url": "https://github.com/happyfish100/fastdfs",
+        "stars": 9228,
+        "total_code_bytes": 6309445,
+        "qualified_languages": {
+            "C/C++": 0.6129,
+            "Rust": 0.0853
+        },
+        "description": "FastDFS is a high performance distributed file system (DFS). It's major functions include: file storing, file syncing and file accessing, and design for high capacity and load balance. Wechat/Weixin public account (Chinese Language): fastdfs"
+    },
+    {
+        "repo_name": "microsoft/napajs",
+        "url": "https://github.com/microsoft/napajs",
+        "stars": 9215,
+        "total_code_bytes": 772717,
+        "qualified_languages": {
+            "C/C++": 0.6897,
+            "JavaScript/TypeScript": 0.2917
+        },
+        "description": "Napa.js: a multi-threaded JavaScript runtime"
+    },
+    {
+        "repo_name": "Arindam200/awesome-ai-apps",
+        "url": "https://github.com/Arindam200/awesome-ai-apps",
+        "stars": 9214,
+        "total_code_bytes": 1647408,
+        "qualified_languages": {
+            "Python": 0.7348,
+            "JavaScript/TypeScript": 0.0608
+        },
+        "description": "A collection of projects showcasing RAG, agents, workflows, and other AI use cases"
+    },
+    {
+        "repo_name": "nodegui/nodegui",
+        "url": "https://github.com/nodegui/nodegui",
+        "stars": 9197,
+        "total_code_bytes": 2234098,
+        "qualified_languages": {
+            "C/C++": 0.697,
+            "JavaScript/TypeScript": 0.2909
+        },
+        "description": "A library for building cross-platform native desktop applications with Node.js and CSS  🚀.  React NodeGui : https://react.nodegui.org and Vue NodeGui: https://vue.nodegui.org"
+    },
+    {
+        "repo_name": "grpc/grpc-web",
+        "url": "https://github.com/grpc/grpc-web",
+        "stars": 9193,
+        "total_code_bytes": 332866,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6045,
+            "C/C++": 0.2148,
+            "Python": 0.0567
+        },
+        "description": "gRPC for Web Clients"
+    },
+    {
+        "repo_name": "highlight/highlight",
+        "url": "https://github.com/highlight/highlight",
+        "stars": 9181,
+        "total_code_bytes": 15833815,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7903,
+            "Go": 0.1581
+        },
+        "description": "highlight.io: The open source, full-stack monitoring platform. Error monitoring, session replay, logging, distributed tracing, and more."
+    },
+    {
+        "repo_name": "spyder-ide/spyder",
+        "url": "https://github.com/spyder-ide/spyder",
+        "stars": 9159,
+        "total_code_bytes": 8256692,
+        "qualified_languages": {
+            "Python": 0.9178,
+            "JavaScript/TypeScript": 0.065
+        },
+        "description": "Official repository for Spyder - The Scientific Python Development Environment"
+    },
+    {
+        "repo_name": "sqlite/sqlite",
+        "url": "https://github.com/sqlite/sqlite",
+        "stars": 9156,
+        "total_code_bytes": 18246569,
+        "qualified_languages": {
+            "C/C++": 0.8083,
+            "JavaScript/TypeScript": 0.0582
+        },
+        "description": "Official Git mirror of the SQLite source tree"
+    },
+    {
+        "repo_name": "firebase/flutterfire",
+        "url": "https://github.com/firebase/flutterfire",
+        "stars": 9155,
+        "total_code_bytes": 7951626,
+        "qualified_languages": {
+            "C/C++": 0.1367,
+            "Java": 0.0838
+        },
+        "description": "🔥 A collection of Firebase plugins for Flutter apps."
+    },
+    {
+        "repo_name": "scylladb/seastar",
+        "url": "https://github.com/scylladb/seastar",
+        "stars": 9150,
+        "total_code_bytes": 5517750,
+        "qualified_languages": {
+            "C/C++": 0.91,
+            "Python": 0.0511
+        },
+        "description": "High performance server-side application framework"
+    },
+    {
+        "repo_name": "microsoft/react-native-code-push",
+        "url": "https://github.com/microsoft/react-native-code-push",
+        "stars": 9144,
+        "total_code_bytes": 1766992,
+        "qualified_languages": {
+            "C/C++": 0.5061,
+            "JavaScript/TypeScript": 0.1334,
+            "Java": 0.0718
+        },
+        "description": "React Native module for CodePush"
+    },
+    {
+        "repo_name": "khuedoan/homelab",
+        "url": "https://github.com/khuedoan/homelab",
+        "stars": 9133,
+        "total_code_bytes": 47147,
+        "qualified_languages": {
+            "Python": 0.4122,
+            "Go": 0.2284
+        },
+        "description": "Fully automated homelab from empty disk to running services with a single command."
+    },
+    {
+        "repo_name": "flowable/flowable-engine",
+        "url": "https://github.com/flowable/flowable-engine",
+        "stars": 9123,
+        "total_code_bytes": 48748916,
+        "qualified_languages": {
+            "Java": 0.9417,
+            "JavaScript/TypeScript": 0.0506
+        },
+        "description": "A compact and highly efficient workflow and Business Process Management (BPM) platform for developers, system admins and business users."
+    },
+    {
+        "repo_name": "api-platform/api-platform",
+        "url": "https://github.com/api-platform/api-platform",
+        "stars": 9119,
+        "total_code_bytes": 30684,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4321,
+            "PHP": 0.2202
+        },
+        "description": "🕸️ Create REST and GraphQL APIs, scaffold Jamstack webapps, stream changes in real-time."
+    },
+    {
+        "repo_name": "xorbitsai/inference",
+        "url": "https://github.com/xorbitsai/inference",
+        "stars": 9114,
+        "total_code_bytes": 3365835,
+        "qualified_languages": {
+            "Python": 0.8958,
+            "JavaScript/TypeScript": 0.1009
+        },
+        "description": "Swap GPT for any LLM by changing a single line of code. Xinference lets you run open-source, speech, and multimodal models on cloud, on-prem, or your laptop — all through one unified, production-ready inference API."
+    },
+    {
+        "repo_name": "berty/berty",
+        "url": "https://github.com/berty/berty",
+        "stars": 9105,
+        "total_code_bytes": 4391525,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4443,
+            "Go": 0.3842,
+            "Java": 0.1069
+        },
+        "description": "Berty is a secure peer-to-peer messaging app that works with or without internet access, cellular data or trust in the network"
+    },
+    {
+        "repo_name": "nhost/nhost",
+        "url": "https://github.com/nhost/nhost",
+        "stars": 9099,
+        "total_code_bytes": 10199704,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7292,
+            "Go": 0.205
+        },
+        "description": "The Open Source Firebase Alternative with GraphQL."
+    },
+    {
+        "repo_name": "OutlineFoundation/outline-apps",
+        "url": "https://github.com/OutlineFoundation/outline-apps",
+        "stars": 9090,
+        "total_code_bytes": 1861139,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6422,
+            "Go": 0.154
+        },
+        "description": "Outline Client and Manager, developed by Jigsaw. Outline Manager makes it easy to create your own VPN server. Outline Client lets you share access to your VPN with anyone in your network, giving them access to the free and open internet."
+    },
+    {
+        "repo_name": "mulaRahul/keyviz",
+        "url": "https://github.com/mulaRahul/keyviz",
+        "stars": 9075,
+        "total_code_bytes": 525437,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6321,
+            "Rust": 0.3582
+        },
+        "description": "Keyviz is a free and open-source tool to visualize your keystrokes ⌨️ and 🖱️ mouse actions in real-time."
+    },
+    {
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "url": "https://github.com/bigbluebutton/bigbluebutton",
+        "stars": 9049,
+        "total_code_bytes": 10623522,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5801,
+            "Java": 0.1152
+        },
+        "description": "A complete web conferencing system for virtual classes and more!"
+    },
+    {
+        "repo_name": "Lissy93/awesome-privacy",
+        "url": "https://github.com/Lissy93/awesome-privacy",
+        "stars": 9047,
+        "total_code_bytes": 387980,
+        "qualified_languages": {
+            "Python": 0.2532,
+            "JavaScript/TypeScript": 0.1696
+        },
+        "description": "🦄  A curated list of privacy & security-focused software and services"
+    },
+    {
+        "repo_name": "meetecho/janus-gateway",
+        "url": "https://github.com/meetecho/janus-gateway",
+        "stars": 9046,
+        "total_code_bytes": 5957416,
+        "qualified_languages": {
+            "C/C++": 0.8269,
+            "JavaScript/TypeScript": 0.118
+        },
+        "description": "Janus WebRTC Server"
+    },
+    {
+        "repo_name": "deepseek-ai/DeepEP",
+        "url": "https://github.com/deepseek-ai/DeepEP",
+        "stars": 9043,
+        "total_code_bytes": 584934,
+        "qualified_languages": {
+            "Python": 0.2035,
+            "C/C++": 0.1924
+        },
+        "description": "DeepEP: an efficient expert-parallel communication library"
+    },
+    {
+        "repo_name": "activeloopai/deeplake",
+        "url": "https://github.com/activeloopai/deeplake",
+        "stars": 9032,
+        "total_code_bytes": 2970326,
+        "qualified_languages": {
+            "C/C++": 0.5247,
+            "Python": 0.3883
+        },
+        "description": "Database for AI. Store Vectors, Images, Texts, Videos, etc. Use with LLMs/LangChain. Store, query, version, & visualize any AI data. Stream data in real-time to PyTorch/TensorFlow. https://activeloop.ai"
+    },
+    {
+        "repo_name": "WebGoat/WebGoat",
+        "url": "https://github.com/WebGoat/WebGoat",
+        "stars": 9016,
+        "total_code_bytes": 2618746,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4973,
+            "Java": 0.3421
+        },
+        "description": "WebGoat is a deliberately insecure application"
+    },
+    {
+        "repo_name": "PrestaShop/PrestaShop",
+        "url": "https://github.com/PrestaShop/PrestaShop",
+        "stars": 9001,
+        "total_code_bytes": 43005221,
+        "qualified_languages": {
+            "PHP": 0.5621,
+            "JavaScript/TypeScript": 0.2375
+        },
+        "description": "PrestaShop is the universal open-source software platform to build your e-commerce solution."
+    },
+    {
+        "repo_name": "coaidev/coai",
+        "url": "https://github.com/coaidev/coai",
+        "stars": 8996,
+        "total_code_bytes": 1665214,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5808,
+            "Go": 0.3014
+        },
+        "description": "🚀 Next Generation Multi-tenant AI One-Stop Solution. Builtin Admin & Billing System. Enterprise-Grade Unified LLM Gateway Support for 200+ Models And 35+ Providers, Load Balacing w/ Priority-base Routing, Cost Management, Chat Share, Cloud Sync, Credit/Subscription Billing, All File Parsing, Web Search, Built-in Model Cache."
+    },
+    {
+        "repo_name": "OpenCTI-Platform/opencti",
+        "url": "https://github.com/OpenCTI-Platform/opencti",
+        "stars": 8988,
+        "total_code_bytes": 31567798,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.9224,
+            "Python": 0.0748
+        },
+        "description": "Open Cyber Threat Intelligence Platform"
+    },
+    {
+        "repo_name": "o3de/o3de",
+        "url": "https://github.com/o3de/o3de",
+        "stars": 8988,
+        "total_code_bytes": 147941124,
+        "qualified_languages": {
+            "C/C++": 0.8466,
+            "Python": 0.0623
+        },
+        "description": "Open 3D Engine (O3DE) is an Apache 2.0-licensed multi-platform 3D engine that enables developers and content creators to build AAA games, cinema-quality 3D worlds, and high-fidelity simulations without any fees or commercial obligations."
+    },
+    {
+        "repo_name": "pydantic/FastUI",
+        "url": "https://github.com/pydantic/FastUI",
+        "stars": 8956,
+        "total_code_bytes": 222314,
+        "qualified_languages": {
+            "Python": 0.5521,
+            "JavaScript/TypeScript": 0.4272
+        },
+        "description": "Build better UIs faster."
+    },
+    {
+        "repo_name": "H-M-H/Weylus",
+        "url": "https://github.com/H-M-H/Weylus",
+        "stars": 8954,
+        "total_code_bytes": 349540,
+        "qualified_languages": {
+            "Rust": 0.6807,
+            "C/C++": 0.1579,
+            "JavaScript/TypeScript": 0.1216
+        },
+        "description": "Use your tablet as graphic tablet/touch screen on your computer."
+    },
+    {
+        "repo_name": "beautifier/js-beautify",
+        "url": "https://github.com/beautifier/js-beautify",
+        "stars": 8948,
+        "total_code_bytes": 1863972,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4274,
+            "Python": 0.155
+        },
+        "description": "Beautifier for javascript "
+    },
+    {
+        "repo_name": "jwasham/computer-science-flash-cards",
+        "url": "https://github.com/jwasham/computer-science-flash-cards",
+        "stars": 8946,
+        "total_code_bytes": 36226,
+        "qualified_languages": {
+            "Python": 0.351,
+            "JavaScript/TypeScript": 0.0504
+        },
+        "description": "Mini website for testing both general CS knowledge and enforce coding practice and common algorithm/data structure memorization."
+    },
+    {
+        "repo_name": "n1nj4sec/pupy",
+        "url": "https://github.com/n1nj4sec/pupy",
+        "stars": 8946,
+        "total_code_bytes": 3879422,
+        "qualified_languages": {
+            "Python": 0.7989,
+            "C/C++": 0.1655
+        },
+        "description": "Pupy is an opensource, cross-platform (Windows, Linux, OSX, Android) C2 and post-exploitation framework written in python and C"
+    },
+    {
+        "repo_name": "Abdenasser/neohtop",
+        "url": "https://github.com/Abdenasser/neohtop",
+        "stars": 8934,
+        "total_code_bytes": 189888,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2383,
+            "Rust": 0.1137
+        },
+        "description": "💪🏻 Blazing-fast system monitoring for your desktop (built with Rust, Tauri & Svelte)"
+    },
+    {
+        "repo_name": "sensepost/objection",
+        "url": "https://github.com/sensepost/objection",
+        "stars": 8932,
+        "total_code_bytes": 624769,
+        "qualified_languages": {
+            "Python": 0.6374,
+            "JavaScript/TypeScript": 0.3614
+        },
+        "description": "📱 objection - runtime mobile exploration"
+    },
+    {
+        "repo_name": "NVIDIA/apex",
+        "url": "https://github.com/NVIDIA/apex",
+        "stars": 8928,
+        "total_code_bytes": 3661633,
+        "qualified_languages": {
+            "Python": 0.3762,
+            "C/C++": 0.2892
+        },
+        "description": "A PyTorch Extension:  Tools for easy mixed precision and distributed training in Pytorch"
+    },
+    {
+        "repo_name": "OctoPrint/OctoPrint",
+        "url": "https://github.com/OctoPrint/OctoPrint",
+        "stars": 8926,
+        "total_code_bytes": 7588066,
+        "qualified_languages": {
+            "Python": 0.4373,
+            "JavaScript/TypeScript": 0.2501
+        },
+        "description": "OctoPrint is the snappy web interface for your 3D printer!"
+    },
+    {
+        "repo_name": "async-profiler/async-profiler",
+        "url": "https://github.com/async-profiler/async-profiler",
+        "stars": 8917,
+        "total_code_bytes": 1517860,
+        "qualified_languages": {
+            "C/C++": 0.5957,
+            "Java": 0.2689
+        },
+        "description": "Sampling CPU and HEAP profiler for Java featuring AsyncGetCallTrace + perf_events"
+    },
+    {
+        "repo_name": "java-native-access/jna",
+        "url": "https://github.com/java-native-access/jna",
+        "stars": 8905,
+        "total_code_bytes": 10553848,
+        "qualified_languages": {
+            "Java": 0.7633,
+            "C/C++": 0.1642
+        },
+        "description": "Java Native Access"
+    },
+    {
+        "repo_name": "53AI/53AIHub",
+        "url": "https://github.com/53AI/53AIHub",
+        "stars": 8894,
+        "total_code_bytes": 5189489,
+        "qualified_languages": {
+            "Go": 0.3426,
+            "JavaScript/TypeScript": 0.2669
+        },
+        "description": "53AI Hub is an open-source AI portal, which enables you to quickly build a operational-level AI portal to launch and operate AI agents, prompts, and AI tools. It supports seamless integration with development platforms like Coze, Dify, FastGPT, RAGFlow."
+    },
+    {
+        "repo_name": "open-metadata/OpenMetadata",
+        "url": "https://github.com/open-metadata/OpenMetadata",
+        "stars": 8889,
+        "total_code_bytes": 67529232,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4555,
+            "Java": 0.3137,
+            "Python": 0.2088
+        },
+        "description": "OpenMetadata is a unified metadata platform for data discovery, data observability, and data governance powered by a central metadata repository, in-depth column level lineage, and seamless team collaboration."
+    },
+    {
+        "repo_name": "AdAway/AdAway",
+        "url": "https://github.com/AdAway/AdAway",
+        "stars": 8871,
+        "total_code_bytes": 7753440,
+        "qualified_languages": {
+            "C/C++": 0.7902,
+            "Java": 0.072
+        },
+        "description": "AdAway is a free and open source ad blocker for Android. "
+    },
+    {
+        "repo_name": "kivy/python-for-android",
+        "url": "https://github.com/kivy/python-for-android",
+        "stars": 8869,
+        "total_code_bytes": 1269428,
+        "qualified_languages": {
+            "Python": 0.7502,
+            "Java": 0.1402,
+            "C/C++": 0.0546
+        },
+        "description": "Turn your Python application into an Android APK"
+    },
+    {
+        "repo_name": "teamhanko/hanko",
+        "url": "https://github.com/teamhanko/hanko",
+        "stars": 8864,
+        "total_code_bytes": 1924266,
+        "qualified_languages": {
+            "Go": 0.6686,
+            "JavaScript/TypeScript": 0.2819
+        },
+        "description": "Modern authentication, on your terms. Open source alternative to Auth0, Clerk, WorkOS, Stytch."
+    },
+    {
+        "repo_name": "clips/pattern",
+        "url": "https://github.com/clips/pattern",
+        "stars": 8858,
+        "total_code_bytes": 1791973,
+        "qualified_languages": {
+            "Python": 0.8717,
+            "JavaScript/TypeScript": 0.128
+        },
+        "description": "Web mining module for Python, with tools for scraping, natural language processing, machine learning, network analysis and visualization."
+    },
+    {
+        "repo_name": "ricklamers/gridstudio",
+        "url": "https://github.com/ricklamers/gridstudio",
+        "stars": 8851,
+        "total_code_bytes": 942188,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7415,
+            "Go": 0.1833
+        },
+        "description": "Grid studio is a web-based application for data science with full integration of open source data science frameworks and languages."
+    },
+    {
+        "repo_name": "xinnan-tech/xiaozhi-esp32-server",
+        "url": "https://github.com/xinnan-tech/xiaozhi-esp32-server",
+        "stars": 8846,
+        "total_code_bytes": 5947890,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4654,
+            "Python": 0.1687,
+            "Java": 0.1686
+        },
+        "description": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server."
+    },
+    {
+        "repo_name": "mailpile/Mailpile",
+        "url": "https://github.com/mailpile/Mailpile",
+        "stars": 8845,
+        "total_code_bytes": 3816487,
+        "qualified_languages": {
+            "Python": 0.6001,
+            "JavaScript/TypeScript": 0.1629
+        },
+        "description": "A free & open modern, fast email client with user-friendly encryption and privacy features"
+    },
+    {
+        "repo_name": "catboost/catboost",
+        "url": "https://github.com/catboost/catboost",
+        "stars": 8839,
+        "total_code_bytes": 29876126,
+        "qualified_languages": {
+            "C/C++": 0.7718,
+            "Python": 0.1038
+        },
+        "description": "A fast, scalable, high performance Gradient Boosting on Decision Trees library, used for ranking, classification, regression and other machine learning tasks for Python, R, Java, C++. Supports computation on CPU and GPU."
+    },
+    {
+        "repo_name": "fuzzdb-project/fuzzdb",
+        "url": "https://github.com/fuzzdb-project/fuzzdb",
+        "stars": 8838,
+        "total_code_bytes": 353786,
+        "qualified_languages": {
+            "PHP": 0.3144,
+            "Java": 0.2718
+        },
+        "description": "Dictionary of attack patterns and primitives for black-box application fault injection and resource discovery."
+    },
+    {
+        "repo_name": "alibaba/zvec",
+        "url": "https://github.com/alibaba/zvec",
+        "stars": 8838,
+        "total_code_bytes": 10358974,
+        "qualified_languages": {
+            "C/C++": 0.8246,
+            "Python": 0.0815
+        },
+        "description": "A lightweight, lightning-fast, in-process vector database"
+    },
+    {
+        "repo_name": "grocy/grocy",
+        "url": "https://github.com/grocy/grocy",
+        "stars": 8823,
+        "total_code_bytes": 1452789,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.3446,
+            "PHP": 0.2881
+        },
+        "description": "ERP beyond your fridge - Grocy is a web-based self-hosted groceries & household management solution for your home"
+    },
+    {
+        "repo_name": "open-source-parsers/jsoncpp",
+        "url": "https://github.com/open-source-parsers/jsoncpp",
+        "stars": 8821,
+        "total_code_bytes": 513628,
+        "qualified_languages": {
+            "C/C++": 0.8182,
+            "Python": 0.112
+        },
+        "description": "A C++ library for interacting with JSON."
+    },
+    {
+        "repo_name": "Arize-ai/phoenix",
+        "url": "https://github.com/Arize-ai/phoenix",
+        "stars": 8814,
+        "total_code_bytes": 28147291,
+        "qualified_languages": {
+            "Python": 0.356,
+            "JavaScript/TypeScript": 0.2303
+        },
+        "description": "AI Observability & Evaluation"
+    },
+    {
+        "repo_name": "Tiiny-AI/PowerInfer",
+        "url": "https://github.com/Tiiny-AI/PowerInfer",
+        "stars": 8797,
+        "total_code_bytes": 17868485,
+        "qualified_languages": {
+            "C/C++": 0.7252,
+            "Python": 0.0881
+        },
+        "description": "High-speed Large Language Model Serving for Local Deployment"
+    },
+    {
+        "repo_name": "nathanmarz/storm",
+        "url": "https://github.com/nathanmarz/storm",
+        "stars": 8791,
+        "total_code_bytes": 3319271,
+        "qualified_languages": {
+            "Java": 0.6977,
+            "Python": 0.0823
+        },
+        "description": "Distributed and fault-tolerant realtime computation: stream processing, continuous computation, distributed RPC, and more"
+    },
+    {
+        "repo_name": "ccfddl/ccf-deadlines",
+        "url": "https://github.com/ccfddl/ccf-deadlines",
+        "stars": 8766,
+        "total_code_bytes": 166948,
+        "qualified_languages": {
+            "Rust": 0.6868,
+            "Python": 0.1242,
+            "JavaScript/TypeScript": 0.1176
+        },
+        "description": "⏰ Agenticly track worldwide conference deadlines (Website, Python Cli, Wechat Applet) / If you find it useful, please star this project, thanks~"
+    },
+    {
+        "repo_name": "PojavLauncherTeam/PojavLauncher",
+        "url": "https://github.com/PojavLauncherTeam/PojavLauncher",
+        "stars": 8759,
+        "total_code_bytes": 2923404,
+        "qualified_languages": {
+            "Java": 0.6294,
+            "C/C++": 0.369
+        },
+        "description": "A Minecraft: Java Edition Launcher for Android and iOS based on Boardwalk. Succeeded by https://github.com/AngelAuraMC/Amethyst-Android"
+    },
+    {
+        "repo_name": "dusty-nv/jetson-inference",
+        "url": "https://github.com/dusty-nv/jetson-inference",
+        "stars": 8747,
+        "total_code_bytes": 1783987,
+        "qualified_languages": {
+            "C/C++": 0.5669,
+            "Python": 0.1454
+        },
+        "description": "Hello AI World guide to deploying deep-learning inference networks and deep vision primitives with TensorRT and NVIDIA Jetson."
+    },
+    {
+        "repo_name": "owncloud/core",
+        "url": "https://github.com/owncloud/core",
+        "stars": 8745,
+        "total_code_bytes": 27492056,
+        "qualified_languages": {
+            "PHP": 0.5122,
+            "JavaScript/TypeScript": 0.3321
+        },
+        "description": ":cloud: ownCloud web server core (Files, DAV, etc.)"
+    },
+    {
+        "repo_name": "chatfire-AI/huobao-drama",
+        "url": "https://github.com/chatfire-AI/huobao-drama",
+        "stars": 8744,
+        "total_code_bytes": 1502944,
+        "qualified_languages": {
+            "Go": 0.3881,
+            "JavaScript/TypeScript": 0.0801
+        },
+        "description": "🎬 火宝短剧 - 基于AI的一站式短剧生成平台 《一句话生成完整短剧，从剧本到成片全自动化》  Huobao Drama - An AI-Powered End-to-End Short Drama Generator \"One Sentence to Complete Drama: Fully Automated from Script to Final Video\""
+    },
+    {
+        "repo_name": "facebookarchive/react-360",
+        "url": "https://github.com/facebookarchive/react-360",
+        "stars": 8726,
+        "total_code_bytes": 1724728,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.812,
+            "C/C++": 0.1863
+        },
+        "description": "Create amazing 360 and VR content using React"
+    },
+    {
+        "repo_name": "awslabs/llrt",
+        "url": "https://github.com/awslabs/llrt",
+        "stars": 8706,
+        "total_code_bytes": 3489459,
+        "qualified_languages": {
+            "Rust": 0.5712,
+            "JavaScript/TypeScript": 0.4219
+        },
+        "description": "LLRT (Low Latency Runtime) is an experimental, lightweight JavaScript runtime designed to address the growing demand for fast and efficient Serverless applications."
+    },
+    {
+        "repo_name": "appleboy/gorush",
+        "url": "https://github.com/appleboy/gorush",
+        "stars": 8696,
+        "total_code_bytes": 352949,
+        "qualified_languages": {
+            "Go": 0.7901,
+            "JavaScript/TypeScript": 0.1623
+        },
+        "description": "A push notification server written in Go (Golang)."
+    },
+    {
+        "repo_name": "alibaba/spring-ai-alibaba",
+        "url": "https://github.com/alibaba/spring-ai-alibaba",
+        "stars": 8681,
+        "total_code_bytes": 10094367,
+        "qualified_languages": {
+            "Java": 0.6925,
+            "JavaScript/TypeScript": 0.2785
+        },
+        "description": "Agentic AI Framework for Java Developers"
+    },
+    {
+        "repo_name": "pterodactyl/panel",
+        "url": "https://github.com/pterodactyl/panel",
+        "stars": 8675,
+        "total_code_bytes": 2657037,
+        "qualified_languages": {
+            "PHP": 0.6437,
+            "JavaScript/TypeScript": 0.2232
+        },
+        "description": "Pterodactyl® is a free, open-source game server management panel built with PHP, React, and Go. Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive UI to end users."
+    },
+    {
+        "repo_name": "mage-ai/mage-ai",
+        "url": "https://github.com/mage-ai/mage-ai",
+        "stars": 8669,
+        "total_code_bytes": 17055778,
+        "qualified_languages": {
+            "Python": 0.5408,
+            "JavaScript/TypeScript": 0.3604
+        },
+        "description": "🧙 Build, run, and manage data pipelines for integrating and transforming data."
+    },
+    {
+        "repo_name": "VowpalWabbit/vowpal_wabbit",
+        "url": "https://github.com/VowpalWabbit/vowpal_wabbit",
+        "stars": 8660,
+        "total_code_bytes": 9292360,
+        "qualified_languages": {
+            "C/C++": 0.5917,
+            "Python": 0.0561
+        },
+        "description": "Vowpal Wabbit is a machine learning system which pushes the frontier of machine learning with techniques such as online, hashing, allreduce, reductions, learning2search, active, and interactive learning.  "
+    },
+    {
+        "repo_name": "pygame/pygame",
+        "url": "https://github.com/pygame/pygame",
+        "stars": 8659,
+        "total_code_bytes": 5538125,
+        "qualified_languages": {
+            "C/C++": 0.5268,
+            "Python": 0.4321
+        },
+        "description": "🐍🎮 pygame (the library) is a Free and Open Source python programming language library for making multimedia applications like games built on top of the excellent SDL library. C, Python, Native, OpenGL."
+    },
+    {
+        "repo_name": "google/adk-samples",
+        "url": "https://github.com/google/adk-samples",
+        "stars": 8649,
+        "total_code_bytes": 3661937,
+        "qualified_languages": {
+            "Python": 0.708,
+            "JavaScript/TypeScript": 0.1005,
+            "Go": 0.0515
+        },
+        "description": "A collection of sample agents built with Agent Development Kit (ADK) "
+    },
+    {
+        "repo_name": "amitshekhariitbhu/Android-Debug-Database",
+        "url": "https://github.com/amitshekhariitbhu/Android-Debug-Database",
+        "stars": 8639,
+        "total_code_bytes": 192159,
+        "qualified_languages": {
+            "Java": 0.7412,
+            "JavaScript/TypeScript": 0.2213
+        },
+        "description": "A library for debugging android databases and shared preferences - Make Debugging Great Again"
+    },
+    {
+        "repo_name": "react-native-image-picker/react-native-image-picker",
+        "url": "https://github.com/react-native-image-picker/react-native-image-picker",
+        "stars": 8637,
+        "total_code_bytes": 106206,
+        "qualified_languages": {
+            "Java": 0.4149,
+            "JavaScript/TypeScript": 0.2112
+        },
+        "description": ":sunrise_over_mountains: A React Native module that allows you to use native UI to select media from the device library or directly from the camera."
+    },
+    {
+        "repo_name": "project-chip/connectedhomeip",
+        "url": "https://github.com/project-chip/connectedhomeip",
+        "stars": 8634,
+        "total_code_bytes": 81696495,
+        "qualified_languages": {
+            "C/C++": 0.5379,
+            "Python": 0.1421,
+            "Java": 0.1093
+        },
+        "description": "Matter (formerly Project CHIP) creates more connections between more objects, simplifying development for manufacturers and increasing compatibility for consumers, guided by the Connectivity Standards Alliance."
+    },
+    {
+        "repo_name": "hunshcn/gh-proxy",
+        "url": "https://github.com/hunshcn/gh-proxy",
+        "stars": 8630,
+        "total_code_bytes": 14625,
+        "qualified_languages": {
+            "Python": 0.5102,
+            "JavaScript/TypeScript": 0.3593
+        },
+        "description": "github release、archive以及项目文件的加速项目"
+    },
+    {
+        "repo_name": "microsoft/TypeChat",
+        "url": "https://github.com/microsoft/TypeChat",
+        "stars": 8630,
+        "total_code_bytes": 336514,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.495,
+            "Python": 0.396
+        },
+        "description": "TypeChat is a library that makes it easy to build natural language interfaces using types."
+    },
+    {
+        "repo_name": "SeleniumHQ/docker-selenium",
+        "url": "https://github.com/SeleniumHQ/docker-selenium",
+        "stars": 8615,
+        "total_code_bytes": 796266,
+        "qualified_languages": {
+            "Python": 0.2224,
+            "Go": 0.2091
+        },
+        "description": "Provides a simple way to run Selenium Grid with Chrome, Firefox, and Edge using Container Platform, making it easier to perform browser automation at scale"
+    },
+    {
+        "repo_name": "SecWiki/windows-kernel-exploits",
+        "url": "https://github.com/SecWiki/windows-kernel-exploits",
+        "stars": 8609,
+        "total_code_bytes": 2664194,
+        "qualified_languages": {
+            "C/C++": 0.6531,
+            "Python": 0.2646
+        },
+        "description": "windows-kernel-exploits   Windows平台提权漏洞集合"
+    },
+    {
+        "repo_name": "jofpin/trape",
+        "url": "https://github.com/jofpin/trape",
+        "stars": 8606,
+        "total_code_bytes": 215818,
+        "qualified_languages": {
+            "Python": 0.6732,
+            "JavaScript/TypeScript": 0.1234
+        },
+        "description": "People tracker on the Internet: OSINT analysis and research tool by Jose Pino"
+    },
+    {
+        "repo_name": "dnschneid/crouton",
+        "url": "https://github.com/dnschneid/crouton",
+        "stars": 8595,
+        "total_code_bytes": 589249,
+        "qualified_languages": {
+            "C/C++": 0.2343,
+            "JavaScript/TypeScript": 0.0662
+        },
+        "description": "Chromium OS Universal Chroot Environment (EOL)"
+    },
+    {
+        "repo_name": "realsenseai/librealsense",
+        "url": "https://github.com/realsenseai/librealsense",
+        "stars": 8584,
+        "total_code_bytes": 16536161,
+        "qualified_languages": {
+            "C/C++": 0.825,
+            "Python": 0.0944
+        },
+        "description": "RealSense SDK"
+    },
+    {
+        "repo_name": "Ewenwan/MVision",
+        "url": "https://github.com/Ewenwan/MVision",
+        "stars": 8584,
+        "total_code_bytes": 12473576,
+        "qualified_languages": {
+            "C/C++": 0.5773,
+            "Python": 0.196
+        },
+        "description": "机器人视觉 移动机器人 VS-SLAM ORB-SLAM2 深度学习目标检测 yolov3 行为检测 opencv  PCL 机器学习 无人驾驶"
+    },
+    {
+        "repo_name": "squeaky-pl/japronto",
+        "url": "https://github.com/squeaky-pl/japronto",
+        "stars": 8569,
+        "total_code_bytes": 298000,
+        "qualified_languages": {
+            "C/C++": 0.5029,
+            "Python": 0.4821
+        },
+        "description": " Screaming-fast Python 3.5+ HTTP toolkit integrated with pipelining HTTP server based on uvloop and picohttpparser."
+    },
+    {
+        "repo_name": "google/tsunami-security-scanner",
+        "url": "https://github.com/google/tsunami-security-scanner",
+        "stars": 8550,
+        "total_code_bytes": 1078908,
+        "qualified_languages": {
+            "Java": 0.841,
+            "Python": 0.1536
+        },
+        "description": "Tsunami is a general purpose network security scanner with an extensible plugin system for detecting high severity vulnerabilities with high confidence."
+    },
+    {
+        "repo_name": "taskforcesh/bullmq",
+        "url": "https://github.com/taskforcesh/bullmq",
+        "stars": 8539,
+        "total_code_bytes": 2793734,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5366,
+            "Python": 0.0624
+        },
+        "description": "BullMQ - Message Queue and Batch processing for NodeJS, Python, Elixir and PHP based on Redis"
+    },
+    {
+        "repo_name": "Tencent/Hippy",
+        "url": "https://github.com/Tencent/Hippy",
+        "stars": 8538,
+        "total_code_bytes": 13138547,
+        "qualified_languages": {
+            "C/C++": 0.3365,
+            "Java": 0.1757,
+            "JavaScript/TypeScript": 0.1865
+        },
+        "description": "Hippy is designed to easily build cross-platform dynamic apps. 👏"
+    },
+    {
+        "repo_name": "ideawu/ssdb",
+        "url": "https://github.com/ideawu/ssdb",
+        "stars": 8537,
+        "total_code_bytes": 486421,
+        "qualified_languages": {
+            "C/C++": 0.7954,
+            "PHP": 0.0799
+        },
+        "description": "SSDB - A fast NoSQL database, an alternative to Redis"
+    },
+    {
+        "repo_name": "jackvale/rectg",
+        "url": "https://github.com/jackvale/rectg",
+        "stars": 8520,
+        "total_code_bytes": 157407,
+        "qualified_languages": {
+            "Python": 0.443,
+            "JavaScript/TypeScript": 0.1599
+        },
+        "description": "Telegram 优质中文频道与群组自动化导航站。持续追踪 1000+ 节点，智能过滤死群、引流广告与有害内容，为您提供最纯粹的 TG 中文资源精选库。"
+    },
+    {
+        "repo_name": "apache/beam",
+        "url": "https://github.com/apache/beam",
+        "stars": 8510,
+        "total_code_bytes": 79313009,
+        "qualified_languages": {
+            "Java": 0.65,
+            "Python": 0.1912,
+            "Go": 0.0892
+        },
+        "description": "Apache Beam is a unified programming model for Batch and Streaming data processing."
+    },
+    {
+        "repo_name": "OpenBMB/XAgent",
+        "url": "https://github.com/OpenBMB/XAgent",
+        "stars": 8508,
+        "total_code_bytes": 917003,
+        "qualified_languages": {
+            "Python": 0.7241,
+            "JavaScript/TypeScript": 0.0662
+        },
+        "description": "An Autonomous LLM Agent for Complex Task Solving"
+    },
+    {
+        "repo_name": "yogeshojha/rengine",
+        "url": "https://github.com/yogeshojha/rengine",
+        "stars": 8505,
+        "total_code_bytes": 1936616,
+        "qualified_languages": {
+            "Python": 0.3305,
+            "JavaScript/TypeScript": 0.218
+        },
+        "description": "reNgine is an automated reconnaissance framework for web applications with a focus on highly configurable streamlined recon process via Engines, recon data correlation and organization, continuous monitoring, backed by a database, and simple yet intuitive User Interface. reNgine makes it easy for penetration testers to gather reconnaissance with minimal configuration and with the help of reNgine's correlation, it just makes recon effortless."
+    },
+    {
+        "repo_name": "Johnserf-Seed/TikTokDownload",
+        "url": "https://github.com/Johnserf-Seed/TikTokDownload",
+        "stars": 8493,
+        "total_code_bytes": 55580,
+        "qualified_languages": {
+            "Python": 0.8827,
+            "JavaScript/TypeScript": 0.109
+        },
+        "description": "抖音去水印批量下载用户主页作品、喜欢、收藏、图文、音频"
+    },
+    {
+        "repo_name": "vaexio/vaex",
+        "url": "https://github.com/vaexio/vaex",
+        "stars": 8492,
+        "total_code_bytes": 5929410,
+        "qualified_languages": {
+            "Python": 0.6081,
+            "JavaScript/TypeScript": 0.2445,
+            "C/C++": 0.1051
+        },
+        "description": "Out-of-Core hybrid Apache Arrow/NumPy DataFrame for Python, ML, visualization and exploration of big tabular data at a billion rows per second 🚀"
+    },
+    {
+        "repo_name": "aeron-io/aeron",
+        "url": "https://github.com/aeron-io/aeron",
+        "stars": 8490,
+        "total_code_bytes": 15529178,
+        "qualified_languages": {
+            "Java": 0.6451,
+            "C/C++": 0.3421
+        },
+        "description": "Efficient reliable UDP unicast, UDP multicast, and IPC message transport"
+    },
+    {
+        "repo_name": "sass/node-sass",
+        "url": "https://github.com/sass/node-sass",
+        "stars": 8487,
+        "total_code_bytes": 1636164,
+        "qualified_languages": {
+            "C/C++": 0.8396,
+            "JavaScript/TypeScript": 0.1263
+        },
+        "description": ":rainbow: Node.js bindings to libsass"
+    },
+    {
+        "repo_name": "apify/crawlee-python",
+        "url": "https://github.com/apify/crawlee-python",
+        "stars": 8482,
+        "total_code_bytes": 1918365,
+        "qualified_languages": {
+            "Python": 0.9098,
+            "JavaScript/TypeScript": 0.055
+        },
+        "description": "Crawlee—A web scraping and browser automation library for Python to build reliable crawlers. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with Parsel, BeautifulSoup, Playwright, and raw HTTP. Both headful and headless mode. With proxy rotation."
+    },
+    {
+        "repo_name": "DenverCoder1/readme-typing-svg",
+        "url": "https://github.com/DenverCoder1/readme-typing-svg",
+        "stars": 8477,
+        "total_code_bytes": 81679,
+        "qualified_languages": {
+            "PHP": 0.7314,
+            "JavaScript/TypeScript": 0.1631
+        },
+        "description": "⚡ Dynamically generated, customizable SVG that gives the appearance of typing and deleting text for use on your profile page, repositories, or website."
+    },
+    {
+        "repo_name": "firezone/firezone",
+        "url": "https://github.com/firezone/firezone",
+        "stars": 8468,
+        "total_code_bytes": 8122416,
+        "qualified_languages": {
+            "Rust": 0.3078,
+            "JavaScript/TypeScript": 0.0637
+        },
+        "description": "Enterprise-ready zero-trust access platform built on WireGuard®."
+    },
+    {
+        "repo_name": "DylanVann/react-native-fast-image",
+        "url": "https://github.com/DylanVann/react-native-fast-image",
+        "stars": 8442,
+        "total_code_bytes": 135515,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5309,
+            "Java": 0.3139
+        },
+        "description": "🚩 FastImage, performant React Native image component."
+    },
+    {
+        "repo_name": "atom-archive/xray",
+        "url": "https://github.com/atom-archive/xray",
+        "stars": 8441,
+        "total_code_bytes": 996086,
+        "qualified_languages": {
+            "Rust": 0.8649,
+            "JavaScript/TypeScript": 0.1271
+        },
+        "description": "An experimental next-generation Electron-based text editor"
+    },
+    {
+        "repo_name": "hiddify/Hiddify-Manager",
+        "url": "https://github.com/hiddify/Hiddify-Manager",
+        "stars": 8421,
+        "total_code_bytes": 679240,
+        "qualified_languages": {
+            "Python": 0.4762,
+            "JavaScript/TypeScript": 0.0704
+        },
+        "description": "Multi-user anti-filtering panel, with an effortless installation and supporting more than 20 protocols to circumvent filtering plus the telegram proxy. "
+    },
+    {
+        "repo_name": "smartystreets/goconvey",
+        "url": "https://github.com/smartystreets/goconvey",
+        "stars": 8420,
+        "total_code_bytes": 343674,
+        "qualified_languages": {
+            "Go": 0.695,
+            "JavaScript/TypeScript": 0.1283
+        },
+        "description": "Go testing in the browser. Integrates with `go test`. Write behavioral tests in Go."
+    },
+    {
+        "repo_name": "qist/tvbox",
+        "url": "https://github.com/qist/tvbox",
+        "stars": 8419,
+        "total_code_bytes": 7363017,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.9427,
+            "Python": 0.0573
+        },
+        "description": "OK影视、tvbox配置文件，如果喜欢，请Fork自用。使用前请仔细阅读仓库说明，一旦使用将被视为你已了解。"
+    },
+    {
+        "repo_name": "neon-bindings/neon",
+        "url": "https://github.com/neon-bindings/neon",
+        "stars": 8400,
+        "total_code_bytes": 878496,
+        "qualified_languages": {
+            "Rust": 0.7859,
+            "JavaScript/TypeScript": 0.1924
+        },
+        "description": "Rust bindings for writing safe and fast native Node.js modules."
+    },
+    {
+        "repo_name": "WebAssembly/binaryen",
+        "url": "https://github.com/WebAssembly/binaryen",
+        "stars": 8388,
+        "total_code_bytes": 29533347,
+        "qualified_languages": {
+            "C/C++": 0.2824,
+            "JavaScript/TypeScript": 0.061
+        },
+        "description": "Optimizer and compiler/toolchain library for WebAssembly"
+    },
+    {
+        "repo_name": "andlabs/ui",
+        "url": "https://github.com/andlabs/ui",
+        "stars": 8358,
+        "total_code_bytes": 176196,
+        "qualified_languages": {
+            "Go": 0.5908,
+            "C/C++": 0.4092
+        },
+        "description": "Platform-native GUI library for Go."
+    },
+    {
+        "repo_name": "django-commons/django-debug-toolbar",
+        "url": "https://github.com/django-commons/django-debug-toolbar",
+        "stars": 8357,
+        "total_code_bytes": 505172,
+        "qualified_languages": {
+            "Python": 0.7938,
+            "JavaScript/TypeScript": 0.0524
+        },
+        "description": "A configurable set of panels that display various debug information about the current request/response."
+    },
+    {
+        "repo_name": "facebook/proxygen",
+        "url": "https://github.com/facebook/proxygen",
+        "stars": 8341,
+        "total_code_bytes": 7350401,
+        "qualified_languages": {
+            "C/C++": 0.9045,
+            "Python": 0.0561
+        },
+        "description": "A collection of C++ HTTP libraries including an easy to use HTTP server."
+    },
+    {
+        "repo_name": "baowenbo/DAIN",
+        "url": "https://github.com/baowenbo/DAIN",
+        "stars": 8326,
+        "total_code_bytes": 550674,
+        "qualified_languages": {
+            "Python": 0.5889,
+            "C/C++": 0.0833
+        },
+        "description": "Depth-Aware Video Frame Interpolation (CVPR 2019)"
+    },
+    {
+        "repo_name": "stamparm/maltrail",
+        "url": "https://github.com/stamparm/maltrail",
+        "stars": 8312,
+        "total_code_bytes": 389259,
+        "qualified_languages": {
+            "Python": 0.6153,
+            "JavaScript/TypeScript": 0.3092
+        },
+        "description": "Malicious traffic detection system"
+    },
+    {
+        "repo_name": "solidtime-io/solidtime",
+        "url": "https://github.com/solidtime-io/solidtime",
+        "stars": 8307,
+        "total_code_bytes": 3852964,
+        "qualified_languages": {
+            "PHP": 0.5094,
+            "JavaScript/TypeScript": 0.2133
+        },
+        "description": "Modern open-source time-tracking app"
+    },
+    {
+        "repo_name": "crmeb/CRMEB",
+        "url": "https://github.com/crmeb/CRMEB",
+        "stars": 8301,
+        "total_code_bytes": 18965297,
+        "qualified_languages": {
+            "PHP": 0.3525,
+            "JavaScript/TypeScript": 0.0805
+        },
+        "description": "🔥CRMEB开源商城免费开源多语言商城系统，Tp6框架商城，系统可商用；包含小程序商城、H5商城、公众号商城、PC商城、App，支持分销、拼团、砍价、秒杀、优惠券、积分、会员等级、小程序直播、页面DIY，前后端分离，方便二开，更有详细使用文档、接口文档、数据字典、二开文档/视频教程，欢迎大家提出宝贵意见和建议"
+    },
+    {
+        "repo_name": "llamastack/llama-stack",
+        "url": "https://github.com/llamastack/llama-stack",
+        "stars": 8291,
+        "total_code_bytes": 6785943,
+        "qualified_languages": {
+            "Python": 0.8254,
+            "JavaScript/TypeScript": 0.113
+        },
+        "description": "Composable building blocks to build LLM Apps"
+    },
+    {
+        "repo_name": "crater-invoice-inc/crater",
+        "url": "https://github.com/crater-invoice-inc/crater",
+        "stars": 8266,
+        "total_code_bytes": 3370624,
+        "qualified_languages": {
+            "PHP": 0.4784,
+            "JavaScript/TypeScript": 0.0813
+        },
+        "description": "Open Source Invoicing Solution for Individuals & Businesses"
+    },
+    {
+        "repo_name": "tensorflow/examples",
+        "url": "https://github.com/tensorflow/examples",
+        "stars": 8258,
+        "total_code_bytes": 4866810,
+        "qualified_languages": {
+            "Python": 0.2536,
+            "Java": 0.075
+        },
+        "description": "TensorFlow examples"
+    },
+    {
+        "repo_name": "mherrmann/helium",
+        "url": "https://github.com/mherrmann/helium",
+        "stars": 8255,
+        "total_code_bytes": 212076,
+        "qualified_languages": {
+            "Python": 0.7861,
+            "JavaScript/TypeScript": 0.0506
+        },
+        "description": "Lighter web automation with Python"
+    },
+    {
+        "repo_name": "Shopify/react-native-skia",
+        "url": "https://github.com/Shopify/react-native-skia",
+        "stars": 8246,
+        "total_code_bytes": 3029674,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.573,
+            "C/C++": 0.3722
+        },
+        "description": "High-performance React Native Graphics using Skia"
+    },
+    {
+        "repo_name": "jupyterhub/jupyterhub",
+        "url": "https://github.com/jupyterhub/jupyterhub",
+        "stars": 8241,
+        "total_code_bytes": 1812280,
+        "qualified_languages": {
+            "Python": 0.8977,
+            "JavaScript/TypeScript": 0.0698
+        },
+        "description": "Multi-user server for Jupyter notebooks"
+    },
+    {
+        "repo_name": "HavocFramework/Havoc",
+        "url": "https://github.com/HavocFramework/Havoc",
+        "stars": 8223,
+        "total_code_bytes": 4057777,
+        "qualified_languages": {
+            "Go": 0.446,
+            "C/C++": 0.5009
+        },
+        "description": "The Havoc Framework"
+    },
+    {
+        "repo_name": "certimate-go/certimate",
+        "url": "https://github.com/certimate-go/certimate",
+        "stars": 8222,
+        "total_code_bytes": 4274651,
+        "qualified_languages": {
+            "Go": 0.64,
+            "JavaScript/TypeScript": 0.3585
+        },
+        "description": "An open-source and free self-hosted SSL certificates ACME tool, automates the full-cycle of issuance, deployment, renewal, and monitoring visually. 完全开源免费的自托管 SSL 证书 ACME 工具，申请、部署、续期、监控全流程自动化可视化，支持各大主流云厂商。"
+    },
+    {
+        "repo_name": "mrousavy/react-native-mmkv",
+        "url": "https://github.com/mrousavy/react-native-mmkv",
+        "stars": 8188,
+        "total_code_bytes": 168195,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4728,
+            "C/C++": 0.3625
+        },
+        "description": "⚡️ The fastest key/value storage for React Native. ~30x faster than AsyncStorage!"
+    },
+    {
+        "repo_name": "kangvcar/InfoSpider",
+        "url": "https://github.com/kangvcar/InfoSpider",
+        "stars": 8187,
+        "total_code_bytes": 273622,
+        "qualified_languages": {
+            "Python": 0.6667,
+            "JavaScript/TypeScript": 0.1612
+        },
+        "description": "INFO-SPIDER 是一个集众多数据源于一身的爬虫工具箱🧰，旨在安全快捷的帮助用户拿回自己的数据，工具代码开源，流程透明。支持数据源包括GitHub、QQ邮箱、网易邮箱、阿里邮箱、新浪邮箱、Hotmail邮箱、Outlook邮箱、京东、淘宝、支付宝、中国移动、中国联通、中国电信、知乎、哔哩哔哩、网易云音乐、QQ好友、QQ群、生成朋友圈相册、浏览器浏览历史、12306、博客园、CSDN博客、开源中国博客、简书。"
+    },
+    {
+        "repo_name": "motioneye-project/motioneyeos",
+        "url": "https://github.com/motioneye-project/motioneyeos",
+        "stars": 8184,
+        "total_code_bytes": 5123141,
+        "qualified_languages": {
+            "Python": 0.1122,
+            "C/C++": 0.0949
+        },
+        "description": "A Video Surveillance OS For Single-board Computers"
+    },
+    {
+        "repo_name": "smartcontractkit/chainlink",
+        "url": "https://github.com/smartcontractkit/chainlink",
+        "stars": 8170,
+        "total_code_bytes": 29581978,
+        "qualified_languages": {
+            "Go": 0.9415,
+            "JavaScript/TypeScript": 0.0508
+        },
+        "description": "node of the decentralized oracle network, bridging on and off-chain computation"
+    },
+    {
+        "repo_name": "alibaba/atlas",
+        "url": "https://github.com/alibaba/atlas",
+        "stars": 8165,
+        "total_code_bytes": 19868539,
+        "qualified_languages": {
+            "Java": 0.5987,
+            "C/C++": 0.3568
+        },
+        "description": "A powerful Android Dynamic Component Framework."
+    },
+    {
+        "repo_name": "reactive-python/reactpy",
+        "url": "https://github.com/reactive-python/reactpy",
+        "stars": 8155,
+        "total_code_bytes": 617517,
+        "qualified_languages": {
+            "Python": 0.8837,
+            "JavaScript/TypeScript": 0.1155
+        },
+        "description": "It's React, but in Python"
+    },
+    {
+        "repo_name": "crazyguitar/pysheeet",
+        "url": "https://github.com/crazyguitar/pysheeet",
+        "stars": 8149,
+        "total_code_bytes": 473664,
+        "qualified_languages": {
+            "Python": 0.5624,
+            "C/C++": 0.068
+        },
+        "description": "Python Cheat Sheet"
+    },
+    {
+        "repo_name": "krahets/LeetCode-Book",
+        "url": "https://github.com/krahets/LeetCode-Book",
+        "stars": 8143,
+        "total_code_bytes": 729553,
+        "qualified_languages": {
+            "Java": 0.4108,
+            "Python": 0.3076,
+            "C/C++": 0.2816
+        },
+        "description": "《剑指 Offer》《图解算法数据结构》《Krahets 笔面试精选 88 题》Python, Java, C++ 解题代码"
+    },
+    {
+        "repo_name": "alibaba/otter",
+        "url": "https://github.com/alibaba/otter",
+        "stars": 8137,
+        "total_code_bytes": 3798125,
+        "qualified_languages": {
+            "Java": 0.9083,
+            "JavaScript/TypeScript": 0.0754
+        },
+        "description": "阿里巴巴分布式数据库同步系统(解决中美异地机房)"
+    },
+    {
+        "repo_name": "X-PLUG/MobileAgent",
+        "url": "https://github.com/X-PLUG/MobileAgent",
+        "stars": 8124,
+        "total_code_bytes": 9811796,
+        "qualified_languages": {
+            "Python": 0.6248,
+            "JavaScript/TypeScript": 0.1594
+        },
+        "description": " Mobile-Agent: The Powerful GUI Agent Family"
+    },
+    {
+        "repo_name": "leptonai/search_with_lepton",
+        "url": "https://github.com/leptonai/search_with_lepton",
+        "stars": 8110,
+        "total_code_bytes": 55613,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5147,
+            "Python": 0.4788
+        },
+        "description": "Building a quick conversation-based search demo with Lepton AI."
+    },
+    {
+        "repo_name": "TeamWiseFlow/wiseflow",
+        "url": "https://github.com/TeamWiseFlow/wiseflow",
+        "stars": 8100,
+        "total_code_bytes": 55469,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6538,
+            "Python": 0.1764
+        },
+        "description": "enhance any agent's browser use skill"
+    },
+    {
+        "repo_name": "xanderfrangos/twinkle-tray",
+        "url": "https://github.com/xanderfrangos/twinkle-tray",
+        "stars": 8098,
+        "total_code_bytes": 679538,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6647,
+            "C/C++": 0.222
+        },
+        "description": "Easily manage the brightness of your monitors in Windows from the system tray"
+    },
+    {
+        "repo_name": "citybound/citybound",
+        "url": "https://github.com/citybound/citybound",
+        "stars": 8092,
+        "total_code_bytes": 869782,
+        "qualified_languages": {
+            "Rust": 0.84,
+            "JavaScript/TypeScript": 0.1435
+        },
+        "description": "A work-in-progress, open-source, multi-player city simulation game."
+    },
+    {
+        "repo_name": "PrivateBin/PrivateBin",
+        "url": "https://github.com/PrivateBin/PrivateBin",
+        "stars": 8091,
+        "total_code_bytes": 1058538,
+        "qualified_languages": {
+            "PHP": 0.4816,
+            "JavaScript/TypeScript": 0.3499
+        },
+        "description": "A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES."
+    },
+    {
+        "repo_name": "TechEmpower/FrameworkBenchmarks",
+        "url": "https://github.com/TechEmpower/FrameworkBenchmarks",
+        "stars": 8088,
+        "total_code_bytes": 7501047,
+        "qualified_languages": {
+            "C/C++": 0.2021,
+            "Java": 0.1463,
+            "PHP": 0.1089,
+            "Rust": 0.0625,
+            "Python": 0.0545
+        },
+        "description": "Source for the TechEmpower Framework Benchmarks project"
+    },
+    {
+        "repo_name": "metallb/metallb",
+        "url": "https://github.com/metallb/metallb",
+        "stars": 8084,
+        "total_code_bytes": 2277554,
+        "qualified_languages": {
+            "Go": 0.698,
+            "JavaScript/TypeScript": 0.0897
+        },
+        "description": "A network load-balancer implementation for Kubernetes using standard routing protocols"
+    },
+    {
+        "repo_name": "google/diff-match-patch",
+        "url": "https://github.com/google/diff-match-patch",
+        "stars": 8077,
+        "total_code_bytes": 1326531,
+        "qualified_languages": {
+            "Python": 0.1691,
+            "C/C++": 0.1278,
+            "Java": 0.1076,
+            "JavaScript/TypeScript": 0.0888
+        },
+        "description": "Diff Match Patch is a high-performance library in multiple languages that manipulates plain text."
+    },
+    {
+        "repo_name": "TandoorRecipes/recipes",
+        "url": "https://github.com/TandoorRecipes/recipes",
+        "stars": 8075,
+        "total_code_bytes": 17302564,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.327,
+            "Python": 0.089
+        },
+        "description": "Application for managing recipes, planning meals, building shopping lists and much much more!"
+    },
+    {
+        "repo_name": "dvf/blockchain",
+        "url": "https://github.com/dvf/blockchain",
+        "stars": 8064,
+        "total_code_bytes": 29394,
+        "qualified_languages": {
+            "Python": 0.3882,
+            "JavaScript/TypeScript": 0.1189
+        },
+        "description": "A simple Blockchain in Python"
+    },
+    {
+        "repo_name": "opencart/opencart",
+        "url": "https://github.com/opencart/opencart",
+        "stars": 8063,
+        "total_code_bytes": 12664338,
+        "qualified_languages": {
+            "PHP": 0.4276,
+            "JavaScript/TypeScript": 0.3357
+        },
+        "description": "A free shopping cart system. OpenCart is an open source PHP-based online e-commerce solution."
+    },
+    {
+        "repo_name": "zhukov/webogram",
+        "url": "https://github.com/zhukov/webogram",
+        "stars": 8062,
+        "total_code_bytes": 1634880,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6259,
+            "C/C++": 0.056
+        },
+        "description": "Telegram web application, GPL v3"
+    },
+    {
+        "repo_name": "cross-rs/cross",
+        "url": "https://github.com/cross-rs/cross",
+        "stars": 8047,
+        "total_code_bytes": 851675,
+        "qualified_languages": {
+            "Rust": 0.588,
+            "Python": 0.0733
+        },
+        "description": "“Zero setup” cross compilation and “cross testing” of Rust crates"
+    },
+    {
+        "repo_name": "rommapp/romm",
+        "url": "https://github.com/rommapp/romm",
+        "stars": 8046,
+        "total_code_bytes": 3891267,
+        "qualified_languages": {
+            "Python": 0.6475,
+            "JavaScript/TypeScript": 0.0586
+        },
+        "description": "A beautiful, powerful, self-hosted rom manager and player."
+    },
+    {
+        "repo_name": "datahaven-xyz/datahaven",
+        "url": "https://github.com/datahaven-xyz/datahaven",
+        "stars": 8040,
+        "total_code_bytes": 6763316,
+        "qualified_languages": {
+            "Rust": 0.7195,
+            "JavaScript/TypeScript": 0.2206
+        },
+        "description": "An EVM compatible Substrate chain, powered by StorageHub and secured by EigenLayer"
+    },
+    {
+        "repo_name": "openedx/openedx-platform",
+        "url": "https://github.com/openedx/openedx-platform",
+        "stars": 8037,
+        "total_code_bytes": 37535843,
+        "qualified_languages": {
+            "Python": 0.7607,
+            "JavaScript/TypeScript": 0.1587
+        },
+        "description": "The Open edX LMS & Studio, powering education sites around the world!"
+    },
+    {
+        "repo_name": "cortexlabs/cortex",
+        "url": "https://github.com/cortexlabs/cortex",
+        "stars": 8027,
+        "total_code_bytes": 3518754,
+        "qualified_languages": {
+            "Go": 0.894,
+            "Python": 0.0522
+        },
+        "description": "Production infrastructure for machine learning at scale"
+    },
+    {
+        "repo_name": "bitsandbytes-foundation/bitsandbytes",
+        "url": "https://github.com/bitsandbytes-foundation/bitsandbytes",
+        "stars": 8026,
+        "total_code_bytes": 931401,
+        "qualified_languages": {
+            "Python": 0.7498,
+            "C/C++": 0.0922
+        },
+        "description": "Accessible large language models via k-bit quantization for PyTorch."
+    },
+    {
+        "repo_name": "cft0808/edict",
+        "url": "https://github.com/cft0808/edict",
+        "stars": 8023,
+        "total_code_bytes": 722543,
+        "qualified_languages": {
+            "Python": 0.4216,
+            "JavaScript/TypeScript": 0.2418
+        },
+        "description": "🏛️ 三省六部制 · OpenClaw Multi-Agent Orchestration System — 9 specialized AI agents with real-time dashboard, model config, and full audit trails"
+    },
+    {
+        "repo_name": "yangzongzhuan/RuoYi",
+        "url": "https://github.com/yangzongzhuan/RuoYi",
+        "stars": 8014,
+        "total_code_bytes": 4411991,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.3248,
+            "Java": 0.248
+        },
+        "description": ":tada: (RuoYi)官方仓库 基于SpringBoot的权限管理系统 易读易懂、界面简洁美观。 核心技术采用Spring、MyBatis、Shiro没有任何其它重度依赖。直接运行即可用"
+    },
+    {
+        "repo_name": "usefathom/fathom",
+        "url": "https://github.com/usefathom/fathom",
+        "stars": 7997,
+        "total_code_bytes": 155423,
+        "qualified_languages": {
+            "Go": 0.5118,
+            "JavaScript/TypeScript": 0.3118
+        },
+        "description": "Fathom Lite. Simple, privacy-focused website analytics. Built with Golang & Preact."
+    },
+    {
+        "repo_name": "mouredev/roadmap-retos-programacion",
+        "url": "https://github.com/mouredev/roadmap-retos-programacion",
+        "stars": 7991,
+        "total_code_bytes": 37461447,
+        "qualified_languages": {
+            "Python": 0.4008,
+            "JavaScript/TypeScript": 0.2427,
+            "Java": 0.1265
+        },
+        "description": "Ruta de estudio basada en ejercicios de código de la comunidad MoureDev para aprender y practicar lógica usando cualquier lenguaje de programación."
+    },
+    {
+        "repo_name": "Graylog2/graylog2-server",
+        "url": "https://github.com/Graylog2/graylog2-server",
+        "stars": 7978,
+        "total_code_bytes": 35543481,
+        "qualified_languages": {
+            "Java": 0.6899,
+            "JavaScript/TypeScript": 0.3079
+        },
+        "description": "Free and open log management"
+    },
+    {
+        "repo_name": "collabnix/dockerlabs",
+        "url": "https://github.com/collabnix/dockerlabs",
+        "stars": 7976,
+        "total_code_bytes": 35343454,
+        "qualified_languages": {
+            "PHP": 0.5642,
+            "JavaScript/TypeScript": 0.1478
+        },
+        "description": "Docker  - Beginners | Intermediate | Advanced"
+    },
+    {
+        "repo_name": "MagicStack/asyncpg",
+        "url": "https://github.com/MagicStack/asyncpg",
+        "stars": 7973,
+        "total_code_bytes": 1041086,
+        "qualified_languages": {
+            "Python": 0.6784,
+            "C/C++": 0.1028
+        },
+        "description": "A fast PostgreSQL Database Client Library for Python/asyncio."
+    },
+    {
+        "repo_name": "software-mansion/react-native-svg",
+        "url": "https://github.com/software-mansion/react-native-svg",
+        "stars": 7960,
+        "total_code_bytes": 6729215,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.791,
+            "Java": 0.088,
+            "C/C++": 0.0505
+        },
+        "description": "SVG library for React Native, React Native Web, and plain React web projects."
+    },
+    {
+        "repo_name": "ijl/orjson",
+        "url": "https://github.com/ijl/orjson",
+        "stars": 7950,
+        "total_code_bytes": 616640,
+        "qualified_languages": {
+            "Python": 0.5286,
+            "Rust": 0.4644
+        },
+        "description": "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy"
+    },
+    {
+        "repo_name": "mamba-org/mamba",
+        "url": "https://github.com/mamba-org/mamba",
+        "stars": 7949,
+        "total_code_bytes": 5481908,
+        "qualified_languages": {
+            "C/C++": 0.8742,
+            "Python": 0.1014
+        },
+        "description": "The Fast Cross-Platform Package Manager"
+    },
+    {
+        "repo_name": "EstrellaXD/Auto_Bangumi",
+        "url": "https://github.com/EstrellaXD/Auto_Bangumi",
+        "stars": 7946,
+        "total_code_bytes": 1406228,
+        "qualified_languages": {
+            "Python": 0.6345,
+            "JavaScript/TypeScript": 0.0938
+        },
+        "description": "AutoBangumi - 全自动追番工具"
+    },
+    {
+        "repo_name": "jessevig/bertviz",
+        "url": "https://github.com/jessevig/bertviz",
+        "stars": 7937,
+        "total_code_bytes": 649642,
+        "qualified_languages": {
+            "Python": 0.8619,
+            "JavaScript/TypeScript": 0.1138
+        },
+        "description": "BertViz: Visualize Attention in Transformer Models"
+    },
+    {
+        "repo_name": "the-paperless-project/paperless",
+        "url": "https://github.com/the-paperless-project/paperless",
+        "stars": 7928,
+        "total_code_bytes": 913618,
+        "qualified_languages": {
+            "Python": 0.2738,
+            "JavaScript/TypeScript": 0.1761
+        },
+        "description": "Scan, index, and archive all of your paper documents"
+    },
+    {
+        "repo_name": "timercrack/trader",
+        "url": "https://github.com/timercrack/trader",
+        "stars": 7921,
+        "total_code_bytes": 1926914,
+        "qualified_languages": {
+            "C/C++": 0.7769,
+            "Python": 0.2045
+        },
+        "description": "期货自动交易"
+    },
+    {
+        "repo_name": "fastrepl/char",
+        "url": "https://github.com/fastrepl/char",
+        "stars": 7917,
+        "total_code_bytes": 10861037,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4456,
+            "Rust": 0.4222
+        },
+        "description": "AI notepad for meetings"
+    },
+    {
+        "repo_name": "ajenti/ajenti",
+        "url": "https://github.com/ajenti/ajenti",
+        "stars": 7907,
+        "total_code_bytes": 859402,
+        "qualified_languages": {
+            "Python": 0.4572,
+            "JavaScript/TypeScript": 0.2344
+        },
+        "description": "Ajenti Core and stock plugins"
+    },
+    {
+        "repo_name": "puma/puma",
+        "url": "https://github.com/puma/puma",
+        "stars": 7881,
+        "total_code_bytes": 958728,
+        "qualified_languages": {
+            "C/C++": 0.0621,
+            "Java": 0.0542
+        },
+        "description": "A Ruby/Rack web server built for parallelism"
+    },
+    {
+        "repo_name": "LaurieWired/GhidraMCP",
+        "url": "https://github.com/LaurieWired/GhidraMCP",
+        "stars": 7870,
+        "total_code_bytes": 78899,
+        "qualified_languages": {
+            "Java": 0.862,
+            "Python": 0.138
+        },
+        "description": "MCP Server for Ghidra"
+    },
+    {
+        "repo_name": "jwyang/faster-rcnn.pytorch",
+        "url": "https://github.com/jwyang/faster-rcnn.pytorch",
+        "stars": 7862,
+        "total_code_bytes": 433775,
+        "qualified_languages": {
+            "Python": 0.7421,
+            "C/C++": 0.1448
+        },
+        "description": "A faster pytorch implementation of faster r-cnn"
+    },
+    {
+        "repo_name": "microsoft/ailab",
+        "url": "https://github.com/microsoft/ailab",
+        "stars": 7859,
+        "total_code_bytes": 2403765,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.187,
+            "Python": 0.0649
+        },
+        "description": "Experience, Learn and Code the latest breakthrough innovations with Microsoft AI"
+    },
+    {
+        "repo_name": "DevinVinson/WordPress-Plugin-Boilerplate",
+        "url": "https://github.com/DevinVinson/WordPress-Plugin-Boilerplate",
+        "stars": 7856,
+        "total_code_bytes": 23983,
+        "qualified_languages": {
+            "PHP": 0.9219,
+            "JavaScript/TypeScript": 0.0698
+        },
+        "description": "[WordPress] A foundation for WordPress Plugin Development that aims to provide a clear and consistent guide for building your plugins."
+    },
+    {
+        "repo_name": "exadel-inc/CompreFace",
+        "url": "https://github.com/exadel-inc/CompreFace",
+        "stars": 7828,
+        "total_code_bytes": 1956357,
+        "qualified_languages": {
+            "Java": 0.4268,
+            "JavaScript/TypeScript": 0.3349,
+            "Python": 0.1068
+        },
+        "description": "Leading free and open-source face recognition system"
+    },
+    {
+        "repo_name": "phpmyadmin/phpmyadmin",
+        "url": "https://github.com/phpmyadmin/phpmyadmin",
+        "stars": 7822,
+        "total_code_bytes": 11374669,
+        "qualified_languages": {
+            "PHP": 0.7424,
+            "JavaScript/TypeScript": 0.1211
+        },
+        "description": "A web interface for MySQL and MariaDB"
+    },
+    {
+        "repo_name": "weolar/miniblink49",
+        "url": "https://github.com/weolar/miniblink49",
+        "stars": 7802,
+        "total_code_bytes": 429857134,
+        "qualified_languages": {
+            "C/C++": 0.855,
+            "JavaScript/TypeScript": 0.0764
+        },
+        "description": "a lighter, faster browser kernel of blink to integrate HTML UI in your app. 一个小巧、轻量的浏览器内核，用来取代wke和libcef"
+    },
+    {
+        "repo_name": "BasedHardware/omi",
+        "url": "https://github.com/BasedHardware/omi",
+        "stars": 7792,
+        "total_code_bytes": 40099295,
+        "qualified_languages": {
+            "C/C++": 0.2653,
+            "Python": 0.1183,
+            "JavaScript/TypeScript": 0.067
+        },
+        "description": "AI wearables. Put it on, speak, transcribe, automatically"
+    },
+    {
+        "repo_name": "NexaAI/nexa-sdk",
+        "url": "https://github.com/NexaAI/nexa-sdk",
+        "stars": 7781,
+        "total_code_bytes": 1391858,
+        "qualified_languages": {
+            "Go": 0.2968,
+            "Python": 0.2472
+        },
+        "description": "Run frontier LLMs and VLMs with day-0 model support across GPU, NPU, and CPU, with comprehensive runtime coverage for PC (Python/C++), mobile (Android & iOS), and Linux/IoT (Arm64 & x86 Docker). Supporting OpenAI GPT-OSS, IBM Granite-4, Qwen-3-VL, Gemma-3n, Ministral-3, and more."
+    },
+    {
+        "repo_name": "facebook/litho",
+        "url": "https://github.com/facebook/litho",
+        "stars": 7779,
+        "total_code_bytes": 12611482,
+        "qualified_languages": {
+            "Java": 0.3522,
+            "C/C++": 0.0522
+        },
+        "description": "A declarative framework for building efficient UIs on Android."
+    },
+    {
+        "repo_name": "kelektiv/node.bcrypt.js",
+        "url": "https://github.com/kelektiv/node.bcrypt.js",
+        "stars": 7779,
+        "total_code_bytes": 81329,
+        "qualified_languages": {
+            "C/C++": 0.5693,
+            "JavaScript/TypeScript": 0.3815
+        },
+        "description": "bcrypt for NodeJs"
+    },
+    {
+        "repo_name": "jely2002/youtube-dl-gui",
+        "url": "https://github.com/jely2002/youtube-dl-gui",
+        "stars": 7779,
+        "total_code_bytes": 589163,
+        "qualified_languages": {
+            "Rust": 0.3697,
+            "JavaScript/TypeScript": 0.2979
+        },
+        "description": "Open Video Downloader - A cross-platform GUI for youtube-dl made in Rust with Tauri and Vue + Typescript."
+    },
+    {
+        "repo_name": "homarr-labs/dashboard-icons",
+        "url": "https://github.com/homarr-labs/dashboard-icons",
+        "stars": 7767,
+        "total_code_bytes": 778012,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.9202,
+            "Python": 0.0615
+        },
+        "description": "Your definitive source for dashboard icons."
+    },
+    {
+        "repo_name": "greatscottgadgets/hackrf",
+        "url": "https://github.com/greatscottgadgets/hackrf",
+        "stars": 7763,
+        "total_code_bytes": 1852305,
+        "qualified_languages": {
+            "C/C++": 0.7417,
+            "Python": 0.1971
+        },
+        "description": "low cost software radio platform"
+    },
+    {
+        "repo_name": "BoundaryML/baml",
+        "url": "https://github.com/BoundaryML/baml",
+        "stars": 7740,
+        "total_code_bytes": 21701485,
+        "qualified_languages": {
+            "Rust": 0.6851,
+            "JavaScript/TypeScript": 0.1593
+        },
+        "description": "The AI framework that adds the engineering to prompt engineering (Python/TS/Ruby/Java/C#/Rust/Go compatible)"
+    },
+    {
+        "repo_name": "klzgrad/naiveproxy",
+        "url": "https://github.com/klzgrad/naiveproxy",
+        "stars": 7736,
+        "total_code_bytes": 36671777,
+        "qualified_languages": {
+            "C/C++": 0.833,
+            "Python": 0.1363
+        },
+        "description": "Make a fortune quietly"
+    },
+    {
+        "repo_name": "facebookarchive/nuclide",
+        "url": "https://github.com/facebookarchive/nuclide",
+        "stars": 7734,
+        "total_code_bytes": 15741569,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5879,
+            "Python": 0.3664
+        },
+        "description": "An open IDE for web and native mobile development, built on top of Atom "
+    },
+    {
+        "repo_name": "evilmartians/lefthook",
+        "url": "https://github.com/evilmartians/lefthook",
+        "stars": 7734,
+        "total_code_bytes": 414421,
+        "qualified_languages": {
+            "Go": 0.8619,
+            "JavaScript/TypeScript": 0.0526
+        },
+        "description": "Fast and powerful Git hooks manager for any type of projects."
+    },
+    {
+        "repo_name": "alibaba/higress",
+        "url": "https://github.com/alibaba/higress",
+        "stars": 7730,
+        "total_code_bytes": 8362781,
+        "qualified_languages": {
+            "Go": 0.7783,
+            "C/C++": 0.1547
+        },
+        "description": "🤖 AI Gateway | AI Native API Gateway"
+    },
+    {
+        "repo_name": "SciPhi-AI/R2R",
+        "url": "https://github.com/SciPhi-AI/R2R",
+        "stars": 7721,
+        "total_code_bytes": 3194142,
+        "qualified_languages": {
+            "Python": 0.9089,
+            "JavaScript/TypeScript": 0.088
+        },
+        "description": "SoTA production-ready AI retrieval system. Agentic Retrieval-Augmented Generation (RAG) with a RESTful API."
+    },
+    {
+        "repo_name": "sphinx-doc/sphinx",
+        "url": "https://github.com/sphinx-doc/sphinx",
+        "stars": 7719,
+        "total_code_bytes": 6719809,
+        "qualified_languages": {
+            "Python": 0.7259,
+            "JavaScript/TypeScript": 0.1895
+        },
+        "description": "The Sphinx documentation generator"
+    },
+    {
+        "repo_name": "github/copilot-sdk",
+        "url": "https://github.com/github/copilot-sdk",
+        "stars": 7703,
+        "total_code_bytes": 2271087,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2734,
+            "Python": 0.2311,
+            "Go": 0.1831
+        },
+        "description": "Multi-platform SDK for integrating GitHub Copilot Agent into apps and services"
+    },
+    {
+        "repo_name": "wang-xinyu/tensorrtx",
+        "url": "https://github.com/wang-xinyu/tensorrtx",
+        "stars": 7702,
+        "total_code_bytes": 5680626,
+        "qualified_languages": {
+            "C/C++": 0.7775,
+            "Python": 0.1313
+        },
+        "description": "Implementation of popular deep learning networks with TensorRT network definition API"
+    },
+    {
+        "repo_name": "google-deepmind/alphafold3",
+        "url": "https://github.com/google-deepmind/alphafold3",
+        "stars": 7682,
+        "total_code_bytes": 1347090,
+        "qualified_languages": {
+            "Python": 0.8511,
+            "C/C++": 0.1396
+        },
+        "description": "AlphaFold 3 inference pipeline."
+    },
+    {
+        "repo_name": "fex-team/webuploader",
+        "url": "https://github.com/fex-team/webuploader",
+        "stars": 7672,
+        "total_code_bytes": 1368671,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6619,
+            "C/C++": 0.1146
+        },
+        "description": "It's a new file uploader solution! "
+    },
+    {
+        "repo_name": "InternLM/lmdeploy",
+        "url": "https://github.com/InternLM/lmdeploy",
+        "stars": 7672,
+        "total_code_bytes": 7027891,
+        "qualified_languages": {
+            "Python": 0.662,
+            "C/C++": 0.2002
+        },
+        "description": "LMDeploy is a toolkit for compressing, deploying, and serving LLMs."
+    },
+    {
+        "repo_name": "pythonstock/stock",
+        "url": "https://github.com/pythonstock/stock",
+        "stars": 7659,
+        "total_code_bytes": 340249,
+        "qualified_languages": {
+            "Python": 0.5436,
+            "JavaScript/TypeScript": 0.1402
+        },
+        "description": "stock，股票系统。使用python进行开发。"
+    },
+    {
+        "repo_name": "firerpa/lamda",
+        "url": "https://github.com/firerpa/lamda",
+        "stars": 7658,
+        "total_code_bytes": 213681,
+        "qualified_languages": {
+            "Python": 0.6467,
+            "C/C++": 0.2683
+        },
+        "description": " The most powerful Android RPA agent framework, next generation of mobile automation robots."
+    },
+    {
+        "repo_name": "joerick/pyinstrument",
+        "url": "https://github.com/joerick/pyinstrument",
+        "stars": 7657,
+        "total_code_bytes": 410209,
+        "qualified_languages": {
+            "Python": 0.6339,
+            "JavaScript/TypeScript": 0.1647,
+            "C/C++": 0.0892
+        },
+        "description": "🚴 Call stack profiler for Python. Shows you why your code is slow!"
+    },
+    {
+        "repo_name": "tubearchivist/tubearchivist",
+        "url": "https://github.com/tubearchivist/tubearchivist",
+        "stars": 7644,
+        "total_code_bytes": 1016631,
+        "qualified_languages": {
+            "Python": 0.5704,
+            "JavaScript/TypeScript": 0.3916
+        },
+        "description": "Your self hosted YouTube media server"
+    },
+    {
+        "repo_name": "sweepai/sweep",
+        "url": "https://github.com/sweepai/sweep",
+        "stars": 7643,
+        "total_code_bytes": 3229857,
+        "qualified_languages": {
+            "Python": 0.4479,
+            "JavaScript/TypeScript": 0.067
+        },
+        "description": "Sweep: AI coding assistant for JetBrains"
+    },
+    {
+        "repo_name": "google/closure-compiler",
+        "url": "https://github.com/google/closure-compiler",
+        "stars": 7633,
+        "total_code_bytes": 44592481,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5145,
+            "Java": 0.4844
+        },
+        "description": "A JavaScript checker and optimizer."
+    },
+    {
+        "repo_name": "frappe/hrms",
+        "url": "https://github.com/frappe/hrms",
+        "stars": 7629,
+        "total_code_bytes": 2698851,
+        "qualified_languages": {
+            "Python": 0.7331,
+            "JavaScript/TypeScript": 0.1463
+        },
+        "description": "Open Source HR and Payroll Software"
+    },
+    {
+        "repo_name": "nxtrace/NTrace-core",
+        "url": "https://github.com/nxtrace/NTrace-core",
+        "stars": 7614,
+        "total_code_bytes": 830264,
+        "qualified_languages": {
+            "Go": 0.9087,
+            "JavaScript/TypeScript": 0.0656
+        },
+        "description": "NextTrace, an open source visual route tracking CLI tool"
+    },
+    {
+        "repo_name": "weaviate/Verba",
+        "url": "https://github.com/weaviate/Verba",
+        "stars": 7605,
+        "total_code_bytes": 583767,
+        "qualified_languages": {
+            "Python": 0.4828,
+            "JavaScript/TypeScript": 0.4655
+        },
+        "description": "Retrieval Augmented Generation (RAG) chatbot powered by Weaviate"
+    },
+    {
+        "repo_name": "Azure-Samples/azure-search-openai-demo",
+        "url": "https://github.com/Azure-Samples/azure-search-openai-demo",
+        "stars": 7600,
+        "total_code_bytes": 1398613,
+        "qualified_languages": {
+            "Python": 0.7009,
+            "JavaScript/TypeScript": 0.1489
+        },
+        "description": "A sample app for the Retrieval-Augmented Generation pattern running in Azure, using Azure AI Search for retrieval and Azure OpenAI large language models  to power ChatGPT-style and Q&A experiences."
+    },
+    {
+        "repo_name": "kata-containers/kata-containers",
+        "url": "https://github.com/kata-containers/kata-containers",
+        "stars": 7593,
+        "total_code_bytes": 12372505,
+        "qualified_languages": {
+            "Rust": 0.5839,
+            "Go": 0.2367
+        },
+        "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. https://katacontainers.io/"
+    },
+    {
+        "repo_name": "flutter/engine",
+        "url": "https://github.com/flutter/engine",
+        "stars": 7585,
+        "total_code_bytes": 34341675,
+        "qualified_languages": {
+            "C/C++": 0.474,
+            "Java": 0.0776
+        },
+        "description": "The Flutter engine"
+    },
+    {
+        "repo_name": "gaogaotiantian/viztracer",
+        "url": "https://github.com/gaogaotiantian/viztracer",
+        "stars": 7576,
+        "total_code_bytes": 641479,
+        "qualified_languages": {
+            "Python": 0.6793,
+            "C/C++": 0.3197
+        },
+        "description": "A debugging and profiling tool that can trace and visualize python code execution"
+    },
+    {
+        "repo_name": "chaos-mesh/chaos-mesh",
+        "url": "https://github.com/chaos-mesh/chaos-mesh",
+        "stars": 7575,
+        "total_code_bytes": 4340271,
+        "qualified_languages": {
+            "Go": 0.6146,
+            "JavaScript/TypeScript": 0.3333
+        },
+        "description": "A Chaos Engineering Platform for Kubernetes."
+    },
+    {
+        "repo_name": "napi-rs/napi-rs",
+        "url": "https://github.com/napi-rs/napi-rs",
+        "stars": 7575,
+        "total_code_bytes": 1241912,
+        "qualified_languages": {
+            "Rust": 0.7856,
+            "JavaScript/TypeScript": 0.2094
+        },
+        "description": "A framework for building compiled Node.js add-ons in Rust via Node-API"
+    },
+    {
+        "repo_name": "cloudflare/workerd",
+        "url": "https://github.com/cloudflare/workerd",
+        "stars": 7570,
+        "total_code_bytes": 16397182,
+        "qualified_languages": {
+            "C/C++": 0.5258,
+            "JavaScript/TypeScript": 0.4077
+        },
+        "description": "The JavaScript / Wasm runtime that powers Cloudflare Workers"
+    },
+    {
+        "repo_name": "xingyizhou/CenterNet",
+        "url": "https://github.com/xingyizhou/CenterNet",
+        "stars": 7546,
+        "total_code_bytes": 613856,
+        "qualified_languages": {
+            "Python": 0.6314,
+            "C/C++": 0.217
+        },
+        "description": "Object detection, 3D detection, and pose estimation using center point detection: "
+    },
+    {
+        "repo_name": "Orange-Cyberdefense/GOAD",
+        "url": "https://github.com/Orange-Cyberdefense/GOAD",
+        "stars": 7544,
+        "total_code_bytes": 814228,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2788,
+            "Python": 0.2253
+        },
+        "description": "game of active directory"
+    },
+    {
+        "repo_name": "ellite/Wallos",
+        "url": "https://github.com/ellite/Wallos",
+        "stars": 7543,
+        "total_code_bytes": 2114285,
+        "qualified_languages": {
+            "PHP": 0.8039,
+            "JavaScript/TypeScript": 0.1001
+        },
+        "description": "Wallos: Open-source, self-hostable personal subscription tracker. Visualize your recurring expenses, manage your budget, and save money."
+    },
+    {
+        "repo_name": "Project-OSRM/osrm-backend",
+        "url": "https://github.com/Project-OSRM/osrm-backend",
+        "stars": 7540,
+        "total_code_bytes": 5967613,
+        "qualified_languages": {
+            "C/C++": 0.6533,
+            "JavaScript/TypeScript": 0.0515
+        },
+        "description": "Open Source Routing Machine - C++ backend"
+    },
+    {
+        "repo_name": "jesse-ai/jesse",
+        "url": "https://github.com/jesse-ai/jesse",
+        "stars": 7526,
+        "total_code_bytes": 26170726,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.8706,
+            "Python": 0.1213
+        },
+        "description": "An advanced crypto trading bot written in Python"
+    },
+    {
+        "repo_name": "FongMi/TV",
+        "url": "https://github.com/FongMi/TV",
+        "stars": 7516,
+        "total_code_bytes": 1814310,
+        "qualified_languages": {
+            "Java": 0.7866,
+            "JavaScript/TypeScript": 0.1145
+        },
+        "description": null
+    },
+    {
+        "repo_name": "h2oai/h2o-3",
+        "url": "https://github.com/h2oai/h2o-3",
+        "stars": 7510,
+        "total_code_bytes": 80536477,
+        "qualified_languages": {
+            "Java": 0.2245,
+            "Python": 0.1131
+        },
+        "description": "H2O is an Open Source, Distributed, Fast & Scalable Machine Learning Platform: Deep Learning, Gradient Boosting (GBM) & XGBoost, Random Forest, Generalized Linear Modeling (GLM with Elastic Net), K-Means, PCA, Generalized Additive Models (GAM), RuleFit, Support Vector Machine (SVM), Stacked Ensembles, Automatic Machine Learning (AutoML), etc."
+    },
+    {
+        "repo_name": "pyca/cryptography",
+        "url": "https://github.com/pyca/cryptography",
+        "stars": 7509,
+        "total_code_bytes": 3545932,
+        "qualified_languages": {
+            "Python": 0.6937,
+            "Rust": 0.3059
+        },
+        "description": "cryptography is a package designed to expose cryptographic primitives and recipes to Python developers."
+    },
+    {
+        "repo_name": "Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB",
+        "url": "https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB",
+        "stars": 7500,
+        "total_code_bytes": 502314,
+        "qualified_languages": {
+            "Python": 0.6935,
+            "C/C++": 0.2967
+        },
+        "description": " 💎1MB lightweight face detection model  (1MB轻量级人脸检测模型)"
+    },
+    {
+        "repo_name": "awslabs/agent-squad",
+        "url": "https://github.com/awslabs/agent-squad",
+        "stars": 7499,
+        "total_code_bytes": 782881,
+        "qualified_languages": {
+            "Python": 0.6382,
+            "JavaScript/TypeScript": 0.3615
+        },
+        "description": "Flexible and powerful framework for managing multiple AI agents and handling complex conversations"
+    },
+    {
+        "repo_name": "openwrt/luci",
+        "url": "https://github.com/openwrt/luci",
+        "stars": 7498,
+        "total_code_bytes": 5910785,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6537,
+            "C/C++": 0.1749
+        },
+        "description": "LuCI - OpenWrt Configuration Interface"
+    },
+    {
+        "repo_name": "snapcast/snapcast",
+        "url": "https://github.com/snapcast/snapcast",
+        "stars": 7485,
+        "total_code_bytes": 2306067,
+        "qualified_languages": {
+            "C/C++": 0.9022,
+            "Python": 0.0705
+        },
+        "description": "Synchronous multiroom audio player"
+    },
+    {
+        "repo_name": "alibaba/OpenSandbox",
+        "url": "https://github.com/alibaba/OpenSandbox",
+        "stars": 7481,
+        "total_code_bytes": 3873438,
+        "qualified_languages": {
+            "Python": 0.4491,
+            "Go": 0.2503,
+            "JavaScript/TypeScript": 0.0731
+        },
+        "description": "OpenSandbox is a general-purpose sandbox platform for AI applications, offering multi-language SDKs, unified sandbox APIs, and Docker/Kubernetes runtimes for scenarios like Coding Agents, GUI Agents, Agent Evaluation, AI Code Execution, and RL Training."
+    },
+    {
+        "repo_name": "Genymobile/gnirehtet",
+        "url": "https://github.com/Genymobile/gnirehtet",
+        "stars": 7478,
+        "total_code_bytes": 436251,
+        "qualified_languages": {
+            "Java": 0.4993,
+            "Rust": 0.4969
+        },
+        "description": "Gnirehtet provides reverse tethering for Android"
+    },
+    {
+        "repo_name": "r0ysue/r0capture",
+        "url": "https://github.com/r0ysue/r0capture",
+        "stars": 7455,
+        "total_code_bytes": 43385,
+        "qualified_languages": {
+            "Python": 0.6779,
+            "JavaScript/TypeScript": 0.3221
+        },
+        "description": "安卓应用层抓包通杀脚本"
+    },
+    {
+        "repo_name": "enso-org/enso",
+        "url": "https://github.com/enso-org/enso",
+        "stars": 7436,
+        "total_code_bytes": 22259376,
+        "qualified_languages": {
+            "Java": 0.3456,
+            "JavaScript/TypeScript": 0.2529,
+            "Rust": 0.0853
+        },
+        "description": "Enso Analytics is a self-service data prep and analysis platform designed for data teams."
+    },
+    {
+        "repo_name": "cjbassi/gotop",
+        "url": "https://github.com/cjbassi/gotop",
+        "stars": 7417,
+        "total_code_bytes": 96182,
+        "qualified_languages": {
+            "Go": 0.7188,
+            "C/C++": 0.2509
+        },
+        "description": "A terminal based graphical activity monitor inspired by gtop and vtop"
+    },
+    {
+        "repo_name": "nonebot/nonebot2",
+        "url": "https://github.com/nonebot/nonebot2",
+        "stars": 7411,
+        "total_code_bytes": 920444,
+        "qualified_languages": {
+            "Python": 0.6251,
+            "JavaScript/TypeScript": 0.1418
+        },
+        "description": "跨平台 Python 异步聊天机器人框架 / Asynchronous multi-platform chatbot framework written in Python"
+    },
+    {
+        "repo_name": "alvr-org/ALVR",
+        "url": "https://github.com/alvr-org/ALVR",
+        "stars": 7407,
+        "total_code_bytes": 1781722,
+        "qualified_languages": {
+            "Rust": 0.6754,
+            "C/C++": 0.3062
+        },
+        "description": "Stream VR games from your PC to your headset via Wi-Fi"
+    },
+    {
+        "repo_name": "dyc87112/SpringCloud-Learning",
+        "url": "https://github.com/dyc87112/SpringCloud-Learning",
+        "stars": 7401,
+        "total_code_bytes": 1606342,
+        "qualified_languages": {
+            "Java": 0.5599,
+            "JavaScript/TypeScript": 0.2314
+        },
+        "description": "Spring Cloud基础教程，持续连载更新中"
+    },
+    {
+        "repo_name": "hybridgroup/gocv",
+        "url": "https://github.com/hybridgroup/gocv",
+        "stars": 7400,
+        "total_code_bytes": 1595124,
+        "qualified_languages": {
+            "Go": 0.708,
+            "C/C++": 0.2746
+        },
+        "description": "Go package for computer vision using OpenCV 4 and beyond. Includes support for DNN, CUDA, OpenCV Contrib, and OpenVINO."
+    },
+    {
+        "repo_name": "EleutherAI/gpt-neox",
+        "url": "https://github.com/EleutherAI/gpt-neox",
+        "stars": 7399,
+        "total_code_bytes": 1254633,
+        "qualified_languages": {
+            "Python": 0.8536,
+            "C/C++": 0.1132
+        },
+        "description": "An implementation of model parallel autoregressive transformers on GPUs, based on the Megatron and DeepSpeed libraries"
+    },
+    {
+        "repo_name": "ekzhang/sshx",
+        "url": "https://github.com/ekzhang/sshx",
+        "stars": 7397,
+        "total_code_bytes": 277310,
+        "qualified_languages": {
+            "Rust": 0.4536,
+            "JavaScript/TypeScript": 0.2903
+        },
+        "description": "Fast, collaborative live terminal sharing over the web"
+    },
+    {
+        "repo_name": "lining0806/PythonSpiderNotes",
+        "url": "https://github.com/lining0806/PythonSpiderNotes",
+        "stars": 7388,
+        "total_code_bytes": 60186,
+        "qualified_languages": {
+            "Python": 0.6409,
+            "Java": 0.3583
+        },
+        "description": "Python入门网络爬虫之精华版"
+    },
+    {
+        "repo_name": "boltgolt/howdy",
+        "url": "https://github.com/boltgolt/howdy",
+        "stars": 7387,
+        "total_code_bytes": 188587,
+        "qualified_languages": {
+            "Python": 0.8101,
+            "C/C++": 0.1074
+        },
+        "description": "🛡️ Windows Hello™ style facial authentication for Linux"
+    },
+    {
+        "repo_name": "gocd/gocd",
+        "url": "https://github.com/gocd/gocd",
+        "stars": 7382,
+        "total_code_bytes": 28608970,
+        "qualified_languages": {
+            "Java": 0.6834,
+            "JavaScript/TypeScript": 0.1805
+        },
+        "description": "GoCD - Continuous Delivery server main repository"
+    },
+    {
+        "repo_name": "jerryscript-project/jerryscript",
+        "url": "https://github.com/jerryscript-project/jerryscript",
+        "stars": 7376,
+        "total_code_bytes": 8692291,
+        "qualified_languages": {
+            "C/C++": 0.7058,
+            "JavaScript/TypeScript": 0.2507
+        },
+        "description": "Ultra-lightweight JavaScript engine for the Internet of Things."
+    },
+    {
+        "repo_name": "tutao/tutanota",
+        "url": "https://github.com/tutao/tutanota",
+        "stars": 7353,
+        "total_code_bytes": 32511471,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5937,
+            "C/C++": 0.3138
+        },
+        "description": "Tuta is an email service with a strong focus on security and privacy that lets you encrypt emails, contacts and calendar entries on all your devices."
+    },
+    {
+        "repo_name": "samuelclay/NewsBlur",
+        "url": "https://github.com/samuelclay/NewsBlur",
+        "stars": 7345,
+        "total_code_bytes": 16997880,
+        "qualified_languages": {
+            "Python": 0.2583,
+            "JavaScript/TypeScript": 0.1947
+        },
+        "description": "NewsBlur is a personal news reader that brings people together to talk about the world. A new sound of an old instrument."
+    },
+    {
+        "repo_name": "ramensoftware/windhawk",
+        "url": "https://github.com/ramensoftware/windhawk",
+        "stars": 7336,
+        "total_code_bytes": 1283838,
+        "qualified_languages": {
+            "C/C++": 0.4698,
+            "JavaScript/TypeScript": 0.442,
+            "Python": 0.0852
+        },
+        "description": "The customization marketplace for Windows programs: https://windhawk.net/"
+    },
+    {
+        "repo_name": "zeux/meshoptimizer",
+        "url": "https://github.com/zeux/meshoptimizer",
+        "stars": 7329,
+        "total_code_bytes": 1139804,
+        "qualified_languages": {
+            "C/C++": 0.7709,
+            "JavaScript/TypeScript": 0.2094
+        },
+        "description": "Mesh optimization library that makes meshes smaller and faster to render"
+    },
+    {
+        "repo_name": "liangliangyy/DjangoBlog",
+        "url": "https://github.com/liangliangyy/DjangoBlog",
+        "stars": 7327,
+        "total_code_bytes": 927080,
+        "qualified_languages": {
+            "Python": 0.6492,
+            "JavaScript/TypeScript": 0.0503
+        },
+        "description": "🍺基于Django的博客系统"
+    },
+    {
+        "repo_name": "arkime/arkime",
+        "url": "https://github.com/arkime/arkime",
+        "stars": 7321,
+        "total_code_bytes": 7575207,
+        "qualified_languages": {
+            "C/C++": 0.277,
+            "JavaScript/TypeScript": 0.2471
+        },
+        "description": "Arkime is an open source, large scale, full packet capturing, indexing, and database system."
+    },
+    {
+        "repo_name": "bup/bup",
+        "url": "https://github.com/bup/bup",
+        "stars": 7317,
+        "total_code_bytes": 1279648,
+        "qualified_languages": {
+            "Python": 0.6917,
+            "C/C++": 0.1083
+        },
+        "description": "Very efficient backup system based on the git packfile format, providing fast incremental saves and global deduplication (among and within files, including virtual machine images). Please post problems or patches to the mailing list for discussion (see the end of the README below)."
+    },
+    {
+        "repo_name": "FastLED/FastLED",
+        "url": "https://github.com/FastLED/FastLED",
+        "stars": 7313,
+        "total_code_bytes": 19595363,
+        "qualified_languages": {
+            "C/C++": 0.7528,
+            "Python": 0.2075
+        },
+        "description": "The FastLED library for colored LED animation on Arduino.  Please direct questions/requests for help to the FastLED Reddit community: http://fastled.io/r   We'd like to use github \"issues\" just for tracking library bugs / enhancements. "
+    },
+    {
+        "repo_name": "GUI-for-Cores/GUI.for.SingBox",
+        "url": "https://github.com/GUI-for-Cores/GUI.for.SingBox",
+        "stars": 7292,
+        "total_code_bytes": 770380,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4468,
+            "Go": 0.0637
+        },
+        "description": "Modern, lightweight desktop app built with Wails (Go) and Vue 3. Efficient, cross-platform, and fast."
+    },
+    {
+        "repo_name": "Hackl0us/GeoIP2-CN",
+        "url": "https://github.com/Hackl0us/GeoIP2-CN",
+        "stars": 7290,
+        "total_code_bytes": 7235,
+        "qualified_languages": {
+            "Go": 0.7516,
+            "C/C++": 0.2319
+        },
+        "description": "小巧精悍、准确、实用 GeoIP2 数据库"
+    },
+    {
+        "repo_name": "libfuse/sshfs",
+        "url": "https://github.com/libfuse/sshfs",
+        "stars": 7285,
+        "total_code_bytes": 159987,
+        "qualified_languages": {
+            "C/C++": 0.8262,
+            "Python": 0.1317
+        },
+        "description": "A network filesystem client to connect to SSH servers"
+    },
+    {
+        "repo_name": "gorakhargosh/watchdog",
+        "url": "https://github.com/gorakhargosh/watchdog",
+        "stars": 7275,
+        "total_code_bytes": 466150,
+        "qualified_languages": {
+            "Python": 0.7879,
+            "C/C++": 0.21
+        },
+        "description": "Python library and shell utilities to monitor filesystem events."
+    },
+    {
+        "repo_name": "Yelp/dumb-init",
+        "url": "https://github.com/Yelp/dumb-init",
+        "stars": 7263,
+        "total_code_bytes": 48762,
+        "qualified_languages": {
+            "Python": 0.6636,
+            "C/C++": 0.232
+        },
+        "description": "A minimal init system for Linux containers"
+    },
+    {
+        "repo_name": "PaddlePaddle/Paddle-Lite",
+        "url": "https://github.com/PaddlePaddle/Paddle-Lite",
+        "stars": 7232,
+        "total_code_bytes": 29702524,
+        "qualified_languages": {
+            "C/C++": 0.859,
+            "Python": 0.0764
+        },
+        "description": "PaddlePaddle High Performance Deep Learning Inference Engine for Mobile and Edge (飞桨高性能深度学习端侧推理引擎）"
+    },
+    {
+        "repo_name": "trentm/node-bunyan",
+        "url": "https://github.com/trentm/node-bunyan",
+        "stars": 7232,
+        "total_code_bytes": 245148,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7919,
+            "Python": 0.0901
+        },
+        "description": "a simple and fast JSON logging module for node.js services"
+    },
+    {
+        "repo_name": "lipku/LiveTalking",
+        "url": "https://github.com/lipku/LiveTalking",
+        "stars": 7211,
+        "total_code_bytes": 721209,
+        "qualified_languages": {
+            "Python": 0.7363,
+            "JavaScript/TypeScript": 0.1506
+        },
+        "description": "Real time interactive streaming digital human"
+    },
+    {
+        "repo_name": "NVIDIA/garak",
+        "url": "https://github.com/NVIDIA/garak",
+        "stars": 7205,
+        "total_code_bytes": 3692360,
+        "qualified_languages": {
+            "Python": 0.4294,
+            "JavaScript/TypeScript": 0.0991
+        },
+        "description": "the LLM vulnerability scanner"
+    },
+    {
+        "repo_name": "carpedm20/DCGAN-tensorflow",
+        "url": "https://github.com/carpedm20/DCGAN-tensorflow",
+        "stars": 7204,
+        "total_code_bytes": 188569,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4962,
+            "Python": 0.2503
+        },
+        "description": "A tensorflow implementation of \"Deep Convolutional Generative Adversarial Networks\""
+    },
+    {
+        "repo_name": "bmax121/APatch",
+        "url": "https://github.com/bmax121/APatch",
+        "stars": 7201,
+        "total_code_bytes": 813084,
+        "qualified_languages": {
+            "Rust": 0.1461,
+            "C/C++": 0.1018,
+            "Java": 0.0613
+        },
+        "description": "The patching of Android kernel and Android system"
+    },
+    {
+        "repo_name": "stanfordnlp/GloVe",
+        "url": "https://github.com/stanfordnlp/GloVe",
+        "stars": 7196,
+        "total_code_bytes": 95980,
+        "qualified_languages": {
+            "C/C++": 0.7065,
+            "Python": 0.0985
+        },
+        "description": "Software in C and data files for the popular GloVe model for distributed word representations, a.k.a. word vectors or embeddings"
+    },
+    {
+        "repo_name": "didi/KnowStreaming",
+        "url": "https://github.com/didi/KnowStreaming",
+        "stars": 7178,
+        "total_code_bytes": 4249659,
+        "qualified_languages": {
+            "Java": 0.6517,
+            "JavaScript/TypeScript": 0.2914
+        },
+        "description": "一站式云原生实时流数据平台，通过0侵入、插件化构建企业级Kafka服务，极大降低操作、存储和管理实时流数据门槛"
+    },
+    {
+        "repo_name": "versatica/mediasoup",
+        "url": "https://github.com/versatica/mediasoup",
+        "stars": 7174,
+        "total_code_bytes": 5697386,
+        "qualified_languages": {
+            "C/C++": 0.632,
+            "Rust": 0.234,
+            "JavaScript/TypeScript": 0.1221
+        },
+        "description": "Cutting Edge WebRTC Video Conferencing"
+    },
+    {
+        "repo_name": "PixarAnimationStudios/OpenUSD",
+        "url": "https://github.com/PixarAnimationStudios/OpenUSD",
+        "stars": 7144,
+        "total_code_bytes": 65400982,
+        "qualified_languages": {
+            "C/C++": 0.8703,
+            "Python": 0.104
+        },
+        "description": "Universal Scene Description"
+    },
+    {
+        "repo_name": "asg017/sqlite-vec",
+        "url": "https://github.com/asg017/sqlite-vec",
+        "stars": 7142,
+        "total_code_bytes": 576025,
+        "qualified_languages": {
+            "C/C++": 0.6244,
+            "Python": 0.2871
+        },
+        "description": "A vector search SQLite extension that runs anywhere!"
+    },
+    {
+        "repo_name": "afadil/wealthfolio",
+        "url": "https://github.com/afadil/wealthfolio",
+        "stars": 7136,
+        "total_code_bytes": 10042146,
+        "qualified_languages": {
+            "Rust": 0.4987,
+            "JavaScript/TypeScript": 0.4981
+        },
+        "description": "A Beautiful Private and Secure Desktop Investment Tracking Application"
+    },
+    {
+        "repo_name": "mher/flower",
+        "url": "https://github.com/mher/flower",
+        "stars": 7124,
+        "total_code_bytes": 252403,
+        "qualified_languages": {
+            "Python": 0.7765,
+            "JavaScript/TypeScript": 0.0916
+        },
+        "description": "Real-time monitor and web admin for Celery distributed task queue"
+    },
+    {
+        "repo_name": "me115/design_patterns",
+        "url": "https://github.com/me115/design_patterns",
+        "stars": 7122,
+        "total_code_bytes": 131142,
+        "qualified_languages": {
+            "C/C++": 0.6525,
+            "Python": 0.0823
+        },
+        "description": "图说设计模式"
+    },
+    {
+        "repo_name": "apache/hertzbeat",
+        "url": "https://github.com/apache/hertzbeat",
+        "stars": 7118,
+        "total_code_bytes": 9206685,
+        "qualified_languages": {
+            "Java": 0.6668,
+            "JavaScript/TypeScript": 0.1143
+        },
+        "description": "An AI-powered next-generation open source real-time observability system."
+    },
+    {
+        "repo_name": "thunlp/WantWords",
+        "url": "https://github.com/thunlp/WantWords",
+        "stars": 7117,
+        "total_code_bytes": 282515,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4407,
+            "Python": 0.1501
+        },
+        "description": "An open-source online reverse dictionary."
+    },
+    {
+        "repo_name": "tensorflow/tensorboard",
+        "url": "https://github.com/tensorflow/tensorboard",
+        "stars": 7117,
+        "total_code_bytes": 9837078,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6101,
+            "Python": 0.2707
+        },
+        "description": "TensorFlow's Visualization Toolkit"
+    },
+    {
+        "repo_name": "Qiskit/qiskit",
+        "url": "https://github.com/Qiskit/qiskit",
+        "stars": 7117,
+        "total_code_bytes": 17947181,
+        "qualified_languages": {
+            "Python": 0.7129,
+            "Rust": 0.2669
+        },
+        "description": "Qiskit is an open-source SDK for working with quantum computers at the level of extended quantum circuits, operators, and primitives."
+    },
+    {
+        "repo_name": "alibaba/AndFix",
+        "url": "https://github.com/alibaba/AndFix",
+        "stars": 6997,
+        "total_code_bytes": 108725,
+        "qualified_languages": {
+            "C/C++": 0.7246,
+            "Java": 0.2687
+        },
+        "description": "AndFix is a library that offer hot-fix for Android App."
+    },
+    {
+        "repo_name": "taobao/nginx-book",
+        "url": "https://github.com/taobao/nginx-book",
+        "stars": 6986,
+        "total_code_bytes": 62220,
+        "qualified_languages": {
+            "Python": 0.5509,
+            "JavaScript/TypeScript": 0.0728
+        },
+        "description": "Nginx开发从入门到精通"
+    },
+    {
+        "repo_name": "HuLaSpark/HuLa",
+        "url": "https://github.com/HuLaSpark/HuLa",
+        "stars": 6985,
+        "total_code_bytes": 3235015,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.3042,
+            "Rust": 0.1429
+        },
+        "description": "🍀 A cross-platform instant messaging desktop application with exceptional performance built on Rust + Vue3, compatible with Windows, macOS, Linux, Android, and iOS（一款基于Rust+Vue3极致性能的跨平台即时通讯桌面应用，兼容Windows、MacOS、Linux、Android、IOS）"
+    },
+    {
+        "repo_name": "Dolibarr/dolibarr",
+        "url": "https://github.com/Dolibarr/dolibarr",
+        "stars": 6985,
+        "total_code_bytes": 83515450,
+        "qualified_languages": {
+            "PHP": 0.9244,
+            "JavaScript/TypeScript": 0.058
+        },
+        "description": "Dolibarr ERP CRM is a modern software package to manage your company or foundation's activity (contacts, suppliers, invoices, orders, stocks, agenda, accounting, ...). it's an open source Web application (written in PHP) designed for businesses of any sizes, foundations and freelancers."
+    },
+    {
+        "repo_name": "guardicore/monkey",
+        "url": "https://github.com/guardicore/monkey",
+        "stars": 6973,
+        "total_code_bytes": 2300887,
+        "qualified_languages": {
+            "Python": 0.6387,
+            "JavaScript/TypeScript": 0.2306
+        },
+        "description": "Infection Monkey - An open-source adversary emulation platform"
+    },
+    {
+        "repo_name": "cosmos/cosmos-sdk",
+        "url": "https://github.com/cosmos/cosmos-sdk",
+        "stars": 6946,
+        "total_code_bytes": 11409820,
+        "qualified_languages": {
+            "Go": 0.9256,
+            "C/C++": 0.0584
+        },
+        "description": ":chains: A Framework for Building High Value Public Blockchains :sparkles:"
+    },
+    {
+        "repo_name": "TigerVNC/tigervnc",
+        "url": "https://github.com/TigerVNC/tigervnc",
+        "stars": 6940,
+        "total_code_bytes": 5476853,
+        "qualified_languages": {
+            "C/C++": 0.6398,
+            "Java": 0.3194
+        },
+        "description": "High performance, multi-platform VNC client and server"
+    },
+    {
+        "repo_name": "jgraph/mxgraph",
+        "url": "https://github.com/jgraph/mxgraph",
+        "stars": 6919,
+        "total_code_bytes": 21614940,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2883,
+            "Java": 0.11
+        },
+        "description": "mxGraph is a fully client side JavaScript diagramming library"
+    },
+    {
+        "repo_name": "moodle/moodle",
+        "url": "https://github.com/moodle/moodle",
+        "stars": 6903,
+        "total_code_bytes": 321309126,
+        "qualified_languages": {
+            "PHP": 0.8604,
+            "JavaScript/TypeScript": 0.0919
+        },
+        "description": "Moodle - the world's open source learning platform"
+    },
+    {
+        "repo_name": "NVlabs/stylegan3",
+        "url": "https://github.com/NVlabs/stylegan3",
+        "stars": 6902,
+        "total_code_bytes": 624920,
+        "qualified_languages": {
+            "Python": 0.7843,
+            "C/C++": 0.0522
+        },
+        "description": "Official PyTorch implementation of StyleGAN3"
+    },
+    {
+        "repo_name": "Alex313031/thorium",
+        "url": "https://github.com/Alex313031/thorium",
+        "stars": 6878,
+        "total_code_bytes": 4533197,
+        "qualified_languages": {
+            "C/C++": 0.8007,
+            "Python": 0.0583
+        },
+        "description": "Chromium fork named after radioactive element No. 90. Source code and Linux releases. Windows/MacOS/ARM builds served in different repos, links are towards the top of the README.md."
+    },
+    {
+        "repo_name": "rabbitmq/rabbitmq-tutorials",
+        "url": "https://github.com/rabbitmq/rabbitmq-tutorials",
+        "stars": 6864,
+        "total_code_bytes": 514108,
+        "qualified_languages": {
+            "Java": 0.1796,
+            "PHP": 0.0911,
+            "Rust": 0.0863,
+            "Go": 0.0621
+        },
+        "description": "Tutorials for using RabbitMQ in various ways"
+    },
+    {
+        "repo_name": "princeton-vl/infinigen",
+        "url": "https://github.com/princeton-vl/infinigen",
+        "stars": 6858,
+        "total_code_bytes": 9744010,
+        "qualified_languages": {
+            "Python": 0.876,
+            "C/C++": 0.1036
+        },
+        "description": "Infinite Photorealistic Worlds using Procedural Generation"
+    },
+    {
+        "repo_name": "EcoPasteHub/EcoPaste",
+        "url": "https://github.com/EcoPasteHub/EcoPaste",
+        "stars": 6851,
+        "total_code_bytes": 182570,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.8516,
+            "Rust": 0.1408
+        },
+        "description": "🎉跨平台的剪贴板管理工具 | Cross-platform clipboard management tool"
+    },
+    {
+        "repo_name": "roundcube/roundcubemail",
+        "url": "https://github.com/roundcube/roundcubemail",
+        "stars": 6840,
+        "total_code_bytes": 13260646,
+        "qualified_languages": {
+            "PHP": 0.9038,
+            "JavaScript/TypeScript": 0.0693
+        },
+        "description": "The Roundcube Webmail suite"
+    },
+    {
+        "repo_name": "mullvad/mullvadvpn-app",
+        "url": "https://github.com/mullvad/mullvadvpn-app",
+        "stars": 6839,
+        "total_code_bytes": 13295256,
+        "qualified_languages": {
+            "Rust": 0.3402,
+            "JavaScript/TypeScript": 0.1458
+        },
+        "description": "The Mullvad VPN client app for desktop and mobile"
+    },
+    {
+        "repo_name": "aceberg/WatchYourLAN",
+        "url": "https://github.com/aceberg/WatchYourLAN",
+        "stars": 6825,
+        "total_code_bytes": 103946,
+        "qualified_languages": {
+            "Go": 0.5406,
+            "JavaScript/TypeScript": 0.4286
+        },
+        "description": "Lightweight network IP scanner written in Go. With notifications, history, export to Grafana"
+    },
+    {
+        "repo_name": "vespa-engine/vespa",
+        "url": "https://github.com/vespa-engine/vespa",
+        "stars": 6818,
+        "total_code_bytes": 73646142,
+        "qualified_languages": {
+            "Java": 0.521,
+            "C/C++": 0.4476
+        },
+        "description": "AI + Data, online. https://vespa.ai"
+    },
+    {
+        "repo_name": "interpretml/interpret",
+        "url": "https://github.com/interpretml/interpret",
+        "stars": 6811,
+        "total_code_bytes": 4197191,
+        "qualified_languages": {
+            "C/C++": 0.5913,
+            "Python": 0.3621
+        },
+        "description": "Fit interpretable models. Explain blackbox machine learning. "
+    },
+    {
+        "repo_name": "patriciogonzalezvivo/thebookofshaders",
+        "url": "https://github.com/patriciogonzalezvivo/thebookofshaders",
+        "stars": 6805,
+        "total_code_bytes": 344197,
+        "qualified_languages": {
+            "PHP": 0.116,
+            "Python": 0.0509
+        },
+        "description": "Step-by-step guide through the abstract and complex universe of Fragment Shaders."
+    },
+    {
+        "repo_name": "elementor/elementor",
+        "url": "https://github.com/elementor/elementor",
+        "stars": 6796,
+        "total_code_bytes": 18734006,
+        "qualified_languages": {
+            "PHP": 0.3735,
+            "JavaScript/TypeScript": 0.5808
+        },
+        "description": "The most advanced frontend drag & drop page builder. Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design."
+    },
+    {
+        "repo_name": "zo0r/react-native-push-notification",
+        "url": "https://github.com/zo0r/react-native-push-notification",
+        "stars": 6793,
+        "total_code_bytes": 158347,
+        "qualified_languages": {
+            "Java": 0.6691,
+            "JavaScript/TypeScript": 0.2773
+        },
+        "description": "React Native Local and Remote Notifications"
+    },
+    {
+        "repo_name": "InternLM/MindSearch",
+        "url": "https://github.com/InternLM/MindSearch",
+        "stars": 6791,
+        "total_code_bytes": 1038334,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.802,
+            "Python": 0.1553
+        },
+        "description": "🔍 An LLM-based Multi-agent Framework of Web Search Engine (like Perplexity.ai Pro and SearchGPT)"
+    },
+    {
+        "repo_name": "Ackites/Nrfr",
+        "url": "https://github.com/Ackites/Nrfr",
+        "stars": 6784,
+        "total_code_bytes": 120601,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.417,
+            "Go": 0.1053
+        },
+        "description": "🌍 免 Root 的 SIM 卡国家码修改工具 | 解决国际漫游时的兼容性问题，帮助使用海外 SIM 卡获得更好的本地化体验，解锁运营商限制，突破区域限制"
+    },
+    {
+        "repo_name": "feast-dev/feast",
+        "url": "https://github.com/feast-dev/feast",
+        "stars": 6778,
+        "total_code_bytes": 7691928,
+        "qualified_languages": {
+            "Python": 0.747,
+            "Go": 0.1323,
+            "JavaScript/TypeScript": 0.0626
+        },
+        "description": "The Open Source Feature Store for AI/ML"
+    },
+    {
+        "repo_name": "yanfeizhang/coder-kung-fu",
+        "url": "https://github.com/yanfeizhang/coder-kung-fu",
+        "stars": 6775,
+        "total_code_bytes": 100700,
+        "qualified_languages": {
+            "C/C++": 0.5844,
+            "PHP": 0.1677,
+            "Java": 0.0619
+        },
+        "description": "开发内功修炼"
+    },
+    {
+        "repo_name": "facebook/sapling",
+        "url": "https://github.com/facebook/sapling",
+        "stars": 6759,
+        "total_code_bytes": 57808638,
+        "qualified_languages": {
+            "Rust": 0.4654,
+            "Python": 0.1802,
+            "C/C++": 0.0997,
+            "JavaScript/TypeScript": 0.0931
+        },
+        "description": "A Scalable, User-Friendly Source Control System."
+    },
+    {
+        "repo_name": "python-eel/Eel",
+        "url": "https://github.com/python-eel/Eel",
+        "stars": 6758,
+        "total_code_bytes": 56584,
+        "qualified_languages": {
+            "Python": 0.8279,
+            "JavaScript/TypeScript": 0.1328
+        },
+        "description": "A little Python library for making simple Electron-like HTML/JS GUI apps"
+    },
+    {
+        "repo_name": "langchain-ai/opengpts",
+        "url": "https://github.com/langchain-ai/opengpts",
+        "stars": 6752,
+        "total_code_bytes": 1935173,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2546,
+            "Python": 0.0616
+        },
+        "description": null
+    },
+    {
+        "repo_name": "vicinaehq/vicinae",
+        "url": "https://github.com/vicinaehq/vicinae",
+        "stars": 6736,
+        "total_code_bytes": 4490979,
+        "qualified_languages": {
+            "C/C++": 0.8184,
+            "JavaScript/TypeScript": 0.0752
+        },
+        "description": "A focused launcher for your desktop — native, fast, extensible"
+    },
+    {
+        "repo_name": "postgresml/postgresml",
+        "url": "https://github.com/postgresml/postgresml",
+        "stars": 6731,
+        "total_code_bytes": 2137638,
+        "qualified_languages": {
+            "Rust": 0.625,
+            "JavaScript/TypeScript": 0.1188,
+            "Python": 0.061
+        },
+        "description": "Postgres with GPUs for ML/AI apps."
+    },
+    {
+        "repo_name": "MineDojo/Voyager",
+        "url": "https://github.com/MineDojo/Voyager",
+        "stars": 6731,
+        "total_code_bytes": 263257,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6646,
+            "Python": 0.3354
+        },
+        "description": "An Open-Ended Embodied Agent with Large Language Models"
+    },
+    {
+        "repo_name": "francescopace/espectre",
+        "url": "https://github.com/francescopace/espectre",
+        "stars": 6724,
+        "total_code_bytes": 1404630,
+        "qualified_languages": {
+            "Python": 0.5962,
+            "C/C++": 0.3091
+        },
+        "description": "🛜 ESPectre 👻  - Motion detection system based on Wi-Fi spectre analysis (CSI), with Home Assistant integration."
+    },
+    {
+        "repo_name": "googleforgames/agones",
+        "url": "https://github.com/googleforgames/agones",
+        "stars": 6717,
+        "total_code_bytes": 6558782,
+        "qualified_languages": {
+            "Go": 0.4099,
+            "C/C++": 0.2764,
+            "JavaScript/TypeScript": 0.1868
+        },
+        "description": "Dedicated Game Server Hosting and Scaling for Multiplayer Games on Kubernetes"
+    },
+    {
+        "repo_name": "hatchet-dev/hatchet",
+        "url": "https://github.com/hatchet-dev/hatchet",
+        "stars": 6715,
+        "total_code_bytes": 13466341,
+        "qualified_languages": {
+            "Go": 0.2683,
+            "Python": 0.2428,
+            "JavaScript/TypeScript": 0.1862
+        },
+        "description": "🪓 Run Background Tasks at Scale"
+    },
+    {
+        "repo_name": "Sigil-Ebook/Sigil",
+        "url": "https://github.com/Sigil-Ebook/Sigil",
+        "stars": 6707,
+        "total_code_bytes": 7767570,
+        "qualified_languages": {
+            "C/C++": 0.771,
+            "Python": 0.1964
+        },
+        "description": "Sigil is a multi-platform EPUB ebook editor"
+    },
+    {
+        "repo_name": "648540858/wvp-GB28181-pro",
+        "url": "https://github.com/648540858/wvp-GB28181-pro",
+        "stars": 6695,
+        "total_code_bytes": 5442768,
+        "qualified_languages": {
+            "Java": 0.6491,
+            "JavaScript/TypeScript": 0.145
+        },
+        "description": "基于GB28181-2016、部标808、部标1078标准实现的开箱即用的网络视频平台。自带管理页面，支持NAT穿透，支持海康、大华、宇视等品牌的IPC、NVR接入。支持国标级联，支持将普通摄像机/直播流/直播推流转国标共享到国标平台。"
+    },
+    {
+        "repo_name": "s-macke/VoxelSpace",
+        "url": "https://github.com/s-macke/VoxelSpace",
+        "stars": 6695,
+        "total_code_bytes": 38743,
+        "qualified_languages": {
+            "C/C++": 0.392,
+            "Python": 0.2119
+        },
+        "description": "Terrain rendering algorithm in less than 20 lines of code"
+    },
+    {
+        "repo_name": "flarum/framework",
+        "url": "https://github.com/flarum/framework",
+        "stars": 6693,
+        "total_code_bytes": 4624308,
+        "qualified_languages": {
+            "PHP": 0.6199,
+            "JavaScript/TypeScript": 0.3296
+        },
+        "description": "Simple forum software for building great communities."
+    },
+    {
+        "repo_name": "iflytek/astron-rpa",
+        "url": "https://github.com/iflytek/astron-rpa",
+        "stars": 6683,
+        "total_code_bytes": 8950942,
+        "qualified_languages": {
+            "Java": 0.3252,
+            "Python": 0.3165,
+            "JavaScript/TypeScript": 0.1594
+        },
+        "description": "Agent-ready RPA suite with out-of-the-box automation tools. Built for individuals and enterprises."
+    },
+    {
+        "repo_name": "dtolnay/cxx",
+        "url": "https://github.com/dtolnay/cxx",
+        "stars": 6680,
+        "total_code_bytes": 890476,
+        "qualified_languages": {
+            "Rust": 0.8511,
+            "C/C++": 0.124
+        },
+        "description": "Safe interop between Rust and C++"
+    },
+    {
+        "repo_name": "raycast/script-commands",
+        "url": "https://github.com/raycast/script-commands",
+        "stars": 6677,
+        "total_code_bytes": 975172,
+        "qualified_languages": {
+            "Python": 0.1187,
+            "JavaScript/TypeScript": 0.0651
+        },
+        "description": "Script Commands let you tailor Raycast to your needs. Think of them as little productivity boosts throughout your day."
+    },
+    {
+        "repo_name": "apache/storm",
+        "url": "https://github.com/apache/storm",
+        "stars": 6672,
+        "total_code_bytes": 16402481,
+        "qualified_languages": {
+            "Java": 0.8358,
+            "Python": 0.075
+        },
+        "description": "Apache Storm"
+    },
+    {
+        "repo_name": "kreuzberg-dev/kreuzberg",
+        "url": "https://github.com/kreuzberg-dev/kreuzberg",
+        "stars": 6666,
+        "total_code_bytes": 28189198,
+        "qualified_languages": {
+            "Rust": 0.4146,
+            "JavaScript/TypeScript": 0.0869
+        },
+        "description": "A polyglot document intelligence framework with a Rust core. Extract text, metadata, and structured information from PDFs, Office documents, images, and 76+ formats. Available for Rust, Python, Ruby, Java, Go, PHP, Elixir, C#, R, C, TypeScript (Node/Bun/Wasm/Deno)- or use via CLI, REST API, or MCP server."
+    },
+    {
+        "repo_name": "spdustin/ChatGPT-AutoExpert",
+        "url": "https://github.com/spdustin/ChatGPT-AutoExpert",
+        "stars": 6666,
+        "total_code_bytes": 100007,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.8114,
+            "Python": 0.1886
+        },
+        "description": "🚀🧠💬 Supercharged Custom Instructions for ChatGPT (non-coding) and ChatGPT Advanced Data Analysis (coding). "
+    },
+    {
+        "repo_name": "react-native-device-info/react-native-device-info",
+        "url": "https://github.com/react-native-device-info/react-native-device-info",
+        "stars": 6665,
+        "total_code_bytes": 405135,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5725,
+            "Java": 0.1696,
+            "C/C++": 0.0905
+        },
+        "description": "Device Information for React Native iOS and Android"
+    },
+    {
+        "repo_name": "DenverCoder1/github-readme-streak-stats",
+        "url": "https://github.com/DenverCoder1/github-readme-streak-stats",
+        "stars": 6650,
+        "total_code_bytes": 270066,
+        "qualified_languages": {
+            "PHP": 0.8665,
+            "JavaScript/TypeScript": 0.0929
+        },
+        "description": "🔥 Stay motivated and show off your contribution streak! 🌟 Display your total contributions, current streak, and longest streak on your GitHub profile README"
+    },
+    {
+        "repo_name": "fool2fish/dragon-book-exercise-answers",
+        "url": "https://github.com/fool2fish/dragon-book-exercise-answers",
+        "stars": 6640,
+        "total_code_bytes": 22728,
+        "qualified_languages": {
+            "C/C++": 0.1987,
+            "Java": 0.1272,
+            "JavaScript/TypeScript": 0.078
+        },
+        "description": "Compilers Principles, Techniques, & Tools (purple dragon book) second edition exercise answers. 编译原理（紫龙书）第2版习题答案。"
+    },
+    {
+        "repo_name": "warp-tech/warpgate",
+        "url": "https://github.com/warp-tech/warpgate",
+        "stars": 6640,
+        "total_code_bytes": 1515653,
+        "qualified_languages": {
+            "Rust": 0.672,
+            "Python": 0.1092
+        },
+        "description": "Fully transparent SSH, HTTPS, MySQL and Postgres bastion/PAM that doesn't need additional client-side software"
+    },
+    {
+        "repo_name": "MemTensor/MemOS",
+        "url": "https://github.com/MemTensor/MemOS",
+        "stars": 6630,
+        "total_code_bytes": 6972323,
+        "qualified_languages": {
+            "Python": 0.6882,
+            "JavaScript/TypeScript": 0.3077
+        },
+        "description": "AI memory OS for LLM and Agent systems(moltbot,clawdbot,openclaw), enabling persistent Skill memory for cross-task skill reuse and evolution."
+    },
+    {
+        "repo_name": "Yin-Hongwei/music-website",
+        "url": "https://github.com/Yin-Hongwei/music-website",
+        "stars": 6622,
+        "total_code_bytes": 333351,
+        "qualified_languages": {
+            "Java": 0.3448,
+            "JavaScript/TypeScript": 0.1388
+        },
+        "description": "🎧 Vue + SpringBoot + MyBatis 音乐网站"
+    },
+    {
+        "repo_name": "python-pendulum/pendulum",
+        "url": "https://github.com/python-pendulum/pendulum",
+        "stars": 6621,
+        "total_code_bytes": 811972,
+        "qualified_languages": {
+            "Python": 0.9256,
+            "Rust": 0.0734
+        },
+        "description": "Python datetimes made easy"
+    },
+    {
+        "repo_name": "pinchtab/pinchtab",
+        "url": "https://github.com/pinchtab/pinchtab",
+        "stars": 6610,
+        "total_code_bytes": 1921606,
+        "qualified_languages": {
+            "Go": 0.7255,
+            "JavaScript/TypeScript": 0.1545
+        },
+        "description": "High-performance browser automation bridge and multi-instance orchestrator with advanced stealth injection and real-time dashboard."
+    },
+    {
+        "repo_name": "apache/zeppelin",
+        "url": "https://github.com/apache/zeppelin",
+        "stars": 6606,
+        "total_code_bytes": 12950413,
+        "qualified_languages": {
+            "Java": 0.586,
+            "JavaScript/TypeScript": 0.1689
+        },
+        "description": "Web-based notebook that enables data-driven, interactive data analytics and collaborative documents with SQL, Scala and more."
+    },
+    {
+        "repo_name": "inventree/InvenTree",
+        "url": "https://github.com/inventree/InvenTree",
+        "stars": 6598,
+        "total_code_bytes": 7203771,
+        "qualified_languages": {
+            "Python": 0.6829,
+            "JavaScript/TypeScript": 0.3027
+        },
+        "description": "Open Source Inventory Management System"
+    },
+    {
+        "repo_name": "oppia/oppia",
+        "url": "https://github.com/oppia/oppia",
+        "stars": 6590,
+        "total_code_bytes": 46166459,
+        "qualified_languages": {
+            "Python": 0.4676,
+            "JavaScript/TypeScript": 0.4601
+        },
+        "description": "A free, online learning platform to make quality education accessible for all."
+    },
+    {
+        "repo_name": "brython-dev/brython",
+        "url": "https://github.com/brython-dev/brython",
+        "stars": 6586,
+        "total_code_bytes": 33303217,
+        "qualified_languages": {
+            "Python": 0.7068,
+            "JavaScript/TypeScript": 0.1353
+        },
+        "description": "Brython (Browser Python) is an implementation of Python 3 running in the browser"
+    },
+    {
+        "repo_name": "imsyy/SPlayer",
+        "url": "https://github.com/imsyy/SPlayer",
+        "stars": 6577,
+        "total_code_bytes": 2654541,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5509,
+            "Rust": 0.0755
+        },
+        "description": "🎵 A cross-platform music player with Jellyfin / Navidrome / Emby media server support, word-by-word lyrics, desktop & taskbar lyrics, cloud music drive, local library management, audio spectrum visualization and mobile-friendly UI. 简约的跨平台音乐播放器，支持逐字歌词、桌面歌词、任务栏歌词、云盘音乐、本地音乐管理及流媒体播放"
+    },
+    {
+        "repo_name": "CTFd/CTFd",
+        "url": "https://github.com/CTFd/CTFd",
+        "stars": 6555,
+        "total_code_bytes": 2684705,
+        "qualified_languages": {
+            "Python": 0.5751,
+            "JavaScript/TypeScript": 0.2001
+        },
+        "description": "CTFs as you need them"
+    },
+    {
+        "repo_name": "openmediavault/openmediavault",
+        "url": "https://github.com/openmediavault/openmediavault",
+        "stars": 6548,
+        "total_code_bytes": 4917049,
+        "qualified_languages": {
+            "PHP": 0.329,
+            "JavaScript/TypeScript": 0.2766,
+            "Python": 0.1222
+        },
+        "description": "openmediavault is the next generation network attached storage (NAS) solution based on Debian Linux. Thanks to the modular design of the framework it can be enhanced via plugins. openmediavault is primarily designed to be used in home environments or small home offices."
+    },
+    {
+        "repo_name": "prefix-dev/pixi",
+        "url": "https://github.com/prefix-dev/pixi",
+        "stars": 6547,
+        "total_code_bytes": 6106212,
+        "qualified_languages": {
+            "Rust": 0.8685,
+            "Python": 0.1205
+        },
+        "description": "Powerful system-level package manager for Linux, macOS and Windows written in Rust – building on top of the Conda ecosystem."
+    },
+    {
+        "repo_name": "facebookresearch/metaseq",
+        "url": "https://github.com/facebookresearch/metaseq",
+        "stars": 6543,
+        "total_code_bytes": 1817884,
+        "qualified_languages": {
+            "Python": 0.8021,
+            "C/C++": 0.0645
+        },
+        "description": "Repo for external large-scale work"
+    },
+    {
+        "repo_name": "gtsteffaniak/filebrowser",
+        "url": "https://github.com/gtsteffaniak/filebrowser",
+        "stars": 6534,
+        "total_code_bytes": 3158245,
+        "qualified_languages": {
+            "Go": 0.5086,
+            "JavaScript/TypeScript": 0.1375
+        },
+        "description": "📂 Web File Browser"
+    },
+    {
+        "repo_name": "danmar/cppcheck",
+        "url": "https://github.com/danmar/cppcheck",
+        "stars": 6532,
+        "total_code_bytes": 14885060,
+        "qualified_languages": {
+            "C/C++": 0.909,
+            "Python": 0.0706
+        },
+        "description": "static analysis of C/C++ code"
+    },
+    {
+        "repo_name": "mesop-dev/mesop",
+        "url": "https://github.com/mesop-dev/mesop",
+        "stars": 6519,
+        "total_code_bytes": 1847749,
+        "qualified_languages": {
+            "Python": 0.6129,
+            "JavaScript/TypeScript": 0.2741
+        },
+        "description": "Rapidly build AI apps in Python"
+    },
+    {
+        "repo_name": "simple-login/app",
+        "url": "https://github.com/simple-login/app",
+        "stars": 6504,
+        "total_code_bytes": 4365952,
+        "qualified_languages": {
+            "Python": 0.4984,
+            "JavaScript/TypeScript": 0.1116
+        },
+        "description": "The SimpleLogin back-end and web app"
+    },
+    {
+        "repo_name": "phoboslab/jsmpeg",
+        "url": "https://github.com/phoboslab/jsmpeg",
+        "stars": 6494,
+        "total_code_bytes": 233887,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6109,
+            "C/C++": 0.373
+        },
+        "description": "MPEG1 Video Decoder in JavaScript"
+    },
+    {
+        "repo_name": "crestalnetwork/intentkit",
+        "url": "https://github.com/crestalnetwork/intentkit",
+        "stars": 6490,
+        "total_code_bytes": 3396356,
+        "qualified_languages": {
+            "Python": 0.916,
+            "JavaScript/TypeScript": 0.0777
+        },
+        "description": "IntentKit is an open-source, self-hosted cloud agent cluster that manages a collaborative team of AI agents for you."
+    },
+    {
+        "repo_name": "SteamDeckHomebrew/decky-loader",
+        "url": "https://github.com/SteamDeckHomebrew/decky-loader",
+        "stars": 6490,
+        "total_code_bytes": 394162,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5743,
+            "Python": 0.3993
+        },
+        "description": "A plugin loader for the Steam Deck."
+    },
+    {
+        "repo_name": "wesnoth/wesnoth",
+        "url": "https://github.com/wesnoth/wesnoth",
+        "stars": 6488,
+        "total_code_bytes": 14278750,
+        "qualified_languages": {
+            "C/C++": 0.7275,
+            "Python": 0.0882
+        },
+        "description": "An open source, turn-based strategy game with a high fantasy theme."
+    },
+    {
+        "repo_name": "Zipstack/unstract",
+        "url": "https://github.com/Zipstack/unstract",
+        "stars": 6478,
+        "total_code_bytes": 7031904,
+        "qualified_languages": {
+            "Python": 0.7917,
+            "JavaScript/TypeScript": 0.1676
+        },
+        "description": "LLM-Driven Extraction of Unstructured Data — Built for API Deployments & ETL Pipeline Workflows"
+    },
+    {
+        "repo_name": "littlefs-project/littlefs",
+        "url": "https://github.com/littlefs-project/littlefs",
+        "stars": 6474,
+        "total_code_bytes": 1701004,
+        "qualified_languages": {
+            "C/C++": 0.6828,
+            "Python": 0.3084
+        },
+        "description": "A little fail-safe filesystem designed for microcontrollers"
+    },
+    {
+        "repo_name": "scikit-image/scikit-image",
+        "url": "https://github.com/scikit-image/scikit-image",
+        "stars": 6472,
+        "total_code_bytes": 4368787,
+        "qualified_languages": {
+            "Python": 0.803,
+            "C/C++": 0.0641
+        },
+        "description": "Image processing in Python"
+    },
+    {
+        "repo_name": "superagent-ai/superagent",
+        "url": "https://github.com/superagent-ai/superagent",
+        "stars": 6457,
+        "total_code_bytes": 447513,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5803,
+            "Python": 0.4197
+        },
+        "description": "Superagent protects your AI applications against prompt injections, data leaks, and harmful outputs. Embed safety directly into your app and prove compliance to your customers."
+    },
+    {
+        "repo_name": "mixxxdj/mixxx",
+        "url": "https://github.com/mixxxdj/mixxx",
+        "stars": 6455,
+        "total_code_bytes": 21649710,
+        "qualified_languages": {
+            "C/C++": 0.6356,
+            "JavaScript/TypeScript": 0.2623
+        },
+        "description": "Mixxx is Free DJ software that gives you everything you need to perform live mixes."
+    },
+    {
+        "repo_name": "nayuki/QR-Code-generator",
+        "url": "https://github.com/nayuki/QR-Code-generator",
+        "stars": 6453,
+        "total_code_bytes": 628984,
+        "qualified_languages": {
+            "Java": 0.3507,
+            "Rust": 0.1914,
+            "C/C++": 0.254,
+            "JavaScript/TypeScript": 0.0977,
+            "Python": 0.0829
+        },
+        "description": "High-quality QR Code generator library in Java, TypeScript/JavaScript, Python, Rust, C++, C."
+    },
+    {
+        "repo_name": "microsoft/nlp-recipes",
+        "url": "https://github.com/microsoft/nlp-recipes",
+        "stars": 6448,
+        "total_code_bytes": 976690,
+        "qualified_languages": {
+            "Python": 0.9274,
+            "C/C++": 0.0621
+        },
+        "description": "Natural Language Processing Best Practices & Examples"
+    },
+    {
+        "repo_name": "yuantuo666/baiduwp-php",
+        "url": "https://github.com/yuantuo666/baiduwp-php",
+        "stars": 6446,
+        "total_code_bytes": 205241,
+        "qualified_languages": {
+            "PHP": 0.4339,
+            "JavaScript/TypeScript": 0.112
+        },
+        "description": "A tool to get the download link of the Baidu netdisk / 一个获取百度网盘分享链接下载地址的工具"
+    },
+    {
+        "repo_name": "googlecreativelab/anypixel",
+        "url": "https://github.com/googlecreativelab/anypixel",
+        "stars": 6446,
+        "total_code_bytes": 845515,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.763,
+            "C/C++": 0.2196
+        },
+        "description": "A web-friendly way for anyone to build unusual displays"
+    },
+    {
+        "repo_name": "flashlight/wav2letter",
+        "url": "https://github.com/flashlight/wav2letter",
+        "stars": 6445,
+        "total_code_bytes": 1020832,
+        "qualified_languages": {
+            "C/C++": 0.5147,
+            "Python": 0.2359
+        },
+        "description": "Facebook AI Research's Automatic Speech Recognition Toolkit "
+    },
+    {
+        "repo_name": "retorquere/zotero-better-bibtex",
+        "url": "https://github.com/retorquere/zotero-better-bibtex",
+        "stars": 6434,
+        "total_code_bytes": 1531311,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5823,
+            "Python": 0.1037
+        },
+        "description": "Make Zotero effective for us LaTeX holdouts"
+    },
+    {
+        "repo_name": "sinelaw/fresh",
+        "url": "https://github.com/sinelaw/fresh",
+        "stars": 6433,
+        "total_code_bytes": 13467533,
+        "qualified_languages": {
+            "Rust": 0.9249,
+            "JavaScript/TypeScript": 0.0625
+        },
+        "description": "Terminal based IDE & text editor: easy, powerful and fast"
+    },
+    {
+        "repo_name": "thedevdojo/wave",
+        "url": "https://github.com/thedevdojo/wave",
+        "stars": 6432,
+        "total_code_bytes": 5877382,
+        "qualified_languages": {
+            "PHP": 0.1021,
+            "JavaScript/TypeScript": 0.0839
+        },
+        "description": "Wave - The Software as a Service Starter Kit, designed to help you build the SAAS of your dreams 🚀 💰 "
+    },
+    {
+        "repo_name": "TryGhost/node-sqlite3",
+        "url": "https://github.com/TryGhost/node-sqlite3",
+        "stars": 6424,
+        "total_code_bytes": 744623,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.1448,
+            "C/C++": 0.1403
+        },
+        "description": "SQLite3 bindings for Node.js"
+    },
+    {
+        "repo_name": "jverkoey/nimbus",
+        "url": "https://github.com/jverkoey/nimbus",
+        "stars": 6416,
+        "total_code_bytes": 1739562,
+        "qualified_languages": {
+            "Python": 0.0561,
+            "C/C++": 0.0539
+        },
+        "description": "The iOS framework that grows only as fast as its documentation"
+    },
+    {
+        "repo_name": "open-mmlab/mmcv",
+        "url": "https://github.com/open-mmlab/mmcv",
+        "stars": 6411,
+        "total_code_bytes": 3949905,
+        "qualified_languages": {
+            "Python": 0.3858,
+            "C/C++": 0.344
+        },
+        "description": "OpenMMLab Computer Vision Foundation"
+    },
+    {
+        "repo_name": "Netflix/dispatch",
+        "url": "https://github.com/Netflix/dispatch",
+        "stars": 6399,
+        "total_code_bytes": 5273552,
+        "qualified_languages": {
+            "Python": 0.5385,
+            "JavaScript/TypeScript": 0.1685
+        },
+        "description": "All of the ad-hoc things you're doing to manage incidents today, done for you, and much more!"
+    },
+    {
+        "repo_name": "ethereum-optimism/optimism",
+        "url": "https://github.com/ethereum-optimism/optimism",
+        "stars": 6397,
+        "total_code_bytes": 27252876,
+        "qualified_languages": {
+            "Go": 0.5474,
+            "Rust": 0.2026
+        },
+        "description": "Optimism is Ethereum, scaled."
+    },
+    {
+        "repo_name": "cocoindex-io/cocoindex",
+        "url": "https://github.com/cocoindex-io/cocoindex",
+        "stars": 6392,
+        "total_code_bytes": 1949942,
+        "qualified_languages": {
+            "Rust": 0.6877,
+            "Python": 0.3088
+        },
+        "description": "Data transformation framework for AI. Ultra performant, with incremental processing.  🌟 Star if you like it!"
+    },
+    {
+        "repo_name": "moonlight-stream/moonlight-android",
+        "url": "https://github.com/moonlight-stream/moonlight-android",
+        "stars": 6388,
+        "total_code_bytes": 2822304,
+        "qualified_languages": {
+            "C/C++": 0.6141,
+            "Java": 0.3817
+        },
+        "description": "GameStream client for Android"
+    },
+    {
+        "repo_name": "photoview/photoview",
+        "url": "https://github.com/photoview/photoview",
+        "stars": 6383,
+        "total_code_bytes": 844712,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5044,
+            "Go": 0.4712
+        },
+        "description": "Photo gallery for self-hosted personal servers"
+    },
+    {
+        "repo_name": "tony9402/baekjoon",
+        "url": "https://github.com/tony9402/baekjoon",
+        "stars": 6382,
+        "total_code_bytes": 491889,
+        "qualified_languages": {
+            "C/C++": 0.3562,
+            "Python": 0.3465,
+            "Java": 0.2974
+        },
+        "description": "코딩테스트 대비 문제집(Baekjoon Online Judge)"
+    },
+    {
+        "repo_name": "kalcaddle/KodExplorer",
+        "url": "https://github.com/kalcaddle/KodExplorer",
+        "stars": 6382,
+        "total_code_bytes": 3692822,
+        "qualified_languages": {
+            "PHP": 0.6252,
+            "JavaScript/TypeScript": 0.1417
+        },
+        "description": "A web based file manager,web IDE / browser based code editor"
+    },
+    {
+        "repo_name": "pixie-io/pixie",
+        "url": "https://github.com/pixie-io/pixie",
+        "stars": 6372,
+        "total_code_bytes": 17998726,
+        "qualified_languages": {
+            "C/C++": 0.5476,
+            "Go": 0.2193,
+            "JavaScript/TypeScript": 0.0996
+        },
+        "description": "Instant Kubernetes-Native Application Observability"
+    },
+    {
+        "repo_name": "electerious/Lychee",
+        "url": "https://github.com/electerious/Lychee",
+        "stars": 6370,
+        "total_code_bytes": 420090,
+        "qualified_languages": {
+            "PHP": 0.4787,
+            "JavaScript/TypeScript": 0.3131
+        },
+        "description": "A great looking and easy-to-use photo-management-system you can run on your server, to manage and share photos."
+    },
+    {
+        "repo_name": "nat/openplayground",
+        "url": "https://github.com/nat/openplayground",
+        "stars": 6368,
+        "total_code_bytes": 302583,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6508,
+            "Python": 0.3297
+        },
+        "description": "An LLM playground you can run on your laptop"
+    },
+    {
+        "repo_name": "doxygen/doxygen",
+        "url": "https://github.com/doxygen/doxygen",
+        "stars": 6363,
+        "total_code_bytes": 13921425,
+        "qualified_languages": {
+            "C/C++": 0.7125,
+            "Python": 0.1097
+        },
+        "description": "Official doxygen git repository"
+    },
+    {
+        "repo_name": "sigalor/whatsapp-web-reveng",
+        "url": "https://github.com/sigalor/whatsapp-web-reveng",
+        "stars": 6357,
+        "total_code_bytes": 165456,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5747,
+            "Python": 0.2478
+        },
+        "description": "Reverse engineering WhatsApp Web."
+    },
+    {
+        "repo_name": "DEAP/deap",
+        "url": "https://github.com/DEAP/deap",
+        "stars": 6349,
+        "total_code_bytes": 434070,
+        "qualified_languages": {
+            "Python": 0.8773,
+            "C/C++": 0.1227
+        },
+        "description": "Distributed Evolutionary Algorithms in Python"
+    },
+    {
+        "repo_name": "wasabeef/richeditor-android",
+        "url": "https://github.com/wasabeef/richeditor-android",
+        "stars": 6345,
+        "total_code_bytes": 29622,
+        "qualified_languages": {
+            "Java": 0.6065,
+            "JavaScript/TypeScript": 0.3458
+        },
+        "description": "RichEditor for Android is a beautiful Rich Text WYSIWYG Editor for Android."
+    },
+    {
+        "repo_name": "ivpusic/react-native-image-crop-picker",
+        "url": "https://github.com/ivpusic/react-native-image-crop-picker",
+        "stars": 6341,
+        "total_code_bytes": 213968,
+        "qualified_languages": {
+            "Java": 0.3101,
+            "JavaScript/TypeScript": 0.0545
+        },
+        "description": "iOS/Android image picker with support for camera, video, configurable compression, multiple images and cropping"
+    },
+    {
+        "repo_name": "liuxinyu95/AlgoXY",
+        "url": "https://github.com/liuxinyu95/AlgoXY",
+        "stars": 6331,
+        "total_code_bytes": 2927731,
+        "qualified_languages": {
+            "Python": 0.0848,
+            "C/C++": 0.0909
+        },
+        "description": "Book of Elementary Functional Algorithms and Data structures"
+    },
+    {
+        "repo_name": "freeok/so-novel",
+        "url": "https://github.com/freeok/so-novel",
+        "stars": 6320,
+        "total_code_bytes": 272990,
+        "qualified_languages": {
+            "Java": 0.7686,
+            "JavaScript/TypeScript": 0.0844
+        },
+        "description": "小说下载｜网文下载 | 网络小说"
+    },
+    {
+        "repo_name": "zu1k/book-searcher",
+        "url": "https://github.com/zu1k/book-searcher",
+        "stars": 6317,
+        "total_code_bytes": 135330,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6501,
+            "Rust": 0.311
+        },
+        "description": "Easy and blazing-fast book searcher, create and search your private library."
+    },
+    {
+        "repo_name": "lavague-ai/LaVague",
+        "url": "https://github.com/lavague-ai/LaVague",
+        "stars": 6313,
+        "total_code_bytes": 526928,
+        "qualified_languages": {
+            "Python": 0.7017,
+            "JavaScript/TypeScript": 0.159
+        },
+        "description": "Large Action Model framework to develop AI Web Agents"
+    },
+    {
+        "repo_name": "liftoff/GateOne",
+        "url": "https://github.com/liftoff/GateOne",
+        "stars": 6306,
+        "total_code_bytes": 4278616,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5213,
+            "Python": 0.2735
+        },
+        "description": "Gate One is an HTML5-powered terminal emulator and SSH client"
+    },
+    {
+        "repo_name": "alexazhou/VeryNginx",
+        "url": "https://github.com/alexazhou/VeryNginx",
+        "stars": 5998,
+        "total_code_bytes": 213014,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.3356,
+            "Python": 0.1402
+        },
+        "description": " A very powerful and friendly  nginx base on lua-nginx-module( openresty ) which provide WAF, Control Panel, and Dashboards. "
+    },
+    {
+        "repo_name": "spotify/pedalboard",
+        "url": "https://github.com/spotify/pedalboard",
+        "stars": 5996,
+        "total_code_bytes": 1404289,
+        "qualified_languages": {
+            "C/C++": 0.6461,
+            "Python": 0.3225
+        },
+        "description": "🎛 🔊 A Python library for audio."
+    },
+    {
+        "repo_name": "apache/nifi",
+        "url": "https://github.com/apache/nifi",
+        "stars": 5995,
+        "total_code_bytes": 64212881,
+        "qualified_languages": {
+            "Java": 0.8519,
+            "JavaScript/TypeScript": 0.1115
+        },
+        "description": "Apache NiFi"
+    },
+    {
+        "repo_name": "opengoofy/hippo4j",
+        "url": "https://github.com/opengoofy/hippo4j",
+        "stars": 5993,
+        "total_code_bytes": 3764723,
+        "qualified_languages": {
+            "Java": 0.7882,
+            "JavaScript/TypeScript": 0.0511
+        },
+        "description": "📌 异步线程池框架，支持线程池动态变更&监控&报警，无需修改代码轻松引入。Asynchronous thread pool framework, support Thread Pool Dynamic Change & monitoring & Alarm, no need to modify the code easily introduced."
+    },
+    {
+        "repo_name": "androguard/androguard",
+        "url": "https://github.com/androguard/androguard",
+        "stars": 5984,
+        "total_code_bytes": 1443751,
+        "qualified_languages": {
+            "Python": 0.8769,
+            "JavaScript/TypeScript": 0.0972
+        },
+        "description": "Reverse engineering and pentesting for Android applications "
+    },
+    {
+        "repo_name": "lesspass/lesspass",
+        "url": "https://github.com/lesspass/lesspass",
+        "stars": 5984,
+        "total_code_bytes": 417321,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7267,
+            "Python": 0.2304
+        },
+        "description": ":key: stateless open source password manager"
+    },
+    {
+        "repo_name": "google/physical-web",
+        "url": "https://github.com/google/physical-web",
+        "stars": 5982,
+        "total_code_bytes": 670256,
+        "qualified_languages": {
+            "Java": 0.59,
+            "Python": 0.056
+        },
+        "description": "The Physical Web: walk up and use anything"
+    },
+    {
+        "repo_name": "airweave-ai/airweave",
+        "url": "https://github.com/airweave-ai/airweave",
+        "stars": 5978,
+        "total_code_bytes": 12621814,
+        "qualified_languages": {
+            "Python": 0.7869,
+            "JavaScript/TypeScript": 0.1672
+        },
+        "description": "Open-source context retrieval layer for AI agents"
+    },
+    {
+        "repo_name": "tonyantony300/alt-sendme",
+        "url": "https://github.com/tonyantony300/alt-sendme",
+        "stars": 5975,
+        "total_code_bytes": 594839,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6814,
+            "Rust": 0.2848
+        },
+        "description": "Send files and folders anywhere in the world without storing in cloud - any size, any format, no accounts, no restrictions."
+    },
+    {
+        "repo_name": "xinliangnote/go-gin-api",
+        "url": "https://github.com/xinliangnote/go-gin-api",
+        "stars": 5973,
+        "total_code_bytes": 846736,
+        "qualified_languages": {
+            "Go": 0.5977,
+            "JavaScript/TypeScript": 0.0998
+        },
+        "description": "基于 Gin 进行模块化设计的 API 框架，封装了常用功能，使用简单，致力于进行快速的业务研发。比如，支持 cors 跨域、jwt 签名验证、zap 日志收集、panic 异常捕获、trace 链路追踪、prometheus 监控指标、swagger 文档生成、viper 配置文件解析、gorm 数据库组件、gormgen 代码生成工具、graphql 查询语言、errno 统一定义错误码、gRPC 的使用、cron 定时任务 等等。"
+    },
+    {
+        "repo_name": "gnuradio/gnuradio",
+        "url": "https://github.com/gnuradio/gnuradio",
+        "stars": 5970,
+        "total_code_bytes": 15835290,
+        "qualified_languages": {
+            "C/C++": 0.663,
+            "Python": 0.2921
+        },
+        "description": "GNU Radio – the Free and Open Software Radio Ecosystem"
+    },
+    {
+        "repo_name": "tbphp/gpt-load",
+        "url": "https://github.com/tbphp/gpt-load",
+        "stars": 5970,
+        "total_code_bytes": 890404,
+        "qualified_languages": {
+            "Go": 0.4881,
+            "JavaScript/TypeScript": 0.1359
+        },
+        "description": "Multi-channel AI proxy with intelligent key rotation. 智能密钥轮询的多渠道 AI 代理。"
+    },
+    {
+        "repo_name": "kuafuai/DevOpsGPT",
+        "url": "https://github.com/kuafuai/DevOpsGPT",
+        "stars": 5969,
+        "total_code_bytes": 1224620,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.2261,
+            "Python": 0.1777
+        },
+        "description": "Multi agent system for AI-driven software development. Combine LLM with DevOps tools to convert natural language requirements into working software. Supports any development language and extends the existing code."
+    },
+    {
+        "repo_name": "nilsherzig/LLocalSearch",
+        "url": "https://github.com/nilsherzig/LLocalSearch",
+        "stars": 5965,
+        "total_code_bytes": 129235,
+        "qualified_languages": {
+            "Go": 0.5378,
+            "JavaScript/TypeScript": 0.0625
+        },
+        "description": "LLocalSearch is a completely locally running search aggregator using LLM Agents. The user can ask a question and the system will use a chain of LLMs to find the answer. The user can see the progress of the agents and the final answer. No OpenAI or Google API keys are needed."
+    },
+    {
+        "repo_name": "11cafe/jaaz",
+        "url": "https://github.com/11cafe/jaaz",
+        "stars": 5963,
+        "total_code_bytes": 1078169,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6499,
+            "Python": 0.3375
+        },
+        "description": "The world's first open-source multimodal creative assistant  This is a substitute for Canva and Manus that prioritizes privacy and is usable locally."
+    },
+    {
+        "repo_name": "daijro/camoufox",
+        "url": "https://github.com/daijro/camoufox",
+        "stars": 5963,
+        "total_code_bytes": 1677445,
+        "qualified_languages": {
+            "C/C++": 0.5876,
+            "Python": 0.1643,
+            "JavaScript/TypeScript": 0.1634
+        },
+        "description": "🦊 Anti-detect browser"
+    },
+    {
+        "repo_name": "kubernetes-sigs/headlamp",
+        "url": "https://github.com/kubernetes-sigs/headlamp",
+        "stars": 5955,
+        "total_code_bytes": 5006200,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.8337,
+            "Go": 0.1518
+        },
+        "description": "A Kubernetes web UI that is fully-featured, user-friendly and extensible"
+    },
+    {
+        "repo_name": "youtube/api-samples",
+        "url": "https://github.com/youtube/api-samples",
+        "stars": 5951,
+        "total_code_bytes": 742923,
+        "qualified_languages": {
+            "Java": 0.3383,
+            "PHP": 0.2274,
+            "Python": 0.2047,
+            "JavaScript/TypeScript": 0.1017
+        },
+        "description": "Code samples for YouTube APIs, including the YouTube Data API, YouTube Analytics API, and YouTube Live Streaming API. The repo contains language-specific directories that contain the samples."
+    },
+    {
+        "repo_name": "Dman95/SASM",
+        "url": "https://github.com/Dman95/SASM",
+        "stars": 5949,
+        "total_code_bytes": 2459382,
+        "qualified_languages": {
+            "Python": 0.739,
+            "C/C++": 0.1898
+        },
+        "description": "SASM - simple crossplatform IDE for NASM, MASM, GAS and FASM assembly languages"
+    },
+    {
+        "repo_name": "go-flutter-desktop/go-flutter",
+        "url": "https://github.com/go-flutter-desktop/go-flutter",
+        "stars": 5941,
+        "total_code_bytes": 320985,
+        "qualified_languages": {
+            "Go": 0.6217,
+            "C/C++": 0.3783
+        },
+        "description": "Flutter on Windows, MacOS and Linux - based on Flutter Embedding, Go and GLFW."
+    },
+    {
+        "repo_name": "katanemo/plano",
+        "url": "https://github.com/katanemo/plano",
+        "stars": 5936,
+        "total_code_bytes": 2029813,
+        "qualified_languages": {
+            "Rust": 0.7247,
+            "Python": 0.1464,
+            "JavaScript/TypeScript": 0.1173
+        },
+        "description": "Plano is an AI-native proxy and data plane for agentic apps — with built-in orchestration, safety, observability, and smart LLM routing so you stay focused on your agents core logic."
+    },
+    {
+        "repo_name": "databasus/databasus",
+        "url": "https://github.com/databasus/databasus",
+        "stars": 5932,
+        "total_code_bytes": 2940697,
+        "qualified_languages": {
+            "Go": 0.7197,
+            "JavaScript/TypeScript": 0.2577
+        },
+        "description": "Databases backup tool (PostgreSQL, MySQL, MongoDB)"
+    },
+    {
+        "repo_name": "hexgrad/kokoro",
+        "url": "https://github.com/hexgrad/kokoro",
+        "stars": 5930,
+        "total_code_bytes": 142929,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.5151,
+            "Python": 0.4704
+        },
+        "description": "https://hf.co/hexgrad/Kokoro-82M"
+    },
+    {
+        "repo_name": "openai/openai-cs-agents-demo",
+        "url": "https://github.com/openai/openai-cs-agents-demo",
+        "stars": 5927,
+        "total_code_bytes": 113296,
+        "qualified_languages": {
+            "Python": 0.6035,
+            "JavaScript/TypeScript": 0.3827
+        },
+        "description": "Demo of a customer service use case implemented with the OpenAI Agents SDK"
+    },
+    {
+        "repo_name": "cuckoosandbox/cuckoo",
+        "url": "https://github.com/cuckoosandbox/cuckoo",
+        "stars": 5924,
+        "total_code_bytes": 6626355,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.4682,
+            "Python": 0.3133
+        },
+        "description": "Cuckoo Sandbox is an automated dynamic malware analysis system"
+    },
+    {
+        "repo_name": "chainer/chainer",
+        "url": "https://github.com/chainer/chainer",
+        "stars": 5922,
+        "total_code_bytes": 8431295,
+        "qualified_languages": {
+            "Python": 0.7629,
+            "C/C++": 0.2003
+        },
+        "description": "A flexible framework of neural networks for deep learning"
+    },
+    {
+        "repo_name": "weaveworks/scope",
+        "url": "https://github.com/weaveworks/scope",
+        "stars": 5916,
+        "total_code_bytes": 1916609,
+        "qualified_languages": {
+            "Go": 0.6086,
+            "JavaScript/TypeScript": 0.2833
+        },
+        "description": "Monitoring, visualisation & management for Docker & Kubernetes"
+    },
+    {
+        "repo_name": "weibocom/motan",
+        "url": "https://github.com/weibocom/motan",
+        "stars": 5907,
+        "total_code_bytes": 2587155,
+        "qualified_languages": {
+            "Java": 0.8959,
+            "JavaScript/TypeScript": 0.0557
+        },
+        "description": "A cross-language remote procedure call(RPC) framework for rapid development of high performance distributed services."
+    },
+    {
+        "repo_name": "voila-dashboards/voila",
+        "url": "https://github.com/voila-dashboards/voila",
+        "stars": 5905,
+        "total_code_bytes": 485393,
+        "qualified_languages": {
+            "Python": 0.4677,
+            "JavaScript/TypeScript": 0.2187
+        },
+        "description": "Voilà turns Jupyter notebooks into standalone web applications"
+    },
+    {
+        "repo_name": "lwthiker/curl-impersonate",
+        "url": "https://github.com/lwthiker/curl-impersonate",
+        "stars": 5886,
+        "total_code_bytes": 134729,
+        "qualified_languages": {
+            "Python": 0.5002,
+            "C/C++": 0.0509
+        },
+        "description": "curl-impersonate: A special build of curl that can impersonate Chrome & Firefox"
+    },
+    {
+        "repo_name": "netalertx/NetAlertX",
+        "url": "https://github.com/netalertx/NetAlertX",
+        "stars": 5884,
+        "total_code_bytes": 4228224,
+        "qualified_languages": {
+            "Python": 0.4064,
+            "JavaScript/TypeScript": 0.3478,
+            "PHP": 0.1058
+        },
+        "description": "Centralized network visibility and continuous asset discovery.  Monitor devices, detect change, and stay aware across distributed networks."
+    },
+    {
+        "repo_name": "MadcowD/ell",
+        "url": "https://github.com/MadcowD/ell",
+        "stars": 5875,
+        "total_code_bytes": 786493,
+        "qualified_languages": {
+            "Python": 0.6141,
+            "JavaScript/TypeScript": 0.3727
+        },
+        "description": "A language model programming library."
+    },
+    {
+        "repo_name": "ledger/ledger",
+        "url": "https://github.com/ledger/ledger",
+        "stars": 5872,
+        "total_code_bytes": 3527784,
+        "qualified_languages": {
+            "C/C++": 0.8576,
+            "Python": 0.0848
+        },
+        "description": "Double-entry accounting system with a command-line reporting interface"
+    },
+    {
+        "repo_name": "PhilippC/keepass2android",
+        "url": "https://github.com/PhilippC/keepass2android",
+        "stars": 5871,
+        "total_code_bytes": 6209366,
+        "qualified_languages": {
+            "Java": 0.376,
+            "C/C++": 0.0655
+        },
+        "description": "Password manager app for Android"
+    },
+    {
+        "repo_name": "arvidn/libtorrent",
+        "url": "https://github.com/arvidn/libtorrent",
+        "stars": 5868,
+        "total_code_bytes": 8146208,
+        "qualified_languages": {
+            "C/C++": 0.9366,
+            "Python": 0.0502
+        },
+        "description": "an efficient feature complete C++ bittorrent implementation"
+    },
+    {
+        "repo_name": "jbeder/yaml-cpp",
+        "url": "https://github.com/jbeder/yaml-cpp",
+        "stars": 5861,
+        "total_code_bytes": 4535808,
+        "qualified_languages": {
+            "C/C++": 0.9262,
+            "Python": 0.0532
+        },
+        "description": "A YAML parser and emitter in C++"
+    },
+    {
+        "repo_name": "snailyp/gemini-balance",
+        "url": "https://github.com/snailyp/gemini-balance",
+        "stars": 5858,
+        "total_code_bytes": 1017827,
+        "qualified_languages": {
+            "Python": 0.499,
+            "JavaScript/TypeScript": 0.235
+        },
+        "description": "Gemini polling proxy service （gemini轮询代理服务）"
+    },
+    {
+        "repo_name": "fullstorydev/grpcui",
+        "url": "https://github.com/fullstorydev/grpcui",
+        "stars": 5846,
+        "total_code_bytes": 258844,
+        "qualified_languages": {
+            "Go": 0.4343,
+            "JavaScript/TypeScript": 0.4193
+        },
+        "description": "An interactive web UI for gRPC, along the lines of postman"
+    },
+    {
+        "repo_name": "tianocore/edk2",
+        "url": "https://github.com/tianocore/edk2",
+        "stars": 5839,
+        "total_code_bytes": 111123692,
+        "qualified_languages": {
+            "C/C++": 0.6783,
+            "Python": 0.0782
+        },
+        "description": "EDK II"
+    },
+    {
+        "repo_name": "CyberTimon/RapidRAW",
+        "url": "https://github.com/CyberTimon/RapidRAW",
+        "stars": 5838,
+        "total_code_bytes": 1949340,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.6084,
+            "Rust": 0.3501
+        },
+        "description": "A beautiful, non-destructive, and GPU-accelerated RAW image editor built with performance in mind."
+    },
+    {
+        "repo_name": "Permify/permify",
+        "url": "https://github.com/Permify/permify",
+        "stars": 5829,
+        "total_code_bytes": 2361742,
+        "qualified_languages": {
+            "Go": 0.9289,
+            "JavaScript/TypeScript": 0.0579
+        },
+        "description": "An open-source authorization as a service inspired by Google Zanzibar, designed to build and manage fine-grained and scalable authorization systems for any application. — Permify is now part of FusionAuth 🎉"
+    },
+    {
+        "repo_name": "defold/defold",
+        "url": "https://github.com/defold/defold",
+        "stars": 5822,
+        "total_code_bytes": 45039586,
+        "qualified_languages": {
+            "C/C++": 0.6121,
+            "Java": 0.0906
+        },
+        "description": "Defold is a completely free to use game engine for development of desktop, mobile and web games."
+    },
+    {
+        "repo_name": "hound-search/hound",
+        "url": "https://github.com/hound-search/hound",
+        "stars": 5818,
+        "total_code_bytes": 750804,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.7032,
+            "Go": 0.2662
+        },
+        "description": "Lightning fast code searching made easy"
+    },
+    {
+        "repo_name": "PBH-BTN/PeerBanHelper",
+        "url": "https://github.com/PBH-BTN/PeerBanHelper",
+        "stars": 5812,
+        "total_code_bytes": 3128867,
+        "qualified_languages": {
+            "Java": 0.6343,
+            "JavaScript/TypeScript": 0.187
+        },
+        "description": "Automatically block unwanted, leeches and abnormal BT peers with support for customized and cloud rules.| BT 反吸血工具 - 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。支持 qB/qBEE/Deluge/BiglyBT/BitComet"
+    },
+    {
+        "repo_name": "OSGeo/gdal",
+        "url": "https://github.com/OSGeo/gdal",
+        "stars": 5794,
+        "total_code_bytes": 96448264,
+        "qualified_languages": {
+            "C/C++": 0.782,
+            "Python": 0.1802
+        },
+        "description": "GDAL is an open source MIT licensed translator library for raster and vector geospatial data formats."
+    },
+    {
+        "repo_name": "lambci/docker-lambda",
+        "url": "https://github.com/lambci/docker-lambda",
+        "stars": 5793,
+        "total_code_bytes": 255432,
+        "qualified_languages": {
+            "JavaScript/TypeScript": 0.1828,
+            "Go": 0.1826,
+            "Python": 0.1328,
+            "Java": 0.1021
+        },
+        "description": "Docker images and test runners that replicate the live AWS Lambda environment"
+    },
+    {
+        "repo_name": "r0x0r/pywebview",
+        "url": "https://github.com/r0x0r/pywebview",
+        "stars": 5785,
+        "total_code_bytes": 591208,
+        "qualified_languages": {
+            "Python": 0.7669,
+            "JavaScript/TypeScript": 0.165
+        },
+        "description": "Build GUI for your Python program with JavaScript, HTML, and CSS"
+    },
+    {
+        "repo_name": "ZoneMinder/zoneminder",
+        "url": "https://github.com/ZoneMinder/zoneminder",
+        "stars": 5783,
+        "total_code_bytes": 29921144,
+        "qualified_languages": {
+            "PHP": 0.4067,
+            "JavaScript/TypeScript": 0.2243,
+            "C/C++": 0.076
+        },
+        "description": "ZoneMinder is a free, open source Closed-circuit television software application developed for Linux which supports IP, USB and Analog cameras. "
+    },
+    {
+        "repo_name": "volcengine/OpenViking",
+        "url": "https://github.com/volcengine/OpenViking",
+        "stars": 5783,
+        "total_code_bytes": 4184168,
+        "qualified_languages": {
+            "Python": 0.8224,
+            "C/C++": 0.0885
+        },
+        "description": "OpenViking is an open-source context database designed specifically for AI Agents(such as openclaw). OpenViking unifies the management of context (memory, resources, and skills) that Agents need through a file system paradigm, enabling hierarchical context delivery and self-evolving."
+    },
+    {
+        "repo_name": "PaddlePaddle/PaddleClas",
+        "url": "https://github.com/PaddlePaddle/PaddleClas",
+        "stars": 5782,
+        "total_code_bytes": 3182559,
+        "qualified_languages": {
+            "Python": 0.7876,
+            "C/C++": 0.1014
+        },
+        "description": "A treasure chest for visual classification and recognition powered by PaddlePaddle"
+    },
+    {
+        "repo_name": "mininet/mininet",
+        "url": "https://github.com/mininet/mininet",
+        "stars": 5781,
+        "total_code_bytes": 404320,
+        "qualified_languages": {
+            "Python": 0.7639,
+            "C/C++": 0.1244
+        },
+        "description": "Emulator for rapid prototyping of Software Defined Networks"
+    },
+    {
+        "repo_name": "changmingxie/tcc-transaction",
+        "url": "https://github.com/changmingxie/tcc-transaction",
+        "stars": 5780,
+        "total_code_bytes": 1055606,
+        "qualified_languages": {
+            "Java": 0.8603,
+            "JavaScript/TypeScript": 0.1155
+        },
+        "description": "tcc-transaction是TCC型事务java实现"
+    }
+]
