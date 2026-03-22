@@ -1,8 +1,20 @@
 # config.json for github PAT and other api-key
 config/.config.json
 
+.env
+
 .venv
 
 .vscode
 
+.opencode
 
+.ruff_cache
+
+# Phase 0 additions
+*.db
+output/
+/tmp/
+__pycache__/
+*.pyc
+.pytest_cache/
