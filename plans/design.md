@@ -90,6 +90,24 @@ fetch_repos ──► fetch_prs ──► human_review
         benchmark_dataset.json          summary_report.md
 ```
 
+### 1.6 Stage 1 的两层筛选职责
+
+Stage 1 必须明确分成两层，避免把 repo 查询条件和 PR 查询条件混在一起：
+
+- **Repo 层（`fetch_repos`）= 粗召回**
+  - 目标：找到“仓库层面疑似存在某类跨语言互操作代码”的候选仓库。
+  - 手段：使用 `SEARCH_QUERIES` 这类**源码搜索信号**回收仓库；这些 query 是 repo-level recall signal，不是 PR-level filter。
+  - 输出：`RepoInfo` 列表，只回答“这个仓库值不值得继续扫描 PR”。
+
+- **PR 层（`fetch_prs`）= 精筛**
+  - 目标：在候选仓库中找到真正适合作为 benchmark 样本的 merged PR。
+  - 手段：检查 merged 状态、测试文件、diff 行数、跨语言信号等。
+  - 输出：`PRMetadata` 列表，作为 Stage 1 的最终产物。
+
+- **人工审核层（`human_review`）= 可选后置过滤**
+  - 目标：让研究者在写出 `prs_snapshot.json` 之前，手动排除明显噪音样本。
+  - 手段：仅在显式开启 review 时暂停一次；默认关闭。
+
 ---
 
 ## 二、数据类型规范
@@ -316,15 +334,20 @@ state.py
 #### `search_repos`
 
 ```
-功能：搜索满足条件的 GitHub 仓库，带缓存
+功能：根据源码搜索信号回收候选仓库，带缓存
 
 输入：
-  query: str              — GitHub Search 查询字符串
+  query: str              — GitHub 代码搜索查询字符串（repo-level recall signal，不是 PR 条件）
   min_stars: int          — 最低 star 数过滤，默认 50
   max_results: int        — 最多返回结果数，默认 30
   
 输出：
   list[RepoInfo]          — 仓库列表，按 star 数降序
+
+实现要求：
+  对 query 执行代码搜索（或等价的“按源码命中回收仓库”逻辑），
+  从命中的文件项中提取所属 repo，按 full_name 去重，
+  再应用 min_stars 过滤与排序。
   
 缓存策略：
   key = hash(query + min_stars)
@@ -479,7 +502,8 @@ state.py
   
 编译参数：
   checkpointer = SqliteSaver.from_conn_string(db_path)
-  interrupt_before = ["human_review"]
+  不设置 interrupt_before
+  human_review 节点内部的 interrupt() 是唯一人工审核暂停点
 ```
 
 ### 5.2 函数：`build_pr_subgraph`
@@ -608,7 +632,7 @@ state.py
 #### 函数：`fetch_repos`
 
 ```
-功能：通过 GitHub Search API 筛选含跨语言互操作调用的仓库
+功能：通过 GitHub 代码搜索做 repo-level 粗召回，筛选“仓库层面疑似包含跨语言互操作代码”的候选仓库
 
 输入（从 state 读取）：
   state["run_config"]["interop_types"]   list[str]  — 目标类型列表
@@ -620,10 +644,14 @@ state.py
 
 处理逻辑：
   1. 遍历 run_config["interop_types"]，每种类型构造对应 search query
-  2. 调用 github_client.search_repos()，每种类型最多取 ceil(target/len(types)) 个
+  2. 对每种类型执行**源码搜索**，从命中的代码文件回收所属仓库；每种类型最多取 ceil(target/len(types)) 个
   3. 按 full_name 去重（同一仓库可能被多个 query 命中）
   4. 按 stars 降序排列
   5. 截取前 target_repo_count 个返回
+
+职责边界：
+  fetch_repos 只负责 repo-level 粗召回，不判断某个具体 PR 是否可做 benchmark。
+  测试文件、merged 状态、diff 行数、PR 级 interop 信号都由 fetch_prs 负责。
 
 异常处理：
   所有查询失败 → raise RuntimeError("fetch_repos: all queries failed")
@@ -639,7 +667,7 @@ state.py
 #### 函数：`fetch_prs`
 
 ```
-功能：对每个仓库扫描 PR，筛选含跨语言调用+测试用例的已合并 PR
+功能：对候选仓库扫描 merged PR，做 PR-level 精筛，筛选含跨语言调用+测试用例的样本
 
 输入（从 state 读取）：
   state["repos"]                          list[RepoInfo]
@@ -656,7 +684,7 @@ PR 筛选条件（全部满足才通过）：
   C2: diff 涉及 ≥ 2 种不同语言的文件
   C3: diff 文件中至少 1 个 is_test=True（测试文件判定见下）
   C4: diff 总行数在 [min_diff_lines, max_diff_lines] 范围内
-  C5: diff 中存在跨语言调用信号（关键字检测，见下）
+  C5: diff 中存在轻量跨语言调用信号（至少命中该 interop_type 的宿主/目标语言组合；如成本可接受，可再结合路径/关键字做补强）
 
 测试文件判定规则（满足任一即为 is_test=True）：
   - 路径包含 "test/" 或 "tests/" 或 "spec/"
@@ -673,11 +701,29 @@ PR 筛选条件（全部满足才通过）：
   lua_c:       "lua_State", "luaL_newstate", "lua_pcall"
   python_cext: "PyInit_", "PyArg_ParseTuple", "Py_BuildValue"
   ruby_cext:   "Init_", "rb_define_method", "VALUE"
+  v8_cpp:      "v8::", "Isolate", "FunctionTemplate"
   wasm:        "#[wasm_bindgen]", "WebAssembly.instantiate"
+
+Stage 1 宿主/目标语言对（用于轻量信号判断）：
+  cgo       → Go + C/C++
+  jni       → Java/Kotlin + C/C++
+  ctypes    → Python + C
+  cffi      → Python + C
+  rust_ffi  → Rust + C
+  node_napi → JavaScript/TypeScript + C++
+  lua_c     → C/C++ + Lua
+  python_cext → C + Python
+  ruby_cext → C + Ruby
+  v8_cpp    → C++ + JavaScript/TypeScript
+  wasm      → Rust/C + JavaScript/TypeScript
 
 目标驱动停止逻辑：
   全局候选池 >= target_items 时停止扫描，剩余仓库跳过
   每个仓库达到 per_repo_cap（待定，暂不限制）时跳过该仓库
+
+职责边界：
+  fetch_prs 负责把 repo 候选池收缩为“真正可进入后续阶段的 PR 候选池”。
+  它是 Stage 1 的主要精筛步骤；human_review 只是可选的人工后置过滤。
 
 输出字段（PRMetadata）字段填充来源：
   repo, clone_url           — 来自 RepoInfo
@@ -699,11 +745,11 @@ PR 筛选条件（全部满足才通过）：
 #### 函数：`human_review`
 
 ```
-功能：可选的人工审核节点，暂停 Graph 等待外部确认 PR 列表
+功能：可选的人工审核节点，默认关闭；开启时在节点内部暂停一次，等待同一进程内的人类确认 PR 列表
 
 输入（从 state 读取）：
   state["prs"]                            list[PRMetadata]
-  state["run_config"]["skip_review"]      bool  — True 时直接跳过
+  state["run_config"]["skip_review"]      bool  — True 时直接跳过（默认值）
 
 输出（写入 state）：
   state["prs"]  list[PRMetadata]  — 过滤后的 PR 列表
@@ -711,17 +757,30 @@ PR 筛选条件（全部满足才通过）：
 
 interrupt 暴露的数据：
   {
-    "prs": [PRMetadata, ...],      — 完整 PR 列表供人工查看
-    "count": int,                  — 总数
+    "message": str,                — 人工审核提示
+    "total_count": int,            — 总数
     "by_interop_type": dict,       — 按类型分组的统计
-    "by_interop_layer": dict       — 按层次分组的统计
+    "by_interop_layer": dict,      — 按层次分组的统计
+    "prs_summary": [
+      {
+        "review_key": str,         — 复合唯一键，格式 "owner/repo#123"
+        "repo": str,
+        "pr_id": int,
+        "title": str,
+        "type": str
+      }, ...
+    ]
   }
 
-恢复方式：
-  app.update_state(config, {"approved_pr_ids": [1234, 5678, ...]})
-  app.invoke(None, config)
+恢复方式（同进程一次性审核）：
+  from langgraph.types import Command
+  app.invoke(Command(resume={"approved_pr_keys": ["owner/repo#123", ...]}), config)
 
-若 approved_pr_ids 未提供 → 默认全部批准（保持原列表不变）
+若 approved_pr_keys 未提供 → 默认全部批准（保持原列表不变）
+
+约束：
+  不再在 compile() 中配置 interrupt_before=["human_review"]；
+  human_review 节点内部的 interrupt() 是唯一暂停点，避免重复中断。
 ```
 
 ---
@@ -1543,7 +1602,7 @@ parse 实现逻辑：
     "max_prs_per_repo":   int        — 默认 100
     "target_items":       int        — 候选池目标，默认 300
     "per_repo_cap":       int | None — 默认 None（待定）
-    "skip_review":        bool       — 默认 False
+    "skip_review":        bool       — 默认 True（默认关闭人工审核）
     "task_strategy":      str        — "completion"，默认
     "target_llm":         str        — 默认 "claude-sonnet-4-20250514"
     "judge_llm":          str        — 默认 "claude-sonnet-4-20250514"
@@ -1557,10 +1616,10 @@ parse 实现逻辑：
 | 模式 | 函数 | 核心行为 |
 |---|---|---|
 | `full` | `run_full(args)` | 构建主图，完整运行 Stage 1 → Stage 2+3 → 聚合 |
-| `fetch` | `run_fetch(args)` | 只运行到 human_review 前，将 prs 序列化到 `--output` 文件 |
-| `build` | `run_build(args)` | 读取 `--input` PR 文件，注入主图 checkpoint，从 human_review 后继续 |
+| `fetch` | `run_fetch(args)` | 运行完整 Stage 1；默认跳过人工审核，若显式开启 review，则在 `human_review` 节点内暂停一次并在同一进程内恢复，最终将审核后的 PR 写入 `--output` |
+| `build` | `run_build(args)` | 读取 `--input` PR 文件，直接进入 Stage 2+3（不依赖 human_review 前的 checkpoint） |
 | `single-pr` | `run_single_pr(args)` | 读取 `--pr-json` 单条 PR，直接 invoke PR 子图，打印 test_result |
-| `resume` | `run_resume(args)` | 用 `--thread-id` 恢复已有 checkpoint，从中断点继续 |
+| `resume` | `run_resume(args)` | 用 `--thread-id` 恢复已有 checkpoint，从上次持久化节点继续（主要用于异常中断后的续跑） |
 
 ### 8.3 命令行参数
 
@@ -1573,7 +1632,7 @@ parse 实现逻辑：
 | `--pr-json` | str | `test_pr.json` | `single-pr` 模式的单条 PR 文件 |
 | `--interop-types` | str | 全部 | 逗号分隔，如 `"cgo,jni"` |
 | `--min-stars` | int | 50 | 覆盖 BASE_RUN_CONFIG |
-| `--skip-review` | flag | False | 跳过人工审核节点 |
+| `--review` | flag | False | 开启一次性人工审核；默认不审核 |
 | `--target-llm` | str | 见配置 | 被测模型 |
 | `--db` | str | `benchmark_runs.db` | Checkpoint 数据库路径 |
 

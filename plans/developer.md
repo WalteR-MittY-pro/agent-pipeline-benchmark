@@ -550,21 +550,26 @@ class GitHubClient:
         min_stars: int = 50,
         max_results: int = 30,
     ) -> list[RepoInfo]:
-        """搜索仓库，带 24 小时缓存"""
+        """通过源码命中回收仓库（repo-level 粗召回），带 24 小时缓存"""
         cache_key = f"search:{hashlib.md5(f'{query}{min_stars}'.encode()).hexdigest()}"
         cached = self._cache_get(cache_key)
         if cached is not None:
             logger.debug(f"缓存命中: search_repos({query!r})")
             return cached
 
-        full_query = f"{query} stars:>={min_stars}"
-        repos = []
+        full_query = query
+        repos_by_name: dict[str, RepoInfo] = {}
         try:
-            result = self._api_call(
-                lambda: self._client().search_repositories(full_query, sort="stars")
+            matches = self._api_call(
+                lambda: self._client().search_code(full_query)
             )
-            for repo in result[:max_results]:
-                repos.append({
+            for match in matches:
+                repo = match.repository
+                if repo.full_name in repos_by_name:
+                    continue
+                if repo.stargazers_count < min_stars:
+                    continue
+                repos_by_name[repo.full_name] = {
                     "full_name":     repo.full_name,
                     "clone_url":     repo.clone_url,
                     "stars":         repo.stargazers_count,
@@ -572,11 +577,14 @@ class GitHubClient:
                     "interop_layer": "",
                     "languages":     {},   # 按需获取，此处暂空
                     "default_branch": repo.default_branch or "main",
-                })
+                }
+                if len(repos_by_name) >= max_results:
+                    break
         except Exception as e:
             logger.error(f"search_repos 失败: {e}")
             return []
 
+        repos = sorted(repos_by_name.values(), key=lambda r: r["stars"], reverse=True)
         self._cache_set(cache_key, repos, ttl_hours=24.0)
         return repos
 
@@ -599,7 +607,7 @@ class GitHubClient:
             pulls = self._api_call(
                 lambda: repo.get_pulls(state="closed", sort="updated", direction="desc")
             )
-            for pr in pulls[:max_n]:
+            for pr in pulls:
                 if pr.merged_at is None:
                     continue
                 prs.append({
@@ -886,7 +894,7 @@ python tests/test_github_client.py
 
 ## Phase 1：Stage 1 数据采集
 
-> **目标：** 实现仓库筛选 → PR 筛选 → 人工审核的完整 Stage 1 流水线。  
+> **目标：** 实现“仓库粗召回 → PR 精筛 → 可选人工审核”的完整 Stage 1 流水线。  
 > **完成标志：** `python main.py --mode fetch` 能产出 `prs_snapshot.json`，文件中至少有 1 条有效 PR。
 
 ---
@@ -895,7 +903,10 @@ python tests/test_github_client.py
 
 #### 要做什么
 
-根据 `run_config` 中的 `interop_types` 列表，分别搜索 GitHub，合并、去重，返回仓库列表。
+根据 `run_config` 中的 `interop_types` 列表，先做 **repo-level 粗召回**：分别搜索 GitHub 源码，回收命中代码所属的仓库，合并、去重，返回仓库列表。
+
+**重要边界：** `SEARCH_QUERIES` 是**仓库筛选条件**，不是 PR 筛选条件。  
+它回答的是“这个仓库里是否曾出现过某类 interop 信号”，不回答“某个具体 PR 是否能进入 benchmark”。
 
 #### 关键搜索查询设计
 
@@ -923,6 +934,7 @@ SEARCH_QUERIES: dict[str, str] = {
     "lua_c":      'language:C "lua_State" "luaL_newstate"',
     "python_cext":'language:C "PyInit_" "PyArg_ParseTuple"',
     "ruby_cext":  'language:C "rb_define_method" "Init_"',
+    "v8_cpp":     'language:C++ "v8::" "Isolate"',
     # WASM 层
     "wasm":       'language:Rust "#[wasm_bindgen]"',
 }
@@ -930,7 +942,7 @@ SEARCH_QUERIES: dict[str, str] = {
 
 def fetch_repos(state: BenchmarkState) -> dict:
     """
-    节点函数：搜索 GitHub，筛选含跨语言互操作调用的仓库。
+    节点函数：执行 repo-level 粗召回，筛选疑似含跨语言互操作代码的仓库。
     
     输入：state["run_config"]["interop_types"]，["min_stars"]，["target_repo_count"]
     输出：state["repos"] — list[RepoInfo]
@@ -960,7 +972,7 @@ def fetch_repos(state: BenchmarkState) -> dict:
             logger.warning(f"未找到 {interop_type} 的搜索查询，跳过")
             continue
 
-        logger.info(f"搜索 {interop_type} 仓库...")
+        logger.info(f"搜索 {interop_type} 仓库（repo-level recall）...")
         repos = client.search_repos(
             query=query,
             min_stars=min_stars,
@@ -1038,7 +1050,9 @@ python tests/test_fetch_repos.py
 
 #### 要做什么
 
-对每个仓库扫描已合并的 PR，通过 5 个过滤条件筛选出含跨语言调用和测试用例的 PR。
+对每个候选仓库扫描已合并的 PR，执行 **PR-level 精筛**，通过 5 个过滤条件筛选出含跨语言调用和测试用例的 PR。
+
+这里才是 Stage 1 决定“哪些 PR 真正进入候选池”的地方。
 
 ```python
 # nodes/fetch_prs.py
@@ -1060,37 +1074,35 @@ INTEROP_KEYWORDS: dict[str, list[str]] = {
     "lua_c":       ["lua_State", "luaL_newstate", "lua_pcall", "lua_pushstring"],
     "python_cext": ["PyInit_", "PyArg_ParseTuple", "Py_BuildValue", "PyObject"],
     "ruby_cext":   ["Init_", "rb_define_method", "VALUE", "rb_intern"],
+    "v8_cpp":      ["v8::", "Isolate", "FunctionTemplate"],
     "wasm":        ["#[wasm_bindgen]", "WebAssembly.instantiate", "wasm_bindgen"],
+}
+
+INTEROP_LANG_PAIRS: dict[str, tuple[set[str], set[str]]] = {
+    "cgo":         ({"Go"}, {"C", "C++"}),
+    "jni":         ({"Java", "Kotlin"}, {"C", "C++"}),
+    "ctypes":      ({"Python"}, {"C"}),
+    "cffi":        ({"Python"}, {"C"}),
+    "rust_ffi":    ({"Rust"}, {"C"}),
+    "node_napi":   ({"JavaScript", "TypeScript"}, {"C++"}),
+    "lua_c":       ({"C", "C++"}, {"Lua"}),
+    "python_cext": ({"C"}, {"Python"}),
+    "ruby_cext":   ({"C"}, {"Ruby"}),
+    "v8_cpp":      ({"C++"}, {"JavaScript", "TypeScript"}),
+    "wasm":        ({"Rust", "C"}, {"JavaScript", "TypeScript"}),
 }
 
 
 def _has_interop_signal(diff_files: list[DiffFile], interop_type: str) -> bool:
-    """检查 diff 文件中是否存在跨语言调用信号（关键字层面的快速判断）"""
-    # 注意：此时 diff_files 只有元数据，没有文件内容
-    # 通过文件扩展名和路径做初步判断，详细内容分析在 construct_task 中进行
-    keywords = INTEROP_KEYWORDS.get(interop_type, [])
-    # 简化策略：如果 diff 同时包含两种语言文件，认为有跨语言信号
+    """Stage 1 轻量 interop 信号判断：至少命中该类型的宿主/目标语言组合"""
     langs = set(f["lang"] for f in diff_files)
-    interop_lang_pairs = {
-        "cgo":         ({"Go", "C"}),
-        "jni":         ({"Java", "C"}),
-        "ctypes":      ({"Python", "C"}),
-        "cffi":        ({"Python", "C"}),
-        "rust_ffi":    ({"Rust", "C"}),
-        "node_napi":   ({"JavaScript", "C++"}),
-        "lua_c":       ({"C", "Lua"}),
-        "python_cext": ({"C", "Python"}),
-        "ruby_cext":   ({"C", "Ruby"}),
-        "wasm":        ({"Rust", "JavaScript"}),
-    }
-    expected_pair = interop_lang_pairs.get(interop_type, set())
-    # 至少包含期望语言对中的两种语言
-    return len(langs & expected_pair) >= 2
+    host_langs, target_langs = INTEROP_LANG_PAIRS.get(interop_type, (set(), set()))
+    return bool(langs & host_langs) and bool(langs & target_langs)
 
 
 def fetch_prs(state: BenchmarkState) -> dict:
     """
-    节点函数：扫描仓库 PR，筛选含跨语言调用+测试用例的已合并 PR。
+    节点函数：扫描仓库 PR，执行 PR-level 精筛。
     
     输入：state["repos"]，state["run_config"]
     输出：追加到 state["prs"]（Reducer 自动合并）
@@ -1261,7 +1273,10 @@ python tests/test_fetch_prs.py
 
 #### 要做什么
 
-实现可选的人工审核节点。`skip_review=True` 时直接透传；否则使用 LangGraph 的 `interrupt()` 暂停图执行，等待外部注入审核结果。
+实现可选的人工审核节点。默认关闭；只有显式开启 review 时，才在 `human_review` 节点内部使用一次 `interrupt()` 暂停图执行，等待同一进程内的人类确认。
+
+**关键约束：** 不要同时再用 `interrupt_before=["human_review"]`。  
+Stage 1 的人工审核只保留这一个暂停点，避免重复中断。
 
 ```python
 # nodes/human_review.py
@@ -1273,6 +1288,10 @@ from state import BenchmarkState
 logger = logging.getLogger(__name__)
 
 
+def _review_key(pr: dict) -> str:
+    return f"{pr['repo']}#{pr['pr_id']}"
+
+
 def human_review(state: BenchmarkState) -> dict:
     """
     节点函数：可选人工审核节点。
@@ -1280,7 +1299,7 @@ def human_review(state: BenchmarkState) -> dict:
     skip_review=True  → 直接透传，不修改 prs
     skip_review=False → 调用 interrupt() 暂停，等待人工确认
     """
-    if state["run_config"].get("skip_review", False):
+    if state["run_config"].get("skip_review", True):
         logger.info(f"human_review: 跳过（skip_review=True），保留全部 {len(state['prs'])} 个 PR")
         return {}
 
@@ -1291,29 +1310,28 @@ def human_review(state: BenchmarkState) -> dict:
 
     logger.info(f"human_review: 暂停，等待人工审核 {len(prs)} 个 PR")
 
-    # interrupt() 会暂停 Graph，将数据暴露给外部
-    # 外部调用 app.update_state(config, {"approved_pr_ids": [...]}) 后继续
+    # interrupt() 会暂停 Graph，将摘要数据暴露给上层调用者
     decision = interrupt({
         "message":      "请审核以下 PR 列表，确认要保留哪些",
         "total_count":  len(prs),
         "by_interop_type":  dict(by_type),
         "by_interop_layer": dict(by_layer),
         "prs_summary":  [
-            {"pr_id": p["pr_id"], "repo": p["repo"],
+            {"review_key": _review_key(p), "pr_id": p["pr_id"], "repo": p["repo"],
              "title": p["pr_title"], "type": p["interop_type"]}
             for p in prs
         ],
     })
 
     # 恢复后，从 decision 中读取审核结果
-    approved_ids = decision.get("approved_pr_ids")
-    if approved_ids is None:
+    approved_keys = decision.get("approved_pr_keys")
+    if approved_keys is None:
         # 未提供则默认全部批准
-        logger.info("human_review: 未提供 approved_pr_ids，全部批准")
+        logger.info("human_review: 未提供 approved_pr_keys，全部批准")
         return {}
 
-    approved_set = set(approved_ids)
-    filtered = [p for p in prs if p["pr_id"] in approved_set]
+    approved_set = set(approved_keys)
+    filtered = [p for p in prs if _review_key(p) in approved_set]
     logger.info(f"human_review: 人工批准 {len(filtered)}/{len(prs)} 个 PR")
     return {"prs": filtered}
 ```
@@ -1352,7 +1370,6 @@ def test_skip_review_passthrough():
 
 def test_human_review_requires_interrupt():
     """skip_review=False 时应调用 interrupt()（这里测试它会抛出特定异常）"""
-    from langgraph.types import Interrupt
     state = {**SAMPLE_STATE, "run_config": {"skip_review": False}}
     try:
         human_review(state)
@@ -1384,9 +1401,8 @@ if __name__ == "__main__":
 import asyncio
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.sqlite import SqliteSaver
-from langgraph.types import Send
 
-from state import BenchmarkState, PRSubState
+from state import BenchmarkState
 from nodes.fetch_repos   import fetch_repos
 from nodes.fetch_prs     import fetch_prs
 from nodes.human_review  import human_review
@@ -1419,10 +1435,7 @@ def build_graph(db_path: str = "benchmark_runs.db") -> object:
     g.add_edge("human_review", END)  # Phase 4 中改为 fan-out 到子图
 
     checkpointer = SqliteSaver.from_conn_string(db_path)
-    return g.compile(
-        checkpointer=checkpointer,
-        interrupt_before=["human_review"],
-    )
+    return g.compile(checkpointer=checkpointer)
 ```
 
 **步骤 2：** 创建 `main.py` fetch 模式
@@ -1431,6 +1444,7 @@ def build_graph(db_path: str = "benchmark_runs.db") -> object:
 # main.py
 import argparse, json, os, logging
 from datetime import datetime
+from langgraph.types import Command
 
 logging.basicConfig(
     level=logging.INFO,
@@ -1438,14 +1452,15 @@ logging.basicConfig(
 )
 
 BASE_RUN_CONFIG = {
-    "interop_types":      ["cgo", "jni", "ctypes", "rust_ffi", "node_napi",
-                           "lua_c", "python_cext", "ruby_cext", "wasm"],
+    "interop_types":      ["cgo", "jni", "ctypes", "cffi", "rust_ffi",
+                           "node_napi", "lua_c", "python_cext",
+                           "ruby_cext", "v8_cpp", "wasm"],
     "min_stars":          50,
     "max_prs_per_repo":   100,
     "target_items":       300,
     "target_repo_count":  100,
     "per_repo_cap":       None,
-    "skip_review":        False,
+    "skip_review":        True,   # 默认关闭人工审核
     "task_strategy":      "completion",
     "target_llm":         "claude-sonnet-4-20250514",
     "judge_llm":          "claude-sonnet-4-20250514",
@@ -1462,6 +1477,29 @@ def make_initial_state(run_config: dict) -> dict:
     }
 
 
+def prompt_review(prs_summary: list[dict]) -> list[str] | None:
+    """同进程一次性人工审核：返回批准的 review_key 列表；None 表示全部保留"""
+    print("\n=== Human Review ===")
+    for idx, item in enumerate(prs_summary, start=1):
+        print(f"{idx:>3}. [{item['review_key']}] {item['title']}")
+
+    raw = input("输入保留编号（逗号分隔，回车=全部保留，0=全部丢弃）: ").strip()
+    if raw == "":
+        return None
+    if raw == "0":
+        return []
+
+    chosen = set()
+    for token in raw.split(","):
+        token = token.strip()
+        if token.isdigit():
+            idx = int(token)
+            if 1 <= idx <= len(prs_summary):
+                chosen.add(idx - 1)
+
+    return [prs_summary[i]["review_key"] for i in sorted(chosen)]
+
+
 def run_fetch(args):
     """只跑 Stage 1，结果保存到文件"""
     from graph import build_graph
@@ -1471,7 +1509,7 @@ def run_fetch(args):
     config    = {"configurable": {"thread_id": thread_id}}
 
     run_config = {**BASE_RUN_CONFIG,
-                  "skip_review": True,  # fetch 模式默认跳过人工审核
+                  "skip_review": not args.review,
                   "db_path": db_path}
 
     # 允许命令行覆盖部分参数
@@ -1482,6 +1520,14 @@ def run_fetch(args):
 
     app    = build_graph(db_path=db_path)
     result = app.invoke(make_initial_state(run_config), config)
+
+    # review 开启时，human_review 节点会中断一次；在同一进程内收集决定后继续
+    if args.review and "__interrupt__" in result:
+        interrupt_obj = result["__interrupt__"][0]
+        payload = interrupt_obj.value
+        approved_keys = prompt_review(payload["prs_summary"])
+        resume_payload = {} if approved_keys is None else {"approved_pr_keys": approved_keys}
+        result = app.invoke(Command(resume=resume_payload), config)
 
     prs         = result.get("prs", [])
     output_path = args.output
@@ -1495,6 +1541,7 @@ def run_fetch(args):
 
 
 def run_resume(args):
+    """主要用于异常中断后的续跑，不用于常规 human review。"""
     from graph import build_graph
     app    = build_graph(db_path=args.db)
     config = {"configurable": {"thread_id": args.thread_id}}
@@ -1512,7 +1559,7 @@ if __name__ == "__main__":
     parser.add_argument("--pr-json",      default="tests/fixtures/sample_pr.json")
     parser.add_argument("--interop-types",default=None)
     parser.add_argument("--min-stars",    type=int, default=None)
-    parser.add_argument("--skip-review",  action="store_true")
+    parser.add_argument("--review",       action="store_true")
     parser.add_argument("--db",           default="benchmark_runs.db")
     args = parser.parse_args()
 
@@ -3005,10 +3052,7 @@ def build_graph(db_path: str = "benchmark_runs.db") -> object:
     g.add_edge("aggregate", END)
 
     checkpointer = SqliteSaver.from_conn_string(db_path)
-    return g.compile(
-        checkpointer=checkpointer,
-        interrupt_before=["human_review"],
-    )
+    return g.compile(checkpointer=checkpointer)
 ```
 
 ---
@@ -3041,7 +3085,6 @@ python main.py \
   --mode full \
   --interop-types cgo \
   --min-stars 5000 \
-  --skip-review \
   --thread-id full-test-001
 
 # 验证产出文件
@@ -3086,21 +3129,12 @@ if items:
 ### C. `interrupt()` 导致程序卡住
 
 ```
-症状：运行 fetch 模式时程序卡在 human_review 节点
-原因：skip_review=False 且未提供 approved_pr_ids
+症状：运行 fetch 模式时程序停在 human_review 之后不继续
+原因：使用了 --review，程序正在等待同一进程内的人工输入
 解法：
-  1. 使用 --skip-review 参数跳过审核
-  2. 或者在另一个终端执行：
-     python -c "
-     from graph import build_graph
-     import json
-     app = build_graph()
-     config = {'configurable': {'thread_id': 'YOUR_THREAD_ID'}}
-     state = app.get_state(config)
-     pr_ids = [p['pr_id'] for p in state.values['prs']]
-     app.update_state(config, {'approved_pr_ids': pr_ids})
-     "
-     然后重新运行: python main.py --mode resume --thread-id YOUR_THREAD_ID
+  1. 在当前终端完成 review 输入（回车=全部保留，0=全部丢弃）
+  2. 如果本次不需要人工审核，移除 --review 参数
+  3. 如果需要自定义审核 UI，在 main.py 中替换 prompt_review() 即可
 ```
 
 ### D. `compile_verify` 循环失败
