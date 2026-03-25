@@ -12,6 +12,10 @@ from state import BenchmarkState
 logger = logging.getLogger(__name__)
 
 
+def _review_key(pr: dict) -> str:
+    return f"{pr['repo']}#{pr['pr_id']}"
+
+
 def human_review(state: BenchmarkState) -> dict:
     """
     Optional human review node.
@@ -19,7 +23,7 @@ def human_review(state: BenchmarkState) -> dict:
     skip_review=True  → pass through, don't modify prs
     skip_review=False → call interrupt() to pause, wait for external approval
     """
-    if state["run_config"].get("skip_review", False):
+    if state["run_config"].get("skip_review", True):
         logger.info(
             f"human_review: skipped (skip_review=True), keeping all {len(state['prs'])} PRs"
         )
@@ -32,8 +36,7 @@ def human_review(state: BenchmarkState) -> dict:
 
     logger.info(f"human_review: pausing for review of {len(prs)} PRs")
 
-    # interrupt() pauses the Graph, exposes data externally
-    # External caller: app.update_state(config, {"approved_pr_ids": [...]}) then continue
+    # interrupt() pauses the graph once and returns the resume payload on continuation.
     decision = interrupt(
         {
             "message": "Please review the PR list and confirm which to keep",
@@ -42,6 +45,7 @@ def human_review(state: BenchmarkState) -> dict:
             "by_interop_layer": dict(by_layer),
             "prs_summary": [
                 {
+                    "review_key": _review_key(p),
                     "pr_id": p["pr_id"],
                     "repo": p["repo"],
                     "title": p["pr_title"],
@@ -53,13 +57,13 @@ def human_review(state: BenchmarkState) -> dict:
     )
 
     # After resume, read approval result from decision
-    approved_ids = decision.get("approved_pr_ids")
-    if approved_ids is None:
+    approved_keys = decision.get("approved_pr_keys")
+    if approved_keys is None:
         # No approval list provided, approve all by default
-        logger.info("human_review: no approved_pr_ids provided, approving all")
+        logger.info("human_review: no approved_pr_keys provided, approving all")
         return {}
 
-    approved_set = set(approved_ids)
-    filtered = [p for p in prs if p["pr_id"] in approved_set]
+    approved_set = set(approved_keys)
+    filtered = [p for p in prs if _review_key(p) in approved_set]
     logger.info(f"human_review: human approved {len(filtered)}/{len(prs)} PRs")
     return {"prs": filtered}

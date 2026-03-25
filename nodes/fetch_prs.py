@@ -19,30 +19,32 @@ INTEROP_KEYWORDS: dict[str, list[str]] = {
     "lua_c": ["lua_State", "luaL_newstate", "lua_pcall", "lua_pushstring"],
     "python_cext": ["PyInit_", "PyArg_ParseTuple", "Py_BuildValue", "PyObject"],
     "ruby_cext": ["Init_", "rb_define_method", "VALUE", "rb_intern"],
+    "v8_cpp": ["v8::", "Isolate", "FunctionTemplate"],
     "wasm": ["#[wasm_bindgen]", "WebAssembly.instantiate", "wasm_bindgen"],
 }
 
-# Language pairs expected for each interop_type
-INTEROP_LANG_PAIRS: dict[str, set] = {
-    "cgo": {"Go", "C"},
-    "jni": {"Java", "C"},
-    "ctypes": {"Python", "C"},
-    "cffi": {"Python", "C"},
-    "rust_ffi": {"Rust", "C"},
-    "node_napi": {"JavaScript", "C++"},
-    "lua_c": {"C", "Lua"},
-    "python_cext": {"C", "Python"},
-    "ruby_cext": {"C", "Ruby"},
-    "wasm": {"Rust", "JavaScript"},
+# Host and target language sets expected for each interop_type.
+# Stage 1 only has file metadata, so this is a lightweight language-pair check.
+INTEROP_LANG_PAIRS: dict[str, tuple[set[str], set[str]]] = {
+    "cgo": ({"Go"}, {"C", "C++"}),
+    "jni": ({"Java", "Kotlin"}, {"C", "C++"}),
+    "ctypes": ({"Python"}, {"C"}),
+    "cffi": ({"Python"}, {"C"}),
+    "rust_ffi": ({"Rust"}, {"C"}),
+    "node_napi": ({"JavaScript", "TypeScript"}, {"C++"}),
+    "lua_c": ({"C", "C++"}, {"Lua"}),
+    "python_cext": ({"C"}, {"Python"}),
+    "ruby_cext": ({"C"}, {"Ruby"}),
+    "v8_cpp": ({"C++"}, {"JavaScript", "TypeScript"}),
+    "wasm": ({"Rust", "C"}, {"JavaScript", "TypeScript"}),
 }
 
 
 def _has_interop_signal(diff_files: list[DiffFile], interop_type: str) -> bool:
-    """Check if diff files contain cross-language call signals (language-level check)"""
+    """Check whether diff files hit the expected host/target language pair."""
     langs = set(f["lang"] for f in diff_files)
-    expected_pair = INTEROP_LANG_PAIRS.get(interop_type, set())
-    # At least 2 languages from expected pair
-    return len(langs & expected_pair) >= 2
+    host_langs, target_langs = INTEROP_LANG_PAIRS.get(interop_type, (set(), set()))
+    return bool(langs & host_langs) and bool(langs & target_langs)
 
 
 def fetch_prs(state: BenchmarkState) -> dict:

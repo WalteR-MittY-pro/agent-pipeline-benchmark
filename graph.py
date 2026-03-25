@@ -15,6 +15,11 @@ from langgraph.graph import StateGraph
 from langgraph.constants import START, END
 from langgraph.checkpoint.memory import MemorySaver
 
+try:
+    from langgraph.checkpoint.sqlite import SqliteSaver
+except ImportError:  # pragma: no cover - fallback for minimal environments
+    SqliteSaver = None
+
 _DOCKER_SEMAPHORE: Optional[asyncio.Semaphore] = None
 
 
@@ -38,8 +43,9 @@ def build_graph(db_path: str = "benchmark_runs.db"):
     g.add_edge("fetch_prs", "human_review")
     g.add_edge("human_review", END)
 
-    checkpointer = MemorySaver()
-    return g.compile(
-        checkpointer=checkpointer,
-        interrupt_before=["human_review"],
-    )
+    if SqliteSaver is not None:
+        checkpointer = SqliteSaver.from_conn_string(db_path)
+    else:  # same-process review still works with in-memory checkpoints
+        checkpointer = MemorySaver()
+
+    return g.compile(checkpointer=checkpointer)

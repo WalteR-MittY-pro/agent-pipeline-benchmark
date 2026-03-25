@@ -129,32 +129,34 @@ class GitHubClient:
             logger.debug(f"Cache hit: search_repos({query!r})")
             return cached
 
-        full_query = f"{query} stars:>={min_stars}"
-        repos = []
+        full_query = query
+        repos_by_name: dict[str, RepoInfo] = {}
         try:
-            result = self._api_call(
-                lambda: self._client().search_repositories(full_query, sort="stars")
+            matches = self._api_call(
+                lambda: self._client().search_code(full_query)
             )
-            try:
-                repo_iter = result[:max_results]
-            except (IndexError, TypeError):
-                repo_iter = []
-            for repo in repo_iter:
-                repos.append(
-                    {
-                        "full_name": repo.full_name,
-                        "clone_url": repo.clone_url,
-                        "stars": repo.stargazers_count,
-                        "interop_type": "",
-                        "interop_layer": "",
-                        "languages": {},
-                        "default_branch": repo.default_branch or "main",
-                    }
-                )
+            for match in matches:
+                repo = match.repository
+                if repo.full_name in repos_by_name:
+                    continue
+                if repo.stargazers_count < min_stars:
+                    continue
+                repos_by_name[repo.full_name] = {
+                    "full_name": repo.full_name,
+                    "clone_url": repo.clone_url,
+                    "stars": repo.stargazers_count,
+                    "interop_type": "",
+                    "interop_layer": "",
+                    "languages": {},
+                    "default_branch": repo.default_branch or "main",
+                }
+                if len(repos_by_name) >= max_results:
+                    break
         except Exception as e:
             logger.error(f"search_repos failed: {e}")
             return []
 
+        repos = sorted(repos_by_name.values(), key=lambda r: r["stars"], reverse=True)
         self._cache_set(cache_key, repos, ttl_hours=24.0)
         return repos
 
@@ -174,11 +176,7 @@ class GitHubClient:
             pulls = self._api_call(
                 lambda: repo.get_pulls(state="closed", sort="updated", direction="desc")
             )
-            try:
-                pull_iter = pulls[:max_n]
-            except (IndexError, TypeError):
-                pull_iter = []
-            for pr in pull_iter:
+            for pr in pulls:
                 if pr.merged_at is None:
                     continue
                 prs.append(
