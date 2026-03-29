@@ -4,7 +4,7 @@ import os, sys, math, logging
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from state import RepoInfo, BenchmarkState, INTEROP_LAYER_MAP
-from github_client import GitHubClient
+from github_client import GitHubClient, get_github_tokens_from_env
 
 logger = logging.getLogger(__name__)
 
@@ -36,40 +36,71 @@ def fetch_repos(state: BenchmarkState) -> dict:
     cfg = state["run_config"]
     interop_types: list[str] = cfg.get("interop_types", list(SEARCH_QUERIES.keys()))
     min_stars: int = cfg.get("min_stars", 50)
-    target_count: int = cfg.get("target_repo_count", 100)
+    target_count: int = cfg.get("target_repo_count", 200)
     db_path: str = cfg.get("db_path", "benchmark_runs.db")
+    max_search_passes: int = cfg.get("repo_search_passes", 3)
 
     # Initialize client (tokens from env vars)
-    tokens = [
-        os.environ["GITHUB_TOKEN_1"],
-        os.environ.get("GITHUB_TOKEN_2", os.environ["GITHUB_TOKEN_1"]),
-    ]
+    tokens = get_github_tokens_from_env()
     client = GitHubClient(tokens, cache_db=db_path)
 
-    # Quota per type
-    per_type_quota = math.ceil(target_count / len(interop_types))
+    if not interop_types:
+        logger.warning("No interop types configured, fetch_repos returning empty set")
+        return {"repos": []}
+
+    # We intentionally over-fetch and retry with larger per-type quotas because
+    # cross-type dedup can otherwise leave us well below the requested target.
+    base_quota = max(1, math.ceil(target_count / len(interop_types)))
     all_repos: dict[str, RepoInfo] = {}  # key = full_name for dedup
 
-    for interop_type in interop_types:
-        query = SEARCH_QUERIES.get(interop_type)
-        if not query:
-            logger.warning(f"No search query for {interop_type}, skipping")
-            continue
-
-        logger.info(f"Searching {interop_type} repos...")
-        repos = client.search_repos(
-            query=query,
-            min_stars=min_stars,
-            max_results=per_type_quota,
+    for pass_idx in range(max_search_passes):
+        per_type_quota = min(target_count, base_quota * (2**pass_idx))
+        before_count = len(all_repos)
+        logger.info(
+            "Repo search pass %s/%s with per-type quota %s (target=%s, current=%s)",
+            pass_idx + 1,
+            max_search_passes,
+            per_type_quota,
+            target_count,
+            before_count,
         )
 
-        for repo in repos:
-            if repo["full_name"] not in all_repos:
-                repo["interop_type"] = interop_type
-                repo["interop_layer"] = INTEROP_LAYER_MAP.get(interop_type, "ffi")
-                all_repos[repo["full_name"]] = repo
+        for interop_type in interop_types:
+            query = SEARCH_QUERIES.get(interop_type)
+            if not query:
+                logger.warning(f"No search query for {interop_type}, skipping")
+                continue
 
-        logger.info(f"  {interop_type}: found {len(repos)} repos")
+            logger.info(f"Searching {interop_type} repos...")
+            repos = client.search_repos(
+                query=query,
+                min_stars=min_stars,
+                max_results=per_type_quota,
+            )
+
+            for repo in repos:
+                if repo["full_name"] not in all_repos:
+                    repo["interop_type"] = interop_type
+                    repo["interop_layer"] = INTEROP_LAYER_MAP.get(interop_type, "ffi")
+                    all_repos[repo["full_name"]] = repo
+
+            logger.info(
+                "  %s: found %s repos this pass, %s unique total",
+                interop_type,
+                len(repos),
+                len(all_repos),
+            )
+
+        if len(all_repos) >= target_count:
+            logger.info("Reached repo target %s after pass %s", target_count, pass_idx + 1)
+            break
+        if len(all_repos) == before_count:
+            logger.info(
+                "Repo search plateaued at %s unique repos after pass %s",
+                len(all_repos),
+                pass_idx + 1,
+            )
+            break
 
     # Sort by stars descending, take top target_count
     result = sorted(all_repos.values(), key=lambda r: r["stars"], reverse=True)

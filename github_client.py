@@ -5,14 +5,159 @@ import sqlite3
 import time
 import hashlib
 import logging
+import socket
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Optional, Any
+from urllib.parse import urlparse
 
 from github import Github, GithubException, RateLimitExceededException
+from requests.exceptions import ProxyError as RequestsProxyError
 
 from state import RepoInfo, DiffFile
 
 logger = logging.getLogger(__name__)
+
+PROXY_ENV_KEYS = (
+    "HTTPS_PROXY",
+    "https_proxy",
+    "HTTP_PROXY",
+    "http_proxy",
+    "ALL_PROXY",
+    "all_proxy",
+)
+NO_PROXY_ENV_KEYS = ("NO_PROXY", "no_proxy")
+LOCAL_PROXY_HOSTS = {"127.0.0.1", "localhost", "::1"}
+GITHUB_NO_PROXY_HOSTS = ("api.github.com", "github.com")
+
+
+def load_project_env(env_path: str | os.PathLike[str] | None = None) -> dict[str, str]:
+    """Load key=value pairs from the repo .env file into missing os.environ slots."""
+    path = (
+        Path(env_path)
+        if env_path is not None
+        else Path(__file__).resolve().parent / ".env"
+    )
+    if not path.exists():
+        return {}
+
+    loaded: dict[str, str] = {}
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export "):
+            line = line[len("export ") :].strip()
+        if "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip()
+        if not key:
+            continue
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+            value = value[1:-1]
+
+        loaded[key] = value
+        os.environ.setdefault(key, value)
+
+    return loaded
+
+
+def _env_flag_enabled(name: str) -> bool:
+    value = os.environ.get(name, "")
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _iter_proxy_env_vars() -> list[tuple[str, str]]:
+    return [(key, value) for key in PROXY_ENV_KEYS if (value := os.environ.get(key))]
+
+
+def _parse_proxy_endpoint(proxy_url: str) -> tuple[str, int] | None:
+    candidate = proxy_url if "://" in proxy_url else f"http://{proxy_url}"
+    parsed = urlparse(candidate)
+    if not parsed.hostname:
+        return None
+
+    scheme = parsed.scheme or "http"
+    default_port = 443 if scheme in {"https", "socks5", "socks5h"} else 80
+    return parsed.hostname, parsed.port or default_port
+
+
+def _is_proxy_reachable(host: str, port: int, timeout: float = 0.2) -> bool:
+    try:
+        with socket.create_connection((host, port), timeout=timeout):
+            return True
+    except OSError:
+        return False
+
+
+def _append_no_proxy_hosts(hosts: tuple[str, ...]) -> None:
+    merged: list[str] = []
+    for key in NO_PROXY_ENV_KEYS:
+        raw = os.environ.get(key, "")
+        for part in raw.split(","):
+            part = part.strip()
+            if part and part not in merged:
+                merged.append(part)
+
+    for host in hosts:
+        if host not in merged:
+            merged.append(host)
+
+    if merged:
+        os.environ["NO_PROXY"] = ",".join(merged)
+        os.environ["no_proxy"] = os.environ["NO_PROXY"]
+
+
+def prepare_github_network_env(
+    env_path: str | os.PathLike[str] | None = None,
+) -> None:
+    """Validate proxy-related env vars before PyGithub starts retrying requests."""
+    load_project_env(env_path)
+
+    if _env_flag_enabled("GITHUB_BYPASS_PROXY"):
+        _append_no_proxy_hosts(GITHUB_NO_PROXY_HOSTS)
+        logger.info("Bypassing configured proxy for GitHub hosts via NO_PROXY")
+        return
+
+    for key, value in _iter_proxy_env_vars():
+        endpoint = _parse_proxy_endpoint(value)
+        if endpoint is None:
+            continue
+
+        host, port = endpoint
+        if host in LOCAL_PROXY_HOSTS and not _is_proxy_reachable(host, port):
+            raise RuntimeError(
+                f"{key} is set to {value}, but the local proxy is not reachable at "
+                f"{host}:{port}. Either start the proxy, unset the proxy env vars, "
+                "set NO_PROXY=api.github.com,github.com, or export "
+                "GITHUB_BYPASS_PROXY=1 to skip the proxy for GitHub API calls."
+            )
+
+
+def get_github_tokens_from_env(
+    env_path: str | os.PathLike[str] | None = None,
+) -> list[str]:
+    """Load GitHub tokens from shell env, with project .env as fallback."""
+    prepare_github_network_env(env_path)
+    tokens = [
+        t
+        for key in ("GITHUB_TOKEN_1", "GITHUB_TOKEN_2", "GITHUB_TOKEN_3")
+        if (t := os.environ.get(key))
+    ]
+
+    if not tokens:
+        raise RuntimeError(
+            "Missing required GitHub token GITHUB_TOKEN_1. "
+            "Set it in the shell or add it to the project .env file."
+        )
+
+    if len(tokens) == 1:
+        tokens.append(tokens[0])
+
+    return tokens
 
 
 class GitHubClient:
@@ -37,14 +182,16 @@ class GitHubClient:
         logger.info(f"GitHubClient initialized with {len(tokens)} tokens")
 
     def _init_cache_tables(self):
-        self._conn.executescript("""
+        self._conn.executescript(
+            """
             CREATE TABLE IF NOT EXISTS github_cache (
                 cache_key   TEXT PRIMARY KEY,
                 value       TEXT NOT NULL,
                 created_at  TEXT NOT NULL,
                 ttl_hours   REAL NOT NULL
             );
-        """)
+        """
+        )
         self._conn.commit()
 
     def _cache_get(self, key: str) -> Optional[Any]:
@@ -92,6 +239,17 @@ class GitHubClient:
             try:
                 self._throttle()
                 return func(*args, **kwargs)
+            except RequestsProxyError as e:
+                proxies = ", ".join(
+                    f"{key}={value}" for key, value in _iter_proxy_env_vars()
+                )
+                hint = proxies or "HTTP(S)_PROXY/ALL_PROXY"
+                raise RuntimeError(
+                    "GitHub API request failed because the configured proxy is "
+                    f"unavailable ({hint}). Start the proxy, unset the proxy env vars, "
+                    "set NO_PROXY=api.github.com,github.com, or export "
+                    "GITHUB_BYPASS_PROXY=1."
+                ) from e
             except RateLimitExceededException:
                 logger.warning(
                     f"Rate limit hit, rotating token (attempt {attempt + 1})"
@@ -123,7 +281,10 @@ class GitHubClient:
         min_stars: int = 50,
         max_results: int = 30,
     ) -> list[RepoInfo]:
-        cache_key = f"search:{hashlib.md5(f'{query}{min_stars}'.encode()).hexdigest()}"
+        cache_key = (
+            "search:"
+            f"{hashlib.md5(f'{query}|{min_stars}|{max_results}'.encode()).hexdigest()}"
+        )
         cached = self._cache_get(cache_key)
         if cached is not None:
             logger.debug(f"Cache hit: search_repos({query!r})")
@@ -132,9 +293,7 @@ class GitHubClient:
         full_query = query
         repos_by_name: dict[str, RepoInfo] = {}
         try:
-            matches = self._api_call(
-                lambda: self._client().search_code(full_query)
-            )
+            matches = self._api_call(lambda: self._client().search_code(full_query))
             for match in matches:
                 repo = match.repository
                 if repo.full_name in repos_by_name:

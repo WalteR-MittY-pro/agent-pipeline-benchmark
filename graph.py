@@ -1,5 +1,6 @@
 # graph.py
 import asyncio
+import sqlite3
 import sys
 import os
 from typing import Optional
@@ -30,6 +31,19 @@ def get_docker_semaphore(max_concurrent: int = 4) -> asyncio.Semaphore:
     return _DOCKER_SEMAPHORE
 
 
+def _build_checkpointer(db_path: str):
+    if SqliteSaver is not None:
+        # Newer langgraph versions expose from_conn_string() as a context manager,
+        # while compile() expects an actual BaseCheckpointSaver instance.
+        conn = sqlite3.connect(
+            db_path,
+            check_same_thread=False,
+        )
+        return SqliteSaver(conn)
+
+    return MemorySaver()
+
+
 def build_graph(db_path: str = "benchmark_runs.db"):
     """Build and compile LangGraph main graph"""
     g = StateGraph(BenchmarkState)
@@ -43,9 +57,18 @@ def build_graph(db_path: str = "benchmark_runs.db"):
     g.add_edge("fetch_prs", "human_review")
     g.add_edge("human_review", END)
 
-    if SqliteSaver is not None:
-        checkpointer = SqliteSaver.from_conn_string(db_path)
-    else:  # same-process review still works with in-memory checkpoints
-        checkpointer = MemorySaver()
+    return g.compile(checkpointer=_build_checkpointer(db_path))
 
-    return g.compile(checkpointer=checkpointer)
+
+def build_stage1_pr_graph(db_path: str = "benchmark_runs.db"):
+    """Build the Stage 1 PR graph used by fetch-prs mode."""
+    g = StateGraph(BenchmarkState)
+
+    g.add_node("fetch_prs", fetch_prs)
+    g.add_node("human_review", human_review)
+
+    g.add_edge(START, "fetch_prs")
+    g.add_edge("fetch_prs", "human_review")
+    g.add_edge("human_review", END)
+
+    return g.compile(checkpointer=_build_checkpointer(db_path))

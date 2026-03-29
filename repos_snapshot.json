@@ -1,0 +1,1802 @@
+[
+  {
+    "full_name": "electron/electron",
+    "clone_url": "https://github.com/electron/electron.git",
+    "stars": 120689,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "python/cpython",
+    "clone_url": "https://github.com/python/cpython.git",
+    "stars": 72110,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "astral-sh/ruff",
+    "clone_url": "https://github.com/astral-sh/ruff.git",
+    "stars": 46741,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "yewstack/yew",
+    "clone_url": "https://github.com/yewstack/yew.git",
+    "stars": 32501,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "v8/v8",
+    "clone_url": "https://github.com/v8/v8.git",
+    "stars": 24946,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "ruby/ruby",
+    "clone_url": "https://github.com/ruby/ruby.git",
+    "stars": 23491,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "chromium/chromium",
+    "clone_url": "https://github.com/chromium/chromium.git",
+    "stars": 23293,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "RustPython/RustPython",
+    "clone_url": "https://github.com/RustPython/RustPython.git",
+    "stars": 21923,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "gleam-lang/gleam",
+    "clone_url": "https://github.com/gleam-lang/gleam.git",
+    "stars": 21304,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "wasmerio/wasmer",
+    "clone_url": "https://github.com/wasmerio/wasmer.git",
+    "stars": 20540,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "dianping/cat",
+    "clone_url": "https://github.com/dianping/cat.git",
+    "stars": 18970,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "elizaOS/eliza",
+    "clone_url": "https://github.com/elizaOS/eliza.git",
+    "stars": 17971,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "develop"
+  },
+  {
+    "full_name": "fail2ban/fail2ban",
+    "clone_url": "https://github.com/fail2ban/fail2ban.git",
+    "stars": 17347,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "gfx-rs/wgpu",
+    "clone_url": "https://github.com/gfx-rs/wgpu.git",
+    "stars": 16786,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "trunk"
+  },
+  {
+    "full_name": "tursodatabase/libsql",
+    "clone_url": "https://github.com/tursodatabase/libsql.git",
+    "stars": 16548,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "horovod/horovod",
+    "clone_url": "https://github.com/horovod/horovod.git",
+    "stars": 14682,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ast-grep/ast-grep",
+    "clone_url": "https://github.com/ast-grep/ast-grep.git",
+    "stars": 13202,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "svenstaro/genact",
+    "clone_url": "https://github.com/svenstaro/genact.git",
+    "stars": 11950,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "openresty/lua-nginx-module",
+    "clone_url": "https://github.com/openresty/lua-nginx-module.git",
+    "stars": 11747,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "k2-fsa/sherpa-onnx",
+    "clone_url": "https://github.com/k2-fsa/sherpa-onnx.git",
+    "stars": 11177,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "php/frankenphp",
+    "clone_url": "https://github.com/php/frankenphp.git",
+    "stars": 10951,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "wasm-bindgen/wasm-bindgen",
+    "clone_url": "https://github.com/wasm-bindgen/wasm-bindgen.git",
+    "stars": 8928,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "crazyguitar/pysheeet",
+    "clone_url": "https://github.com/crazyguitar/pysheeet.git",
+    "stars": 8151,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "cloudflare/workerd",
+    "clone_url": "https://github.com/cloudflare/workerd.git",
+    "stars": 8067,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "weolar/miniblink49",
+    "clone_url": "https://github.com/weolar/miniblink49.git",
+    "stars": 7810,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "google/jsonnet",
+    "clone_url": "https://github.com/google/jsonnet.git",
+    "stars": 7488,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "hybridgroup/gocv",
+    "clone_url": "https://github.com/hybridgroup/gocv.git",
+    "stars": 7409,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "release"
+  },
+  {
+    "full_name": "Qiskit/qiskit",
+    "clone_url": "https://github.com/Qiskit/qiskit.git",
+    "stars": 7184,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "mullvad/mullvadvpn-app",
+    "clone_url": "https://github.com/mullvad/mullvadvpn-app.git",
+    "stars": 6903,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "makepad/makepad",
+    "clone_url": "https://github.com/makepad/makepad.git",
+    "stars": 6264,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "dev"
+  },
+  {
+    "full_name": "OISF/suricata",
+    "clone_url": "https://github.com/OISF/suricata.git",
+    "stars": 6097,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "rust-windowing/winit",
+    "clone_url": "https://github.com/rust-windowing/winit.git",
+    "stars": 5893,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "rhysd/vim.wasm",
+    "clone_url": "https://github.com/rhysd/vim.wasm.git",
+    "stars": 5621,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "wasm"
+  },
+  {
+    "full_name": "qtile/qtile",
+    "clone_url": "https://github.com/qtile/qtile.git",
+    "stars": 5244,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "realpython/materials",
+    "clone_url": "https://github.com/realpython/materials.git",
+    "stars": 5132,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ydb-platform/ydb",
+    "clone_url": "https://github.com/ydb-platform/ydb.git",
+    "stars": 4700,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "mindspore-ai/mindspore",
+    "clone_url": "https://github.com/mindspore-ai/mindspore.git",
+    "stars": 4678,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mongodb/mongo-python-driver",
+    "clone_url": "https://github.com/mongodb/mongo-python-driver.git",
+    "stars": 4342,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "zeromq/pyzmq",
+    "clone_url": "https://github.com/zeromq/pyzmq.git",
+    "stars": 4114,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "seed-rs/seed",
+    "clone_url": "https://github.com/seed-rs/seed.git",
+    "stars": 3838,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "just-js/just",
+    "clone_url": "https://github.com/just-js/just.git",
+    "stars": 3783,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "ruvnet/RuVector",
+    "clone_url": "https://github.com/ruvnet/RuVector.git",
+    "stars": 3697,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "alexflint/gallium",
+    "clone_url": "https://github.com/alexflint/gallium.git",
+    "stars": 3663,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "unbit/uwsgi",
+    "clone_url": "https://github.com/unbit/uwsgi.git",
+    "stars": 3543,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "rogchap/v8go",
+    "clone_url": "https://github.com/rogchap/v8go.git",
+    "stars": 3474,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ebitengine/purego",
+    "clone_url": "https://github.com/ebitengine/purego.git",
+    "stars": 3470,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "koute/stdweb",
+    "clone_url": "https://github.com/koute/stdweb.git",
+    "stars": 3458,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "collectd/collectd",
+    "clone_url": "https://github.com/collectd/collectd.git",
+    "stars": 3349,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "truffleruby/truffleruby",
+    "clone_url": "https://github.com/truffleruby/truffleruby.git",
+    "stars": 3186,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Fewbytes/rubber-docker",
+    "clone_url": "https://github.com/Fewbytes/rubber-docker.git",
+    "stars": 3184,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "root-project/root",
+    "clone_url": "https://github.com/root-project/root.git",
+    "stars": 3147,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "fibjs/fibjs",
+    "clone_url": "https://github.com/fibjs/fibjs.git",
+    "stars": 3096,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "dev"
+  },
+  {
+    "full_name": "rubinius/rubinius",
+    "clone_url": "https://github.com/rubinius/rubinius.git",
+    "stars": 3093,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "collabnix/kubelabs",
+    "clone_url": "https://github.com/collabnix/kubelabs.git",
+    "stars": 3079,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "pmq20/node-packer",
+    "clone_url": "https://github.com/pmq20/node-packer.git",
+    "stars": 3070,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Rust-GCC/gccrs",
+    "clone_url": "https://github.com/Rust-GCC/gccrs.git",
+    "stars": 2854,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Xpra-org/xpra",
+    "clone_url": "https://github.com/Xpra-org/xpra.git",
+    "stars": 2742,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "AFLplusplus/LibAFL",
+    "clone_url": "https://github.com/AFLplusplus/LibAFL.git",
+    "stars": 2523,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "Xilinx/PYNQ",
+    "clone_url": "https://github.com/Xilinx/PYNQ.git",
+    "stars": 2290,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "libgit2/rugged",
+    "clone_url": "https://github.com/libgit2/rugged.git",
+    "stars": 2289,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mojombo/god",
+    "clone_url": "https://github.com/mojombo/god.git",
+    "stars": 2217,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Brooooooklyn/canvas",
+    "clone_url": "https://github.com/Brooooooklyn/canvas.git",
+    "stars": 2194,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "rune-rs/rune",
+    "clone_url": "https://github.com/rune-rs/rune.git",
+    "stars": 2175,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "ivanceras/sauron",
+    "clone_url": "https://github.com/ivanceras/sauron.git",
+    "stars": 2065,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "libgit2/git2go",
+    "clone_url": "https://github.com/libgit2/git2go.git",
+    "stars": 2001,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "oracle/graaljs",
+    "clone_url": "https://github.com/oracle/graaljs.git",
+    "stars": 1994,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "not-fl3/miniquad",
+    "clone_url": "https://github.com/not-fl3/miniquad.git",
+    "stars": 1965,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "DmitryUlyanov/Multicore-TSNE",
+    "clone_url": "https://github.com/DmitryUlyanov/Multicore-TSNE.git",
+    "stars": 1921,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "jiangwenyuan/nuster",
+    "clone_url": "https://github.com/jiangwenyuan/nuster.git",
+    "stars": 1910,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "reisxd/TizenTubeCobalt",
+    "clone_url": "https://github.com/reisxd/TizenTubeCobalt.git",
+    "stars": 1901,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "engineer-man/youtube",
+    "clone_url": "https://github.com/engineer-man/youtube.git",
+    "stars": 1884,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "MacRuby/MacRuby",
+    "clone_url": "https://github.com/MacRuby/MacRuby.git",
+    "stars": 1794,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "letoram/arcan",
+    "clone_url": "https://github.com/letoram/arcan.git",
+    "stars": 1780,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "libgit2/pygit2",
+    "clone_url": "https://github.com/libgit2/pygit2.git",
+    "stars": 1715,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "pypy/pypy",
+    "clone_url": "https://github.com/pypy/pypy.git",
+    "stars": 1694,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "pmq20/ruby-packer",
+    "clone_url": "https://github.com/pmq20/ruby-packer.git",
+    "stars": 1588,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "kushview/element",
+    "clone_url": "https://github.com/kushview/element.git",
+    "stars": 1548,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "bloomberg/comdb2",
+    "clone_url": "https://github.com/bloomberg/comdb2.git",
+    "stars": 1502,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "pygame-community/pygame-ce",
+    "clone_url": "https://github.com/pygame-community/pygame-ce.git",
+    "stars": 1457,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "nvzqz/divan",
+    "clone_url": "https://github.com/nvzqz/divan.git",
+    "stars": 1378,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "unum-cloud/UCall",
+    "clone_url": "https://github.com/unum-cloud/UCall.git",
+    "stars": 1324,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "nextcord/nextcord",
+    "clone_url": "https://github.com/nextcord/nextcord.git",
+    "stars": 1260,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "dibyendumajumdar/ravi",
+    "clone_url": "https://github.com/dibyendumajumdar/ravi.git",
+    "stars": 1246,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "owntracks/recorder",
+    "clone_url": "https://github.com/owntracks/recorder.git",
+    "stars": 1148,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "rhomobile/rhodes",
+    "clone_url": "https://github.com/rhomobile/rhodes.git",
+    "stars": 1057,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "libriscv/libriscv",
+    "clone_url": "https://github.com/libriscv/libriscv.git",
+    "stars": 1035,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "cvxopt/cvxopt",
+    "clone_url": "https://github.com/cvxopt/cvxopt.git",
+    "stars": 1032,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "matsumotory/ngx_mruby",
+    "clone_url": "https://github.com/matsumotory/ngx_mruby.git",
+    "stars": 996,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "d0iasm/rvemu",
+    "clone_url": "https://github.com/d0iasm/rvemu.git",
+    "stars": 941,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "3d0c/gmf",
+    "clone_url": "https://github.com/3d0c/gmf.git",
+    "stars": 932,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "bytecodealliance/wasmtime-go",
+    "clone_url": "https://github.com/bytecodealliance/wasmtime-go.git",
+    "stars": 892,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "haproxy-unofficial-obsolete-mirrors/haproxy",
+    "clone_url": "https://github.com/haproxy-unofficial-obsolete-mirrors/haproxy.git",
+    "stars": 881,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "uber/pam-ussh",
+    "clone_url": "https://github.com/uber/pam-ussh.git",
+    "stars": 870,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "aquasecurity/libbpfgo",
+    "clone_url": "https://github.com/aquasecurity/libbpfgo.git",
+    "stars": 839,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "rogerbinns/apsw",
+    "clone_url": "https://github.com/rogerbinns/apsw.git",
+    "stars": 835,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "sciter-sdk/rust-sciter",
+    "clone_url": "https://github.com/sciter-sdk/rust-sciter.git",
+    "stars": 826,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Shopify/pitchfork",
+    "clone_url": "https://github.com/Shopify/pitchfork.git",
+    "stars": 824,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "nodejs-mobile/nodejs-mobile",
+    "clone_url": "https://github.com/nodejs-mobile/nodejs-mobile.git",
+    "stars": 820,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "kaspanet/rusty-kaspa",
+    "clone_url": "https://github.com/kaspanet/rusty-kaspa.git",
+    "stars": 798,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "pychess/pychess",
+    "clone_url": "https://github.com/pychess/pychess.git",
+    "stars": 790,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "StanfordLegion/legion",
+    "clone_url": "https://github.com/StanfordLegion/legion.git",
+    "stars": 754,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "stable"
+  },
+  {
+    "full_name": "Segfault-Inc/Multicorn",
+    "clone_url": "https://github.com/Segfault-Inc/Multicorn.git",
+    "stars": 703,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "asticode/go-astiav",
+    "clone_url": "https://github.com/asticode/go-astiav.git",
+    "stars": 688,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "godotjs/GodotJS",
+    "clone_url": "https://github.com/godotjs/GodotJS.git",
+    "stars": 681,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "termbox/termbox2",
+    "clone_url": "https://github.com/termbox/termbox2.git",
+    "stars": 680,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mozilla/application-services",
+    "clone_url": "https://github.com/mozilla/application-services.git",
+    "stars": 664,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "keybase/go-keychain",
+    "clone_url": "https://github.com/keybase/go-keychain.git",
+    "stars": 650,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ProvableHQ/sdk",
+    "clone_url": "https://github.com/ProvableHQ/sdk.git",
+    "stars": 627,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "mainnet"
+  },
+  {
+    "full_name": "jaseg/python-mpv",
+    "clone_url": "https://github.com/jaseg/python-mpv.git",
+    "stars": 621,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "memorysafety/rav1d",
+    "clone_url": "https://github.com/memorysafety/rav1d.git",
+    "stars": 617,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "RReverser/serde-wasm-bindgen",
+    "clone_url": "https://github.com/RReverser/serde-wasm-bindgen.git",
+    "stars": 611,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "gideros/gideros",
+    "clone_url": "https://github.com/gideros/gideros.git",
+    "stars": 607,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mindreframer/golang-devops-stuff",
+    "clone_url": "https://github.com/mindreframer/golang-devops-stuff.git",
+    "stars": 590,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "pyparallel/pyparallel",
+    "clone_url": "https://github.com/pyparallel/pyparallel.git",
+    "stars": 590,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "branches/3.3-px"
+  },
+  {
+    "full_name": "godror/godror",
+    "clone_url": "https://github.com/godror/godror.git",
+    "stars": 590,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "kitech/qt.go",
+    "clone_url": "https://github.com/kitech/qt.go.git",
+    "stars": 568,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "theotherp/nzbhydra",
+    "clone_url": "https://github.com/theotherp/nzbhydra.git",
+    "stars": 561,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "FrodeSolheim/fs-uae",
+    "clone_url": "https://github.com/FrodeSolheim/fs-uae.git",
+    "stars": 545,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "romgrk/node-gtk",
+    "clone_url": "https://github.com/romgrk/node-gtk.git",
+    "stars": 535,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "gorgonia/cu",
+    "clone_url": "https://github.com/gorgonia/cu.git",
+    "stars": 529,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "nnsee/fileless-elf-exec",
+    "clone_url": "https://github.com/nnsee/fileless-elf-exec.git",
+    "stars": 503,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Polidea/SiriusObfuscator",
+    "clone_url": "https://github.com/Polidea/SiriusObfuscator.git",
+    "stars": 480,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "glebbash/LO",
+    "clone_url": "https://github.com/glebbash/LO.git",
+    "stars": 480,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "madonoharu/tsify",
+    "clone_url": "https://github.com/madonoharu/tsify.git",
+    "stars": 479,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "git-hulk/tcpkit",
+    "clone_url": "https://github.com/git-hulk/tcpkit.git",
+    "stars": 473,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "anthonywritescode/explains",
+    "clone_url": "https://github.com/anthonywritescode/explains.git",
+    "stars": 464,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "caseman/noise",
+    "clone_url": "https://github.com/caseman/noise.git",
+    "stars": 455,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "X-Profiler/xprofiler",
+    "clone_url": "https://github.com/X-Profiler/xprofiler.git",
+    "stars": 453,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "xiaodingding/iotfast",
+    "clone_url": "https://github.com/xiaodingding/iotfast.git",
+    "stars": 437,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "shorepine/amy",
+    "clone_url": "https://github.com/shorepine/amy.git",
+    "stars": 423,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "jmhodges/levigo",
+    "clone_url": "https://github.com/jmhodges/levigo.git",
+    "stars": 420,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "youtube/cobalt",
+    "clone_url": "https://github.com/youtube/cobalt.git",
+    "stars": 419,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "augustoroman/v8",
+    "clone_url": "https://github.com/augustoroman/v8.git",
+    "stars": 403,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "samyeyo/LuaRT",
+    "clone_url": "https://github.com/samyeyo/LuaRT.git",
+    "stars": 398,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "rthornton128/goncurses",
+    "clone_url": "https://github.com/rthornton128/goncurses.git",
+    "stars": 395,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "gfx-rs/portability",
+    "clone_url": "https://github.com/gfx-rs/portability.git",
+    "stars": 392,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "linxGnu/grocksdb",
+    "clone_url": "https://github.com/linxGnu/grocksdb.git",
+    "stars": 390,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "GNOME/librsvg",
+    "clone_url": "https://github.com/GNOME/librsvg.git",
+    "stars": 384,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "madhur/PortableJekyll",
+    "clone_url": "https://github.com/madhur/PortableJekyll.git",
+    "stars": 382,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "BallAerospace/COSMOS",
+    "clone_url": "https://github.com/BallAerospace/COSMOS.git",
+    "stars": 378,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "arcemu/arcemu",
+    "clone_url": "https://github.com/arcemu/arcemu.git",
+    "stars": 375,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "libyal/libfvde",
+    "clone_url": "https://github.com/libyal/libfvde.git",
+    "stars": 355,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "genometools/genometools",
+    "clone_url": "https://github.com/genometools/genometools.git",
+    "stars": 335,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "aliyun/surftrace",
+    "clone_url": "https://github.com/aliyun/surftrace.git",
+    "stars": 330,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "goplus/py",
+    "clone_url": "https://github.com/goplus/py.git",
+    "stars": 324,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "sunfishcode/c-ward",
+    "clone_url": "https://github.com/sunfishcode/c-ward.git",
+    "stars": 324,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "lukeroth/gdal",
+    "clone_url": "https://github.com/lukeroth/gdal.git",
+    "stars": 313,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "pirate/bash-utils",
+    "clone_url": "https://github.com/pirate/bash-utils.git",
+    "stars": 306,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "goodboy/tractor",
+    "clone_url": "https://github.com/goodboy/tractor.git",
+    "stars": 304,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "anp/rusl",
+    "clone_url": "https://github.com/anp/rusl.git",
+    "stars": 293,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "banyanops/collector",
+    "clone_url": "https://github.com/banyanops/collector.git",
+    "stars": 286,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "luavela/luavela",
+    "clone_url": "https://github.com/luavela/luavela.git",
+    "stars": 284,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "NiklasRosenstein/myo-python",
+    "clone_url": "https://github.com/NiklasRosenstein/myo-python.git",
+    "stars": 283,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "trip-zip/somewm",
+    "clone_url": "https://github.com/trip-zip/somewm.git",
+    "stars": 280,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "orktes/go-torch",
+    "clone_url": "https://github.com/orktes/go-torch.git",
+    "stars": 279,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ellibrodepython/50-ejemplos-python",
+    "clone_url": "https://github.com/ellibrodepython/50-ejemplos-python.git",
+    "stars": 277,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "rana/ora",
+    "clone_url": "https://github.com/rana/ora.git",
+    "stars": 274,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "fmzquant/backtest_python",
+    "clone_url": "https://github.com/fmzquant/backtest_python.git",
+    "stars": 274,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "backbay-labs/clawdstrike",
+    "clone_url": "https://github.com/backbay-labs/clawdstrike.git",
+    "stars": 272,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "op/go-nanomsg",
+    "clone_url": "https://github.com/op/go-nanomsg.git",
+    "stars": 270,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mattn/go-v8",
+    "clone_url": "https://github.com/mattn/go-v8.git",
+    "stars": 267,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "b4winckler/vim",
+    "clone_url": "https://github.com/b4winckler/vim.git",
+    "stars": 258,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ruby/openssl",
+    "clone_url": "https://github.com/ruby/openssl.git",
+    "stars": 258,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "alibaba/weex_js_engine",
+    "clone_url": "https://github.com/alibaba/weex_js_engine.git",
+    "stars": 251,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Emurgo/cardano-serialization-lib",
+    "clone_url": "https://github.com/Emurgo/cardano-serialization-lib.git",
+    "stars": 250,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "openstack/barbican",
+    "clone_url": "https://github.com/openstack/barbican.git",
+    "stars": 248,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "poelzi/ulatencyd",
+    "clone_url": "https://github.com/poelzi/ulatencyd.git",
+    "stars": 246,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "deeptools/pyBigWig",
+    "clone_url": "https://github.com/deeptools/pyBigWig.git",
+    "stars": 241,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "dyne/Zenroom",
+    "clone_url": "https://github.com/dyne/Zenroom.git",
+    "stars": 241,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "apple-open-source/macos",
+    "clone_url": "https://github.com/apple-open-source/macos.git",
+    "stars": 236,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "cslarsen/minijit",
+    "clone_url": "https://github.com/cslarsen/minijit.git",
+    "stars": 235,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "demergent-labs/azle",
+    "clone_url": "https://github.com/demergent-labs/azle.git",
+    "stars": 229,
+    "interop_type": "wasm",
+    "interop_layer": "wasm",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "mfisk/filemap",
+    "clone_url": "https://github.com/mfisk/filemap.git",
+    "stars": 228,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mitsuhiko/snaek",
+    "clone_url": "https://github.com/mitsuhiko/snaek.git",
+    "stars": 223,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "alexey-lysiuk/macos-sdk",
+    "clone_url": "https://github.com/alexey-lysiuk/macos-sdk.git",
+    "stars": 219,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "mikespook/goemphp",
+    "clone_url": "https://github.com/mikespook/goemphp.git",
+    "stars": 217,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "KenT2/pipresents-gapless",
+    "clone_url": "https://github.com/KenT2/pipresents-gapless.git",
+    "stars": 210,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "bnoordhuis/v8-cmake",
+    "clone_url": "https://github.com/bnoordhuis/v8-cmake.git",
+    "stars": 209,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "jeroen/V8",
+    "clone_url": "https://github.com/jeroen/V8.git",
+    "stars": 207,
+    "interop_type": "v8_cpp",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "jhonnybonny/CleverJAM",
+    "clone_url": "https://github.com/jhonnybonny/CleverJAM.git",
+    "stars": 205,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "bendmorris/static-python",
+    "clone_url": "https://github.com/bendmorris/static-python.git",
+    "stars": 202,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "matsumotory/mod_mruby",
+    "clone_url": "https://github.com/matsumotory/mod_mruby.git",
+    "stars": 201,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "jjensen/luaplus51-all",
+    "clone_url": "https://github.com/jjensen/luaplus51-all.git",
+    "stars": 199,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mila-iqia/platoon",
+    "clone_url": "https://github.com/mila-iqia/platoon.git",
+    "stars": 195,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "conda/pycosat",
+    "clone_url": "https://github.com/conda/pycosat.git",
+    "stars": 193,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "shoes/shoes3",
+    "clone_url": "https://github.com/shoes/shoes3.git",
+    "stars": 186,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "libretro/libretro-lutro",
+    "clone_url": "https://github.com/libretro/libretro-lutro.git",
+    "stars": 185,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mingodad/ljs",
+    "clone_url": "https://github.com/mingodad/ljs.git",
+    "stars": 185,
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "vpelletier/python-libusb1",
+    "clone_url": "https://github.com/vpelletier/python-libusb1.git",
+    "stars": 185,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "Wainberg/ryp",
+    "clone_url": "https://github.com/Wainberg/ryp.git",
+    "stars": 184,
+    "interop_type": "cffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "71/stadiacontroller",
+    "clone_url": "https://github.com/71/stadiacontroller.git",
+    "stars": 184,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "brson/rust-sdl",
+    "clone_url": "https://github.com/brson/rust-sdl.git",
+    "stars": 181,
+    "interop_type": "rust_ffi",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "rainycape/magick",
+    "clone_url": "https://github.com/rainycape/magick.git",
+    "stars": 179,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "USTC-Hackergame/hackergame2024-writeups",
+    "clone_url": "https://github.com/USTC-Hackergame/hackergame2024-writeups.git",
+    "stars": 177,
+    "interop_type": "ctypes",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "ziutek/gst",
+    "clone_url": "https://github.com/ziutek/gst.git",
+    "stars": 175,
+    "interop_type": "cgo",
+    "interop_layer": "ffi",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "mikelma/craftium",
+    "clone_url": "https://github.com/mikelma/craftium.git",
+    "stars": 175,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "raminfp/the-art-of-fuzzing",
+    "clone_url": "https://github.com/raminfp/the-art-of-fuzzing.git",
+    "stars": 175,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "main"
+  },
+  {
+    "full_name": "kubo/ruby-oci8",
+    "clone_url": "https://github.com/kubo/ruby-oci8.git",
+    "stars": 174,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "P1sec/pysctp",
+    "clone_url": "https://github.com/P1sec/pysctp.git",
+    "stars": 171,
+    "interop_type": "python_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "master"
+  },
+  {
+    "full_name": "imasahiro/rujit",
+    "clone_url": "https://github.com/imasahiro/rujit.git",
+    "stars": 171,
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "languages": {},
+    "default_branch": "rujit"
+  }
+]

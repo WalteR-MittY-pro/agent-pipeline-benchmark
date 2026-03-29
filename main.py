@@ -1,10 +1,19 @@
 # main.py
-import argparse, json, os, logging
+import argparse
+import hashlib
+import json
+import logging
+import os
+import tempfile
 from datetime import datetime
+from pathlib import Path
+
+from github_client import get_github_tokens_from_env
 
 try:
     from langgraph.types import Command
 except ImportError:  # pragma: no cover - lightweight fallback for tests/docs
+
     class Command:  # type: ignore[override]
         def __init__(self, resume):
             self.resume = resume
@@ -32,7 +41,7 @@ BASE_RUN_CONFIG = {
     "min_stars": 50,
     "max_prs_per_repo": 100,
     "target_items": 300,
-    "target_repo_count": 100,
+    "target_repo_count": 200,
     "per_repo_cap": None,
     "skip_review": True,
     "task_strategy": "completion",
@@ -42,13 +51,61 @@ BASE_RUN_CONFIG = {
     "max_diff_lines": 2000,
     "max_concurrent_docker": 4,
 }
+def _atomic_write_json(path: str, payload: object) -> None:
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w", encoding="utf-8", dir=target.parent, delete=False
+    ) as tmp:
+        json.dump(payload, tmp, indent=2, ensure_ascii=False, default=str)
+        tmp.flush()
+        os.fsync(tmp.fileno())
+        temp_path = tmp.name
+    os.replace(temp_path, target)
 
 
-def make_initial_state(run_config: dict) -> dict:
+def derive_progress_path(output_path: str) -> str:
+    path = Path(output_path)
+    if path.suffix == ".json":
+        return str(path.with_name(f"{path.stem}.progress.json"))
+    return f"{output_path}.progress.json"
+
+
+def load_json_array(path_str: str) -> list[dict]:
+    path = Path(path_str)
+    if not path.exists():
+        return []
+
+    raw = path.read_text(encoding="utf-8").strip()
+    if not raw:
+        return []
+
+    data = json.loads(raw)
+    if not isinstance(data, list):
+        raise SystemExit(f"{path_str} must be a JSON array")
+    return data
+
+
+def build_config_fingerprint(run_config: dict) -> str:
+    relevant = {
+        "max_prs_per_repo": run_config["max_prs_per_repo"],
+        "target_items": run_config["target_items"],
+        "min_diff_lines": run_config["min_diff_lines"],
+        "max_diff_lines": run_config["max_diff_lines"],
+    }
+    raw = json.dumps(relevant, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()
+
+
+def make_initial_state(
+    run_config: dict,
+    repos: list[dict] | None = None,
+    existing_prs: list[dict] | None = None,
+) -> dict:
     return {
         "run_config": run_config,
-        "repos": [],
-        "prs": [],
+        "repos": list(repos or []),
+        "prs": list(existing_prs or []),
         "benchmark_items": [],
         "errors": [],
     }
@@ -77,55 +134,128 @@ def prompt_review(prs_summary: list[dict]) -> list[str] | None:
     return [prs_summary[i]["review_key"] for i in sorted(chosen)]
 
 
-def run_fetch(args):
-    """Run Stage 1 only, save results to file"""
-    from graph import build_graph
+def run_fetch_repos(args):
+    """Run repo-level recall and save repos_snapshot.json."""
+    from nodes.fetch_repos import fetch_repos
 
-    db_path = args.db
-    thread_id = args.thread_id or f"fetch-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    config = {"configurable": {"thread_id": thread_id}}
-
-    review_enabled = getattr(args, "review", False)
+    output_path = args.output or "repos_snapshot.json"
     run_config = {
         **BASE_RUN_CONFIG,
-        "skip_review": not review_enabled,
-        "db_path": db_path,
+        "db_path": args.db,
+        "output_path": output_path,
     }
 
-    # Allow CLI override of some params
     if args.interop_types:
-        run_config["interop_types"] = args.interop_types.split(",")
-    if args.min_stars:
+        run_config["interop_types"] = [
+            item.strip() for item in args.interop_types.split(",") if item.strip()
+        ]
+    if args.min_stars is not None:
         run_config["min_stars"] = args.min_stars
+    if getattr(args, "target_repo_count", None) is not None:
+        run_config["target_repo_count"] = args.target_repo_count
 
-    app = build_graph(db_path=db_path)
-    result = app.invoke(make_initial_state(run_config), config)
+    try:
+        get_github_tokens_from_env()
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
 
-    if review_enabled and "__interrupt__" in result:
+    result = fetch_repos(make_initial_state(run_config))
+    repos = result.get("repos", [])
+    _atomic_write_json(output_path, repos)
+
+    logging.info("fetch-repos complete: %s repos saved to %s", len(repos), output_path)
+    return repos
+
+
+def run_fetch_prs(args):
+    """Run PR-level filtering with incremental writes and sidecar-based resume."""
+    from graph import build_stage1_pr_graph
+
+    db_path = args.db
+    input_path = args.input or "repos_snapshot.json"
+    output_path = args.output or "prs_snapshot.json"
+    progress_path = derive_progress_path(output_path)
+    thread_id = args.thread_id or f"fetch-prs-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    config = {"configurable": {"thread_id": thread_id}}
+
+    if not Path(input_path).exists():
+        raise SystemExit(f"Input file not found: {input_path}")
+
+    try:
+        get_github_tokens_from_env()
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
+
+    repos = load_json_array(input_path)
+    existing_prs = load_json_array(output_path)
+    if not Path(output_path).exists():
+        _atomic_write_json(output_path, existing_prs)
+
+    run_config = {
+        **BASE_RUN_CONFIG,
+        "skip_review": not getattr(args, "review", False),
+        "db_path": db_path,
+        "input_path": input_path,
+        "output_path": output_path,
+        "progress_path": progress_path,
+        "thread_id": thread_id,
+    }
+
+    if getattr(args, "max_prs_per_repo", None) is not None:
+        run_config["max_prs_per_repo"] = args.max_prs_per_repo
+    if args.min_stars is not None:
+        run_config["min_stars"] = args.min_stars
+    run_config["config_fingerprint"] = build_config_fingerprint(run_config)
+
+    app = build_stage1_pr_graph(db_path=db_path)
+    result = app.invoke(make_initial_state(run_config, repos, existing_prs), config)
+
+    approved_keys: list[str] | None = None
+    if getattr(args, "review", False) and "__interrupt__" in result:
         interrupt_obj = result["__interrupt__"][0]
         payload = interrupt_obj.value
         approved_keys = prompt_review(payload["prs_summary"])
         resume_payload = (
             {} if approved_keys is None else {"approved_pr_keys": approved_keys}
         )
-        result = app.invoke(Command(resume=resume_payload), config)
+        app.invoke(Command(resume=resume_payload), config)
 
-    prs = result.get("prs", [])
-    output_path = args.output or "prs_snapshot.json"
+    prs = load_json_array(output_path)
+    if getattr(args, "review", False):
+        if approved_keys is not None:
+            approved_set = set(approved_keys)
+            prs = [
+                pr for pr in prs if f"{pr['repo']}#{pr['pr_id']}" in approved_set
+            ]
+        _atomic_write_json(output_path, prs)
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(prs, f, ensure_ascii=False, indent=2, default=str)
-
-    logging.info(f"Stage 1 complete: {len(prs)} PRs saved to {output_path}")
+    logging.info(
+        "fetch-prs complete: %s PRs saved to %s (%s)",
+        len(prs),
+        output_path,
+        progress_path,
+    )
     return prs
+
+
+def run_resume(args):
+    """Resume a checkpointed Stage 1 review flow if needed."""
+    from graph import build_stage1_pr_graph
+
+    if not args.thread_id:
+        raise SystemExit("--thread-id is required for resume mode")
+
+    app = build_stage1_pr_graph(db_path=args.db)
+    config = {"configurable": {"thread_id": args.thread_id}}
+    return app.invoke(None, config)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Cross-language Benchmark Pipeline")
     parser.add_argument(
         "--mode",
-        choices=["fetch", "build", "single-pr", "resume", "full"],
-        default="fetch",
+        choices=["fetch-repos", "fetch-prs", "build", "single-pr", "resume", "full"],
+        default="fetch-repos",
         help="Execution mode",
     )
     parser.add_argument(
@@ -138,6 +268,10 @@ def main():
         help="Thread ID for checkpointing/resuming",
     )
     parser.add_argument(
+        "--input",
+        help="Input file path for fetch-prs/build modes",
+    )
+    parser.add_argument(
         "--interop-types",
         help="Comma-separated interop types (e.g., cgo,jni)",
     )
@@ -147,9 +281,19 @@ def main():
         help="Minimum stars for repo search",
     )
     parser.add_argument(
+        "--target-repo-count",
+        type=int,
+        help="Target number of candidate repos to collect in fetch-repos mode",
+    )
+    parser.add_argument(
         "--output",
         "-o",
-        help="Output file path for fetch mode",
+        help="Output file path for fetch-repos/fetch-prs modes",
+    )
+    parser.add_argument(
+        "--max-prs-per-repo",
+        type=int,
+        help="Maximum merged PRs to inspect per repo in fetch-prs mode",
     )
     parser.add_argument(
         "--review",
@@ -159,11 +303,18 @@ def main():
 
     args = parser.parse_args()
 
-    if args.mode == "fetch":
-        run_fetch(args)
-    else:
-        logging.error(f"Mode {args.mode} not yet implemented (Phase 2+)")
-        raise SystemExit(1)
+    dispatch = {
+        "fetch-repos": run_fetch_repos,
+        "fetch-prs": run_fetch_prs,
+        "resume": run_resume,
+    }
+
+    if args.mode in dispatch:
+        dispatch[args.mode](args)
+        return
+
+    logging.error("Mode %s not yet implemented (Phase 2+)", args.mode)
+    raise SystemExit(1)
 
 
 if __name__ == "__main__":

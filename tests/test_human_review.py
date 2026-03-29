@@ -84,13 +84,42 @@ def test_prompt_review_returns_review_keys():
         assert main.prompt_review(prs_summary) == ["c/d#2"]
 
 
-def test_run_fetch_resumes_in_process_when_review_enabled(tmp_path):
+def test_run_fetch_prs_resumes_in_process_when_review_enabled(tmp_path):
+    input_path = tmp_path / "repos_snapshot.json"
     output_path = tmp_path / "snapshot.json"
+    input_path.write_text(
+        json.dumps(
+            [
+                {
+                    "full_name": "a/b",
+                    "clone_url": "https://github.com/a/b.git",
+                    "stars": 1,
+                    "interop_type": "cgo",
+                    "interop_layer": "ffi",
+                    "languages": {"Go": 80, "C": 20},
+                    "default_branch": "main",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    output_path.write_text(
+        json.dumps(
+            [
+                {"repo": "a/b", "pr_id": 1, "interop_type": "cgo"},
+                {"repo": "c/d", "pr_id": 2, "interop_type": "jni"},
+            ]
+        ),
+        encoding="utf-8",
+    )
     interrupt_result = {
         "__interrupt__": [
             SimpleNamespace(
                 value={
-                    "prs_summary": [{"review_key": "a/b#1", "title": "Add CGo bridge"}]
+                    "prs_summary": [
+                        {"review_key": "a/b#1", "title": "Add CGo bridge"},
+                        {"review_key": "c/d#2", "title": "JNI wrapper"},
+                    ]
                 }
             )
         ]
@@ -109,17 +138,19 @@ def test_run_fetch_resumes_in_process_when_review_enabled(tmp_path):
     args = Namespace(
         db=str(tmp_path / "bench.db"),
         thread_id="thread-1",
-        interop_types="cgo",
-        min_stars=100,
+        input=str(input_path),
         output=str(output_path),
         review=True,
+        max_prs_per_repo=10,
+        min_stars=None,
     )
 
     with (
-        patch("graph.build_graph", return_value=fake_app),
+        patch("graph.build_stage1_pr_graph", return_value=fake_app),
         patch("main.prompt_review", return_value=["a/b#1"]),
+        patch("main.get_github_tokens_from_env", return_value=["fake_token"]),
     ):
-        result = main.run_fetch(args)
+        result = main.run_fetch_prs(args)
 
     assert result == final_result["prs"]
     assert len(fake_app.calls) == 2

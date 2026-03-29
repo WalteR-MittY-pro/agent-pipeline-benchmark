@@ -17,7 +17,7 @@
   - [1.1 nodes/fetch_repos.py](#11-nodesfetch_repospy)
   - [1.2 nodes/fetch_prs.py](#12-nodesfetch_prspy)
   - [1.3 nodes/human_review.py](#13-nodeshuman_reviewpy)
-  - [1.4 graph.py（Stage 1 部分）+ main.py（fetch 模式）](#14-graphpystage-1-部分--mainpyfetch-模式)
+  - [1.4 graph.py（Stage 1 部分）+ main.py（fetch-repos / fetch-prs 模式）](#14-graphpystage-1-部分--mainpyfetch-repos--fetch-prs-模式)
   - [1.5 Stage 1 集成验证](#15-stage-1-集成验证)
 - [Phase 2：Stage 2 容器环境构建](#phase-2stage-2-容器环境构建)
   - [2.1 nodes/infer_env.py](#21-nodesinfer_envpy)
@@ -895,7 +895,7 @@ python tests/test_github_client.py
 ## Phase 1：Stage 1 数据采集
 
 > **目标：** 实现“仓库粗召回 → PR 精筛 → 可选人工审核”的完整 Stage 1 流水线。  
-> **完成标志：** `python main.py --mode fetch` 能产出 `prs_snapshot.json`，文件中至少有 1 条有效 PR。
+> **完成标志：** `python main.py --mode fetch-repos` 能先产出 `repos_snapshot.json`，随后 `python main.py --mode fetch-prs` 能基于该文件持续产出 `prs_snapshot.json`；同一路径重复执行时，可按 `repo@head_sha` 跳过已扫描 PR。
 
 ---
 
@@ -1052,14 +1052,25 @@ python tests/test_fetch_repos.py
 
 对每个候选仓库扫描已合并的 PR，执行 **PR-level 精筛**，通过 5 个过滤条件筛选出含跨语言调用和测试用例的 PR。
 
-这里才是 Stage 1 决定“哪些 PR 真正进入候选池”的地方。
+这里才是 Stage 1 决定“哪些 PR 真正进入候选池”的地方。  
+这一版不再只做到“repo 粒度恢复”，而是改成 **`repo@head_sha` 粒度恢复**：
+
+1. `fetch-prs` 先读取 `fetch-repos` 产出的 `repos_snapshot.json`
+2. 每评估完 1 个 PR，就把 `repo@head_sha` 记入 progress
+3. 每发现 1 个符合条件的 PR，就立刻追加到 `prs_snapshot.json`
+4. 每扫完整个 repo，再把 repo 名记入 `completed_repos`
+
+> 关键点：这样即使进程在某个大 repo 中途被打断，下次也只需要继续扫“剩下的 PR commit”，而不是整仓库重来。
 
 ```python
 # nodes/fetch_prs.py
-import os, sys, logging
+import os, sys, json, hashlib, logging, tempfile
+from datetime import datetime
+from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from state import PRMetadata, DiffFile, BenchmarkState
+from github_client import GitHubClient, get_github_tokens_from_env
 
 logger = logging.getLogger(__name__)
 
@@ -1100,32 +1111,136 @@ def _has_interop_signal(diff_files: list[DiffFile], interop_type: str) -> bool:
     return bool(langs & host_langs) and bool(langs & target_langs)
 
 
+def _scan_key(repo: str, head_sha: str) -> str:
+    """断点恢复键：repo 名称 + PR head commit id"""
+    return f"{repo}@{head_sha}"
+
+
+def _atomic_write_json(path: str, payload: object) -> None:
+    """原子写 JSON，避免中途被打断时把文件写坏。"""
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+
+    with tempfile.NamedTemporaryFile(
+        "w", encoding="utf-8", dir=target.parent, delete=False
+    ) as tmp:
+        json.dump(payload, tmp, ensure_ascii=False, indent=2, default=str)
+        tmp.flush()
+        os.fsync(tmp.fileno())
+        temp_path = tmp.name
+
+    os.replace(temp_path, target)
+
+
+def _load_progress(progress_path: str) -> dict:
+    path = Path(progress_path)
+    if not path.exists():
+        return {
+            "completed_repos": [],
+            "scanned_pr_keys": [],
+            "config_fingerprint": None,
+        }
+
+    raw = path.read_text(encoding="utf-8").strip()
+    if not raw:
+        return {
+            "completed_repos": [],
+            "scanned_pr_keys": [],
+            "config_fingerprint": None,
+        }
+    data = json.loads(raw)
+
+    if not isinstance(data, dict):
+        raise ValueError(f"{progress_path} 不是合法的进度 JSON 对象")
+    return data
+
+
+def _build_config_fingerprint(cfg: dict) -> str:
+    """绑定影响筛选结果的关键参数，避免换参数后误续跑。"""
+    relevant = {
+        "max_prs_per_repo": cfg.get("max_prs_per_repo"),
+        "target_items": cfg.get("target_items"),
+        "min_diff_lines": cfg.get("min_diff_lines"),
+        "max_diff_lines": cfg.get("max_diff_lines"),
+    }
+    raw = json.dumps(relevant, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()
+
+
+def _save_progress(
+    progress_path: str,
+    input_path: str,
+    output_path: str,
+    completed_repos: list[str],
+    scanned_pr_keys: list[str],
+    config_fingerprint: str,
+) -> None:
+    _atomic_write_json(
+        progress_path,
+        {
+            "input_path": input_path,
+            "output_path": output_path,
+            "completed_repos": completed_repos,
+            "scanned_pr_keys": scanned_pr_keys,
+            "config_fingerprint": config_fingerprint,
+            "updated_at": datetime.now().isoformat(),
+        },
+    )
+
+
 def fetch_prs(state: BenchmarkState) -> dict:
     """
     节点函数：扫描仓库 PR，执行 PR-level 精筛。
     
     输入：state["repos"]，state["run_config"]
-    输出：追加到 state["prs"]（Reducer 自动合并）
+    输出：返回“本次新发现的 PR”；初始 state["prs"] 中已有的老结果会保留
     """
-    from github_client import GitHubClient
-
     cfg = state["run_config"]
     max_prs_per_repo = cfg.get("max_prs_per_repo", 100)
     target_items     = cfg.get("target_items", 300)
     min_diff_lines   = cfg.get("min_diff_lines", 50)
     max_diff_lines   = cfg.get("max_diff_lines", 2000)
+    input_path       = cfg["input_path"]
+    output_path      = cfg["output_path"]
+    progress_path    = cfg["progress_path"]
+    config_fingerprint = cfg.get("config_fingerprint") or _build_config_fingerprint(cfg)
 
-    tokens = [
-        os.environ["GITHUB_TOKEN_1"],
-        os.environ.get("GITHUB_TOKEN_2", os.environ["GITHUB_TOKEN_1"]),
+    progress = _load_progress(progress_path)
+    saved_fingerprint = progress.get("config_fingerprint")
+    if saved_fingerprint not in (None, config_fingerprint):
+        raise RuntimeError(
+            "当前 fetch-prs 参数与 progress 文件不一致。"
+            "请删除旧 progress，或换新的 output 路径重新扫描。"
+        )
+
+    completed_repos = list(progress.get("completed_repos", []))
+    completed_repo_set = set(completed_repos)
+    scanned_pr_keys = list(progress.get("scanned_pr_keys", []))
+    scanned_pr_key_set = set(scanned_pr_keys)
+
+    persisted_prs: list[PRMetadata] = list(state.get("prs", []))
+    persisted_pr_keys = {
+        _scan_key(pr["repo"], pr["head_sha"])
+        for pr in persisted_prs
+    }
+
+    remaining_repos = [
+        repo for repo in state["repos"]
+        if repo["full_name"] not in completed_repo_set
     ]
+
+    if len(persisted_prs) >= target_items:
+        logger.info(f"已有 {len(persisted_prs)} 个 PR，已达到目标 {target_items}")
+        return {"prs": []}
+
+    tokens = get_github_tokens_from_env()
     client = GitHubClient(tokens, cache_db=cfg.get("db_path", "benchmark_runs.db"))
 
     found_prs: list[PRMetadata] = []
 
-    for repo_info in state["repos"]:
-        # 目标驱动：候选池已满则停止
-        if len(found_prs) >= target_items:
+    for repo_info in remaining_repos:
+        # 目标驱动：当前累计结果已满则停止
+        if len(persisted_prs) >= target_items:
             logger.info(f"候选池已达目标 {target_items}，停止扫描")
             break
 
@@ -1136,46 +1251,70 @@ def fetch_prs(state: BenchmarkState) -> dict:
         raw_prs = client.list_prs(repo_name, max_n=max_prs_per_repo)
 
         for raw_pr in raw_prs:
+            scan_key = _scan_key(repo_name, raw_pr["head_sha"])
+            if scan_key in scanned_pr_key_set or scan_key in persisted_pr_keys:
+                continue
+
             # C1: 已合并（list_prs 已过滤）
             diff_files = client.get_pr_files(repo_name, raw_pr["number"])
-            if not diff_files:
-                continue
+            passed = False
 
-            # C2: diff 涉及 >= 2 种语言
-            langs = set(f["lang"] for f in diff_files)
-            if len(langs) < 2:
-                continue
+            if diff_files:
+                langs = set(f["lang"] for f in diff_files)
+                total_lines = sum(f["additions"] + f["deletions"] for f in diff_files)
+                passed = (
+                    len(langs) >= 2
+                    and any(f["is_test"] for f in diff_files)
+                    and min_diff_lines <= total_lines <= max_diff_lines
+                    and _has_interop_signal(diff_files, interop_type)
+                )
 
-            # C3: 至少 1 个测试文件
-            if not any(f["is_test"] for f in diff_files):
-                continue
+                if passed:
+                    pr: PRMetadata = {
+                        "repo":             repo_name,
+                        "clone_url":        repo_info["clone_url"],
+                        "pr_id":            raw_pr["number"],
+                        "pr_title":         raw_pr["title"],
+                        "interop_type":     interop_type,
+                        "interop_layer":    repo_info["interop_layer"],
+                        "base_sha":         raw_pr["base_sha"],
+                        "head_sha":         raw_pr["head_sha"],
+                        "diff_files":       diff_files,
+                        "diff_total_lines": total_lines,
+                        "test_commands":    None,
+                        "merged_at":        raw_pr["merged_at"],
+                    }
+                    persisted_prs.append(pr)
+                    found_prs.append(pr)
+                    persisted_pr_keys.add(scan_key)
+                    _atomic_write_json(output_path, persisted_prs)
+                    logger.info(
+                        f"  ✓ 命中 PR #{raw_pr['number']}，已立即写入 snapshot"
+                    )
 
-            # C4: diff 行数在合理范围内
-            total_lines = sum(f["additions"] + f["deletions"] for f in diff_files)
-            if not (min_diff_lines <= total_lines <= max_diff_lines):
-                continue
+            scanned_pr_keys.append(scan_key)
+            scanned_pr_key_set.add(scan_key)
+            _save_progress(
+                progress_path,
+                input_path,
+                output_path,
+                completed_repos,
+                scanned_pr_keys,
+                config_fingerprint,
+            )
 
-            # C5: 存在跨语言调用信号
-            if not _has_interop_signal(diff_files, interop_type):
-                continue
-
-            # 通过所有过滤条件
-            pr: PRMetadata = {
-                "repo":             repo_name,
-                "clone_url":        repo_info["clone_url"],
-                "pr_id":            raw_pr["number"],
-                "pr_title":         raw_pr["title"],
-                "interop_type":     interop_type,
-                "interop_layer":    repo_info["interop_layer"],
-                "base_sha":         raw_pr["base_sha"],
-                "head_sha":         raw_pr["head_sha"],
-                "diff_files":       diff_files,
-                "diff_total_lines": total_lines,
-                "test_commands":    None,  # 由 infer_env 填充
-                "merged_at":        raw_pr["merged_at"],
-            }
-            found_prs.append(pr)
-            logger.info(f"  ✓ PR #{raw_pr['number']}: {raw_pr['title'][:50]}")
+        if repo_name not in completed_repo_set:
+            completed_repos.append(repo_name)
+            completed_repo_set.add(repo_name)
+        _save_progress(
+            progress_path,
+            input_path,
+            output_path,
+            completed_repos,
+            scanned_pr_keys,
+            config_fingerprint,
+        )
+        logger.info(f"  完成 repo={repo_name}，累计 {len(persisted_prs)} 个 PR")
 
     logger.info(f"fetch_prs 完成：共找到 {len(found_prs)} 个候选 PR")
     return {"prs": found_prs}
@@ -1185,10 +1324,10 @@ def fetch_prs(state: BenchmarkState) -> dict:
 
 ```python
 # tests/test_fetch_prs.py
-import os, sys
+import os, sys, json
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from nodes.fetch_prs import _has_interop_signal, fetch_prs
+from nodes.fetch_prs import _has_interop_signal, fetch_prs, _load_progress
 
 
 def test_interop_signal_detection():
@@ -1209,8 +1348,9 @@ def test_interop_signal_detection():
 
 
 def test_fetch_prs_filters():
-    """PR 筛选条件的边界测试（使用 mock）"""
+    """命中的 PR 会立即写入 snapshot，并写入 repo@head_sha 进度"""
     from unittest.mock import patch, MagicMock
+    from tempfile import TemporaryDirectory
 
     mock_repo_info = {
         "full_name": "test/repo",
@@ -1228,38 +1368,162 @@ def test_fetch_prs_filters():
         {"path": "bridge_test.go", "lang": "Go", "is_test": True,  "additions": 15, "deletions": 0, "status": "added"},
     ]
 
-    with patch("nodes.fetch_prs.GitHubClient") as MockClient:
-        mock_instance = MagicMock()
-        MockClient.return_value = mock_instance
-        mock_instance.list_prs.return_value = [
-            {"number": 1, "title": "Add CGo bridge", "merged_at": "2024-01-01T00:00:00",
-             "base_sha": "abc", "head_sha": "def"}
-        ]
-        mock_instance.get_pr_files.return_value = good_pr_files
+    with TemporaryDirectory() as tmpdir:
+        output_path = os.path.join(tmpdir, "snapshot.json")
+        progress_path = os.path.join(tmpdir, "snapshot.progress.json")
 
-        result = fetch_prs({
-            "repos": [mock_repo_info],
-            "prs": [],
-            "benchmark_items": [],
-            "errors": [],
-            "run_config": {
-                "max_prs_per_repo": 10,
-                "target_items": 5,
-                "min_diff_lines": 10,
-                "max_diff_lines": 500,
-                "db_path": ":memory:",
-            }
-        })
+        with patch("nodes.fetch_prs.GitHubClient") as MockClient, patch(
+            "nodes.fetch_prs.get_github_tokens_from_env", return_value=["fake"]
+        ):
+            mock_instance = MagicMock()
+            MockClient.return_value = mock_instance
+            mock_instance.list_prs.return_value = [
+                {"number": 1, "title": "Add CGo bridge", "merged_at": "2024-01-01T00:00:00",
+                 "base_sha": "abc", "head_sha": "def"}
+            ]
+            mock_instance.get_pr_files.return_value = good_pr_files
+
+            result = fetch_prs({
+                "repos": [mock_repo_info],
+                "prs": [],
+                "benchmark_items": [],
+                "errors": [],
+                "run_config": {
+                    "max_prs_per_repo": 10,
+                    "target_items": 5,
+                    "min_diff_lines": 10,
+                    "max_diff_lines": 500,
+                    "db_path": ":memory:",
+                    "input_path": "repos_snapshot.json",
+                    "output_path": output_path,
+                    "progress_path": progress_path,
+                    "config_fingerprint": "fp-1",
+                }
+            })
+
         assert len(result["prs"]) == 1
         pr = result["prs"][0]
         assert pr["pr_id"] == 1
         assert pr["interop_type"] == "cgo"
-        print("✓ fetch_prs 筛选逻辑正确")
+
+        with open(output_path, encoding="utf-8") as f:
+            saved_prs = json.load(f)
+        progress = _load_progress(progress_path)
+
+        assert len(saved_prs) == 1
+        assert progress["completed_repos"] == ["test/repo"]
+        assert progress["scanned_pr_keys"] == ["test/repo@def"]
+        print("✓ 命中 PR 后会立即持久化，并记录 repo@head_sha")
+
+
+def test_fetch_prs_skips_scanned_pr_keys_after_restart():
+    """中途中断后，已判定过的 repo@head_sha 不应重复扫描"""
+    from unittest.mock import patch, MagicMock
+    from tempfile import TemporaryDirectory
+
+    repo_info = {
+        "full_name": "done/repo",
+        "clone_url": "https://github.com/done/repo.git",
+        "interop_type": "cgo",
+        "interop_layer": "ffi",
+        "stars": 1000,
+        "default_branch": "main",
+    }
+
+    with TemporaryDirectory() as tmpdir:
+        output_path = os.path.join(tmpdir, "snapshot.json")
+        progress_path = os.path.join(tmpdir, "snapshot.progress.json")
+        with open(progress_path, "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "completed_repos": [],
+                    "scanned_pr_keys": ["done/repo@sha-1"],
+                    "config_fingerprint": "fp-1",
+                },
+                f,
+            )
+
+        with patch("nodes.fetch_prs.GitHubClient") as MockClient, patch(
+            "nodes.fetch_prs.get_github_tokens_from_env", return_value=["fake"]
+        ):
+            mock_instance = MagicMock()
+            MockClient.return_value = mock_instance
+            mock_instance.list_prs.return_value = [
+                {
+                    "number": 1,
+                    "title": "Already scanned",
+                    "merged_at": "2024-01-01T00:00:00",
+                    "base_sha": "base-1",
+                    "head_sha": "sha-1",
+                },
+                {
+                    "number": 2,
+                    "title": "Need scan",
+                    "merged_at": "2024-01-01T00:00:00",
+                    "base_sha": "base-2",
+                    "head_sha": "sha-2",
+                },
+            ]
+            mock_instance.get_pr_files.return_value = []
+
+            fetch_prs({
+                "repos": [repo_info],
+                "prs": [],
+                "benchmark_items": [],
+                "errors": [],
+                "run_config": {
+                    "max_prs_per_repo": 10,
+                    "target_items": 5,
+                    "min_diff_lines": 10,
+                    "max_diff_lines": 500,
+                    "db_path": ":memory:",
+                    "input_path": "repos_snapshot.json",
+                    "output_path": output_path,
+                    "progress_path": progress_path,
+                    "config_fingerprint": "fp-1",
+                }
+            })
+
+        progress = _load_progress(progress_path)
+        assert set(progress["scanned_pr_keys"]) == {"done/repo@sha-1", "done/repo@sha-2"}
+        assert progress["completed_repos"] == ["done/repo"]
+        mock_instance.get_pr_files.assert_called_once_with("done/repo", 2)
+        print("✓ 已扫描的 repo@head_sha 会被自动跳过")
+
+
+def test_fetch_prs_rejects_mismatched_progress():
+    """换了筛选参数后，不允许误用旧 progress 续跑"""
+    from tempfile import TemporaryDirectory
+
+    with TemporaryDirectory() as tmpdir:
+        progress_path = os.path.join(tmpdir, "snapshot.progress.json")
+        with open(progress_path, "w", encoding="utf-8") as f:
+            json.dump({"config_fingerprint": "old-fp"}, f)
+
+        try:
+            fetch_prs({
+                "repos": [],
+                "prs": [],
+                "benchmark_items": [],
+                "errors": [],
+                "run_config": {
+                    "input_path": "repos_snapshot.json",
+                    "output_path": os.path.join(tmpdir, "snapshot.json"),
+                    "progress_path": progress_path,
+                    "config_fingerprint": "new-fp",
+                }
+            })
+            assert False, "应该因为 config_fingerprint 不一致而失败"
+        except RuntimeError as e:
+            assert "progress" in str(e)
+            print("✓ progress 与当前参数不一致时会拒绝续跑")
 
 
 if __name__ == "__main__":
     test_interop_signal_detection()
     test_fetch_prs_filters()
+    test_fetch_prs_skips_scanned_pr_keys_after_restart()
+    test_fetch_prs_rejects_mismatched_progress()
     print("\n✅ fetch_prs.py 验证通过")
 ```
 
@@ -1388,11 +1652,20 @@ if __name__ == "__main__":
 
 ---
 
-### 1.4 `graph.py`（Stage 1 部分）+ `main.py`（fetch 模式）
+### 1.4 `graph.py`（Stage 1 部分）+ `main.py`（`fetch-repos` / `fetch-prs` 模式）
 
 #### 要做什么
 
-组装 Stage 1 图，实现 `fetch` 执行模式，让整个 Stage 1 可以独立运行并产出 `prs_snapshot.json`。
+把 Stage 1 的 CLI 拆成两个明确步骤：
+
+- `fetch-repos`：只做仓库召回，输出 `repos_snapshot.json`
+- `fetch-prs`：只做 PR 精筛，读取 `repos_snapshot.json`，增量输出 `prs_snapshot.json`
+
+这一版的关键约束：
+
+- **Stage 1 的常规续跑不再依赖 `resume`**
+- **`fetch-prs` 重复执行同一个输入输出路径时，就应该能继续**
+- **恢复粒度是 `repo@head_sha`，不是整 repo**
 
 **步骤 1：** 创建 `graph.py` Stage 1 版本
 
@@ -1403,7 +1676,6 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.sqlite import SqliteSaver
 
 from state import BenchmarkState
-from nodes.fetch_repos   import fetch_repos
 from nodes.fetch_prs     import fetch_prs
 from nodes.human_review  import human_review
 
@@ -1417,33 +1689,27 @@ def get_docker_semaphore(max_concurrent: int = 4) -> asyncio.Semaphore:
     return _DOCKER_SEMAPHORE
 
 
-def build_graph(db_path: str = "benchmark_runs.db") -> object:
-    """构建并编译 LangGraph 主图"""
+def build_stage1_pr_graph(db_path: str = "benchmark_runs.db") -> object:
+    """构建 fetch-prs -> human_review 的 Stage 1 PR 子图"""
     g = StateGraph(BenchmarkState)
-
-    # Stage 1 节点
-    g.add_node("fetch_repos",  fetch_repos)
     g.add_node("fetch_prs",    fetch_prs)
     g.add_node("human_review", human_review)
 
-    # TODO Phase 4: 添加 process_pr 和 aggregate 节点
-
-    # 边连接
-    g.add_edge(START, "fetch_repos")
-    g.add_edge("fetch_repos", "fetch_prs")
+    g.add_edge(START, "fetch_prs")
     g.add_edge("fetch_prs", "human_review")
-    g.add_edge("human_review", END)  # Phase 4 中改为 fan-out 到子图
+    g.add_edge("human_review", END)
 
     checkpointer = SqliteSaver.from_conn_string(db_path)
     return g.compile(checkpointer=checkpointer)
 ```
 
-**步骤 2：** 创建 `main.py` fetch 模式
+**步骤 2：** 创建 `main.py` 两个 Stage 1 模式
 
 ```python
 # main.py
-import argparse, json, os, logging
+import argparse, json, os, logging, tempfile, hashlib
 from datetime import datetime
+from pathlib import Path
 from langgraph.types import Command
 
 logging.basicConfig(
@@ -1470,10 +1736,63 @@ BASE_RUN_CONFIG = {
 }
 
 
-def make_initial_state(run_config: dict) -> dict:
+def _atomic_write_json(path: str, payload: object) -> None:
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w", encoding="utf-8", dir=target.parent, delete=False
+    ) as tmp:
+        json.dump(payload, tmp, indent=2, ensure_ascii=False, default=str)
+        tmp.flush()
+        os.fsync(tmp.fileno())
+        temp_path = tmp.name
+    os.replace(temp_path, target)
+
+
+def derive_progress_path(output_path: str) -> str:
+    path = Path(output_path)
+    if path.suffix == ".json":
+        return str(path.with_name(f"{path.stem}.progress.json"))
+    return f"{output_path}.progress.json"
+
+
+def load_json_array(path_str: str) -> list[dict]:
+    path = Path(path_str)
+    if not path.exists():
+        return []
+
+    raw = path.read_text(encoding="utf-8").strip()
+    if not raw:
+        return []
+    data = json.loads(raw)
+
+    if not isinstance(data, list):
+        raise SystemExit(f"{path_str} 必须是 JSON 数组")
+    return data
+
+
+def build_config_fingerprint(run_config: dict) -> str:
+    relevant = {
+        "max_prs_per_repo": run_config["max_prs_per_repo"],
+        "target_items": run_config["target_items"],
+        "min_diff_lines": run_config["min_diff_lines"],
+        "max_diff_lines": run_config["max_diff_lines"],
+    }
+    raw = json.dumps(relevant, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()
+
+
+def make_initial_state(
+    run_config: dict,
+    repos: list[dict] | None = None,
+    existing_prs: list[dict] | None = None,
+) -> dict:
     return {
         "run_config": run_config,
-        "repos": [], "prs": [], "benchmark_items": [], "errors": []
+        "repos": list(repos or []),
+        "prs": list(existing_prs or []),
+        "benchmark_items": [],
+        "errors": [],
     }
 
 
@@ -1500,26 +1819,59 @@ def prompt_review(prs_summary: list[dict]) -> list[str] | None:
     return [prs_summary[i]["review_key"] for i in sorted(chosen)]
 
 
-def run_fetch(args):
-    """只跑 Stage 1，结果保存到文件"""
-    from graph import build_graph
+def run_fetch_repos(args):
+    """只做 repo 召回，并写出 repos_snapshot.json"""
+    from nodes.fetch_repos import fetch_repos
 
-    db_path   = args.db
-    thread_id = args.thread_id or f"fetch-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    config    = {"configurable": {"thread_id": thread_id}}
+    output_path = args.output or "repos_snapshot.json"
+    run_config = {
+        **BASE_RUN_CONFIG,
+        "db_path": args.db,
+        "output_path": output_path,
+    }
 
-    run_config = {**BASE_RUN_CONFIG,
-                  "skip_review": not args.review,
-                  "db_path": db_path}
-
-    # 允许命令行覆盖部分参数
     if args.interop_types:
         run_config["interop_types"] = args.interop_types.split(",")
     if args.min_stars:
         run_config["min_stars"] = args.min_stars
 
-    app    = build_graph(db_path=db_path)
-    result = app.invoke(make_initial_state(run_config), config)
+    result = fetch_repos(make_initial_state(run_config))
+    repos = result.get("repos", [])
+    _atomic_write_json(output_path, repos)
+
+    print(f"\n✅ fetch-repos 完成")
+    print(f"   仓库数量：{len(repos)}")
+    print(f"   输出文件：{output_path}")
+
+
+def run_fetch_prs(args):
+    """读取 repos_snapshot.json，执行可断点恢复的 PR 精筛"""
+    from graph import build_stage1_pr_graph
+
+    db_path   = args.db
+    input_path = args.input or "repos_snapshot.json"
+    output_path = args.output or "prs_snapshot.json"
+    progress_path = derive_progress_path(output_path)
+    thread_id = args.thread_id or f"fetch-prs-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    config    = {"configurable": {"thread_id": thread_id}}
+    repos = load_json_array(input_path)
+    existing_prs = load_json_array(output_path)
+
+    run_config = {**BASE_RUN_CONFIG,
+                  "skip_review": not args.review,
+                  "db_path": db_path,
+                  "input_path": input_path,
+                  "output_path": output_path,
+                  "progress_path": progress_path,
+                  "thread_id": thread_id}
+
+    # 允许命令行覆盖部分参数
+    if args.max_prs_per_repo:
+        run_config["max_prs_per_repo"] = args.max_prs_per_repo
+    run_config["config_fingerprint"] = build_config_fingerprint(run_config)
+
+    app    = build_stage1_pr_graph(db_path=db_path)
+    result = app.invoke(make_initial_state(run_config, repos, existing_prs), config)
 
     # review 开启时，human_review 节点会中断一次；在同一进程内收集决定后继续
     if args.review and "__interrupt__" in result:
@@ -1529,21 +1881,27 @@ def run_fetch(args):
         resume_payload = {} if approved_keys is None else {"approved_pr_keys": approved_keys}
         result = app.invoke(Command(resume=resume_payload), config)
 
-    prs         = result.get("prs", [])
-    output_path = args.output
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(prs, f, indent=2, ensure_ascii=False, default=str)
+    # 默认情况下，fetch_prs 已在“每个命中的 PR 完成后”增量写入 output_path。
+    # 只有开启 review 时，这里才需要用审核后的结果覆盖一次 snapshot。
+    if args.review:
+        prs = result.get("prs", [])
+        _atomic_write_json(output_path, prs)
+    else:
+        prs = load_json_array(output_path)
 
-    print(f"\n✅ fetch 完成")
+    print(f"\n✅ fetch-prs 完成")
     print(f"   PR 数量：{len(prs)}")
+    print(f"   输入文件：{input_path}")
     print(f"   输出文件：{output_path}")
+    print(f"   进度文件：{progress_path}")
+    print(f"   已恢复历史 PR：{len(existing_prs)}")
     print(f"   thread_id：{thread_id}（续跑时使用）")
 
 
 def run_resume(args):
-    """主要用于异常中断后的续跑，不用于常规 human review。"""
-    from graph import build_graph
-    app    = build_graph(db_path=args.db)
+    """保留给后续阶段；Stage 1 常规续跑请直接重复执行 fetch-prs。"""
+    from graph import build_stage1_pr_graph
+    app    = build_stage1_pr_graph(db_path=args.db)
     config = {"configurable": {"thread_id": args.thread_id}}
     result = app.invoke(None, config)
     print(f"✅ resume 完成，benchmark_items: {len(result.get('benchmark_items', []))}")
@@ -1551,20 +1909,22 @@ def run_resume(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="跨语言 Benchmark 构建工具")
-    parser.add_argument("--mode", choices=["full","fetch","build","single-pr","resume"],
-                        default="fetch")
+    parser.add_argument("--mode", choices=["full","fetch-repos","fetch-prs","build","single-pr","resume"],
+                        default="fetch-repos")
     parser.add_argument("--thread-id",    default=None)
-    parser.add_argument("--input",        default="prs_snapshot.json")
-    parser.add_argument("--output",       default="prs_snapshot.json")
+    parser.add_argument("--input",        default=None)
+    parser.add_argument("--output",       default=None)
     parser.add_argument("--pr-json",      default="tests/fixtures/sample_pr.json")
     parser.add_argument("--interop-types",default=None)
     parser.add_argument("--min-stars",    type=int, default=None)
+    parser.add_argument("--max-prs-per-repo", type=int, default=None)
     parser.add_argument("--review",       action="store_true")
     parser.add_argument("--db",           default="benchmark_runs.db")
     args = parser.parse_args()
 
     dispatch = {
-        "fetch":  run_fetch,
+        "fetch-repos": run_fetch_repos,
+        "fetch-prs":   run_fetch_prs,
         "resume": run_resume,
         # full / build / single-pr 在 Phase 4 中实现
     }
@@ -1577,20 +1937,38 @@ if __name__ == "__main__":
 #### ✅ 验证步骤 1.4 成功
 
 ```bash
-# 小规模测试：只搜 cgo，min_stars=5000，快速验证流程可跑通
+# 第一步：先生成仓库快照
 python main.py \
-  --mode fetch \
+  --mode fetch-repos \
   --interop-types cgo \
   --min-stars 5000 \
+  --output tests/fixtures/repos_snapshot.json
+```
+
+**预期输出：**
+```
+✅ fetch-repos 完成
+   仓库数量：X（至少 1 个）
+   输出文件：tests/fixtures/repos_snapshot.json
+```
+
+```bash
+# 第二步：基于仓库快照做 PR 扫描
+python main.py \
+  --mode fetch-prs \
+  --input tests/fixtures/repos_snapshot.json \
   --output tests/fixtures/sample_prs.json
 ```
 
 **预期输出：**
 ```
-✅ fetch 完成
+✅ fetch-prs 完成
    PR 数量：X（至少 1 个）
+   输入文件：tests/fixtures/repos_snapshot.json
    输出文件：tests/fixtures/sample_prs.json
-   thread_id：fetch-YYYYMMDD-HHMMSS
+   进度文件：tests/fixtures/sample_prs.progress.json
+   已恢复历史 PR：0
+   thread_id：fetch-prs-YYYYMMDD-HHMMSS
 ```
 
 ```bash
@@ -1610,6 +1988,14 @@ if prs:
 "
 ```
 
+```bash
+# 再跑一次同样的 PR 扫描命令，应自动复用 progress 并跳过已扫描的 repo@head_sha
+python main.py \
+  --mode fetch-prs \
+  --input tests/fixtures/repos_snapshot.json \
+  --output tests/fixtures/sample_prs.json
+```
+
 ---
 
 ### 1.5 Stage 1 集成验证
@@ -1618,26 +2004,37 @@ if prs:
 
 ```python
 # tests/test_stage1_integration.py
-"""Stage 1 集成测试：从 fetch_repos 到 prs_snapshot.json"""
+"""Stage 1 集成测试：先抓 repo，再做可恢复的 PR 精筛"""
 import os, sys, json, tempfile
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 
 def test_stage1_produces_valid_snapshot():
-    """Stage 1 完整流程能产出格式正确的 PR 快照"""
-    with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
-        output_path = f.name
+    """Stage 1 完整流程能产出 repos_snapshot、prs_snapshot 和 progress"""
+    with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f1:
+        repos_path = f1.name
+    with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f2:
+        prs_path = f2.name
+    progress_path = prs_path.replace(".json", ".progress.json")
 
     os.system(
-        f"python main.py --mode fetch "
+        f"python main.py --mode fetch-repos "
         f"--interop-types cgo --min-stars 10000 "
-        f"--output {output_path} --db :memory: 2>/dev/null"
+        f"--output {repos_path} --db :memory: 2>/dev/null"
+    )
+    os.system(
+        f"python main.py --mode fetch-prs "
+        f"--input {repos_path} --output {prs_path} --db :memory: 2>/dev/null"
     )
 
-    with open(output_path) as f:
+    with open(repos_path) as f:
+        repos = json.load(f)
+    with open(prs_path) as f:
         prs = json.load(f)
 
+    assert isinstance(repos, list), "repo 输出应为 JSON 数组"
     assert isinstance(prs, list), "输出应为 JSON 数组"
+    assert os.path.exists(progress_path), "应生成 progress sidecar"
     if prs:
         pr = prs[0]
         for field in ["repo", "pr_id", "interop_type", "interop_layer",
@@ -1649,7 +2046,9 @@ def test_stage1_produces_valid_snapshot():
     else:
         print("⚠ 未找到 PR（可能是网络问题或搜索限制），但流程本身正常运行")
 
-    os.unlink(output_path)
+    os.unlink(repos_path)
+    os.unlink(prs_path)
+    os.unlink(progress_path)
 
 
 if __name__ == "__main__":
@@ -2690,7 +3089,7 @@ if prs:
         json.dump(prs[0], f, indent=2, default=str)
     print(f'✓ 创建 fixture: {prs[0][\"repo\"]}#{prs[0][\"pr_id\"]}')
 else:
-    print('⚠ 没有 PR 可用，请先运行 fetch 模式')
+    print('⚠ 没有 PR 可用，请先运行 fetch-repos 和 fetch-prs')
 "
 ```
 
@@ -3129,7 +3528,7 @@ if items:
 ### C. `interrupt()` 导致程序卡住
 
 ```
-症状：运行 fetch 模式时程序停在 human_review 之后不继续
+症状：运行 fetch-prs 模式时程序停在 human_review 之后不继续
 原因：使用了 --review，程序正在等待同一进程内的人工输入
 解法：
   1. 在当前终端完成 review 输入（回车=全部保留，0=全部丢弃）
@@ -3153,7 +3552,10 @@ if items:
 ```
 症状：tests/fixtures/sample_prs.json 不存在
 解法：先运行 Stage 1：
-  python main.py --mode fetch --interop-types cgo --min-stars 5000 \
+  python main.py --mode fetch-repos --interop-types cgo --min-stars 5000 \
+    --output tests/fixtures/repos_snapshot.json
+  python main.py --mode fetch-prs \
+    --input tests/fixtures/repos_snapshot.json \
     --output tests/fixtures/sample_prs.json
 ```
 

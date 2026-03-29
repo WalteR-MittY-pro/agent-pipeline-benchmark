@@ -8,10 +8,12 @@ Results are cached after first run.
 import os, sys
 from types import SimpleNamespace
 import pytest
+from requests.exceptions import ProxyError
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from github_client import GitHubClient
+import github_client
+from github_client import GitHubClient, get_github_tokens_from_env, load_project_env
 
 HAS_GITHUB_TOKEN = bool(os.environ.get("GITHUB_TOKEN_1"))
 
@@ -90,6 +92,75 @@ def test_is_test_file():
     print("✓ Test file detection correct")
 
 
+def test_get_github_tokens_from_env_requires_primary_token(tmp_path, monkeypatch):
+    monkeypatch.delenv("GITHUB_TOKEN_1", raising=False)
+    monkeypatch.delenv("GITHUB_TOKEN_2", raising=False)
+
+    with pytest.raises(RuntimeError, match="GITHUB_TOKEN_1"):
+        get_github_tokens_from_env(env_path=tmp_path / ".missing-env")
+
+
+def test_load_project_env_reads_dotenv_file(tmp_path, monkeypatch):
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        'GITHUB_TOKEN_1="token_one"\nGITHUB_TOKEN_2=token_two\n',
+        encoding="utf-8",
+    )
+    monkeypatch.delenv("GITHUB_TOKEN_1", raising=False)
+    monkeypatch.delenv("GITHUB_TOKEN_2", raising=False)
+
+    loaded = load_project_env(env_file)
+
+    assert loaded["GITHUB_TOKEN_1"] == "token_one"
+    assert loaded["GITHUB_TOKEN_2"] == "token_two"
+    assert os.environ["GITHUB_TOKEN_1"] == "token_one"
+    assert os.environ["GITHUB_TOKEN_2"] == "token_two"
+
+
+def test_get_github_tokens_from_env_falls_back_to_dotenv(tmp_path, monkeypatch):
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        "GITHUB_TOKEN_1=token_one\nGITHUB_TOKEN_2=token_two\n",
+        encoding="utf-8",
+    )
+    monkeypatch.delenv("GITHUB_TOKEN_1", raising=False)
+    monkeypatch.delenv("GITHUB_TOKEN_2", raising=False)
+
+    assert get_github_tokens_from_env(env_path=env_file) == ["token_one", "token_two"]
+
+
+def test_get_github_tokens_from_env_rejects_dead_local_proxy(tmp_path, monkeypatch):
+    env_file = tmp_path / ".env"
+    env_file.write_text("GITHUB_TOKEN_1=token_one\n", encoding="utf-8")
+    monkeypatch.delenv("GITHUB_TOKEN_1", raising=False)
+    monkeypatch.delenv("GITHUB_TOKEN_2", raising=False)
+    monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7897")
+    monkeypatch.setattr(github_client, "_is_proxy_reachable", lambda host, port: False)
+
+    with pytest.raises(RuntimeError, match="local proxy is not reachable"):
+        get_github_tokens_from_env(env_path=env_file)
+
+
+def test_get_github_tokens_from_env_bypasses_proxy_when_requested(tmp_path, monkeypatch):
+    env_file = tmp_path / ".env"
+    env_file.write_text("GITHUB_TOKEN_1=token_one\n", encoding="utf-8")
+    monkeypatch.delenv("GITHUB_TOKEN_1", raising=False)
+    monkeypatch.delenv("GITHUB_TOKEN_2", raising=False)
+    monkeypatch.delenv("NO_PROXY", raising=False)
+    monkeypatch.delenv("no_proxy", raising=False)
+    monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7897")
+    monkeypatch.setenv("GITHUB_BYPASS_PROXY", "1")
+    monkeypatch.setattr(
+        github_client,
+        "_is_proxy_reachable",
+        lambda host, port: pytest.fail("proxy reachability should not be checked"),
+    )
+
+    assert get_github_tokens_from_env(env_path=env_file) == ["token_one", "token_one"]
+    assert "api.github.com" in os.environ["NO_PROXY"]
+    assert "github.com" in os.environ["NO_PROXY"]
+
+
 def test_search_repos_dedups_code_search_matches():
     client = object.__new__(GitHubClient)
     client._cache_get = lambda key: None
@@ -119,6 +190,52 @@ def test_search_repos_dedups_code_search_matches():
 
     repos = client.search_repos("language:Go", min_stars=100, max_results=5)
     assert [repo["full_name"] for repo in repos] == ["owner/repo-a"]
+
+
+def test_search_repos_cache_key_includes_max_results():
+    client = object.__new__(GitHubClient)
+    cache_store = {}
+    calls = []
+
+    def cache_get(key):
+        return cache_store.get(key)
+
+    def cache_set(key, value, ttl_hours=24.0):
+        cache_store[key] = value
+
+    repo_a = SimpleNamespace(
+        full_name="owner/repo-a",
+        clone_url="https://github.com/owner/repo-a.git",
+        stargazers_count=200,
+        default_branch="main",
+    )
+    repo_b = SimpleNamespace(
+        full_name="owner/repo-b",
+        clone_url="https://github.com/owner/repo-b.git",
+        stargazers_count=180,
+        default_branch="main",
+    )
+
+    def search_code(query):
+        calls.append(query)
+        if len(calls) == 1:
+            return [SimpleNamespace(repository=repo_a)]
+        return [
+            SimpleNamespace(repository=repo_a),
+            SimpleNamespace(repository=repo_b),
+        ]
+
+    client._cache_get = cache_get
+    client._cache_set = cache_set
+    client._api_call = lambda func, *args, **kwargs: func()
+    client._client = lambda: SimpleNamespace(search_code=search_code)
+
+    first = client.search_repos("language:Go", min_stars=100, max_results=1)
+    second = client.search_repos("language:Go", min_stars=100, max_results=2)
+
+    assert [repo["full_name"] for repo in first] == ["owner/repo-a"]
+    assert [repo["full_name"] for repo in second] == ["owner/repo-a", "owner/repo-b"]
+    assert len(calls) == 2
 
 
 def test_list_prs_scans_past_unmerged_closed_prs():
@@ -152,6 +269,15 @@ def test_list_prs_scans_past_unmerged_closed_prs():
 
     prs = client.list_prs("owner/repo", max_n=2)
     assert [pr["number"] for pr in prs] == [2, 3]
+
+
+def test_api_call_wraps_proxy_errors_with_actionable_message(monkeypatch):
+    client = object.__new__(GitHubClient)
+    client._throttle = lambda: None
+    monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7897")
+
+    with pytest.raises(RuntimeError, match="configured proxy is unavailable"):
+        client._api_call(lambda: (_ for _ in ()).throw(ProxyError("boom")), max_retries=1)
 
 
 if __name__ == "__main__":
