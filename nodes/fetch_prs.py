@@ -113,12 +113,32 @@ def _build_config_fingerprint(cfg: dict) -> str:
     """Fingerprint the PR scan parameters that affect filtering."""
     relevant = {
         "max_prs_per_repo": cfg.get("max_prs_per_repo"),
-        "target_items": cfg.get("target_items"),
+        "target_items": _normalize_target_items(cfg.get("target_items")),
         "min_diff_lines": cfg.get("min_diff_lines"),
         "max_diff_lines": cfg.get("max_diff_lines"),
     }
     raw = json.dumps(relevant, sort_keys=True, ensure_ascii=False)
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()
+
+
+def _normalize_target_items(value: object) -> int | None:
+    if value is None:
+        return None
+    try:
+        target_items = int(value)
+    except (TypeError, ValueError):
+        return None
+    return target_items if target_items > 0 else None
+
+
+def _format_candidate_progress(candidate_count: int, target_items: int | None) -> str:
+    if target_items is None:
+        return f"{candidate_count} (unbounded)"
+    return f"{candidate_count}/{target_items}"
+
+
+def _has_reached_target_items(candidate_count: int, target_items: int | None) -> bool:
+    return target_items is not None and candidate_count >= target_items
 
 
 def _save_progress(
@@ -164,7 +184,7 @@ def _log_scan_progress(
     repo_pr_done: int,
     repo_pr_total: int,
     candidate_count: int,
-    target_items: int,
+    target_items: int | None,
 ) -> None:
     overall_units_done = completed_repo_count
     if repo_pr_total > 0:
@@ -173,7 +193,7 @@ def _log_scan_progress(
     repo_percent = _percentage(repo_pr_done, repo_pr_total)
     logger.info(
         "Progress %s %.1f%% | repos %s/%s complete | current repo %s %s %.1f%% "
-        "(PRs %s/%s) | candidates %s/%s",
+        "(PRs %s/%s) | candidates %s",
         _render_progress_bar(overall_percent, width=24),
         overall_percent,
         completed_repo_count,
@@ -183,8 +203,7 @@ def _log_scan_progress(
         repo_percent,
         repo_pr_done,
         repo_pr_total,
-        candidate_count,
-        target_items,
+        _format_candidate_progress(candidate_count, target_items),
     )
 
 
@@ -207,7 +226,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
     """
     cfg = state["run_config"]
     max_prs_per_repo = cfg.get("max_prs_per_repo", 100)
-    target_items = cfg.get("target_items", 300)
+    target_items = _normalize_target_items(cfg.get("target_items"))
     min_diff_lines = cfg.get("min_diff_lines", 50)
     max_diff_lines = cfg.get("max_diff_lines", 2000)
     db_path = cfg.get("db_path", "benchmark_runs.db")
@@ -249,15 +268,14 @@ def fetch_prs(state: BenchmarkState) -> dict:
 
     logger.info(
         "fetch-prs start: total repos %s | resumed %s %.1f%% (%s/%s repos) | "
-        "scanned PR commits %s | existing candidates %s/%s",
+        "scanned PR commits %s | existing candidates %s",
         total_repos,
         _render_progress_bar(_percentage(len(completed_repo_set), total_repos), width=24),
         _percentage(len(completed_repo_set), total_repos),
         len(completed_repo_set),
         total_repos,
         len(scanned_pr_key_set | persisted_pr_keys),
-        len(persisted_prs),
-        target_items,
+        _format_candidate_progress(len(persisted_prs), target_items),
     )
 
     _save_progress(
@@ -269,7 +287,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
         config_fingerprint,
     )
 
-    if len(persisted_prs) >= target_items:
+    if _has_reached_target_items(len(persisted_prs), target_items):
         logger.info(
             "Candidate pool already has %s PRs, reaching target %s",
             len(persisted_prs),
@@ -288,7 +306,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
             break
 
         # Target-driven: stop if pool is full
-        if len(persisted_prs) >= target_items:
+        if _has_reached_target_items(len(persisted_prs), target_items):
             logger.info("Candidate pool reached target %s, stopping", target_items)
             break
 
@@ -397,7 +415,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
                     target_items,
                 )
 
-            if len(persisted_prs) >= target_items:
+            if _has_reached_target_items(len(persisted_prs), target_items):
                 repo_completed = False
                 stop_scanning = True
                 break
@@ -415,7 +433,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
             )
             logger.info(
                 "Completed repo %s: %s %.1f%% overall (%s/%s repos complete), "
-                "candidates %s/%s",
+                "candidates %s",
                 repo_name,
                 _render_progress_bar(
                     _percentage(len(completed_repo_set), total_repos), width=24
@@ -423,8 +441,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
                 _percentage(len(completed_repo_set), total_repos),
                 len(completed_repo_set),
                 total_repos,
-                len(persisted_prs),
-                target_items,
+                _format_candidate_progress(len(persisted_prs), target_items),
             )
 
     logger.info(f"fetch_prs complete: {len(found_prs)} candidate PRs found")
