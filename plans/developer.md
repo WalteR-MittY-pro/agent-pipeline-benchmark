@@ -1159,12 +1159,34 @@ def _build_config_fingerprint(cfg: dict) -> str:
     """绑定影响筛选结果的关键参数，避免换参数后误续跑。"""
     relevant = {
         "max_prs_per_repo": cfg.get("max_prs_per_repo"),
-        "target_items": cfg.get("target_items"),
+        "target_items": _normalize_target_items(cfg.get("target_items")),
         "min_diff_lines": cfg.get("min_diff_lines"),
         "max_diff_lines": cfg.get("max_diff_lines"),
     }
     raw = json.dumps(relevant, sort_keys=True, ensure_ascii=False)
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()
+
+
+def _normalize_target_items(value: object) -> int | None:
+    if value is None:
+        return None
+    try:
+        target_items = int(value)
+    except (TypeError, ValueError):
+        return None
+    return target_items if target_items > 0 else None
+
+
+def _allows_legacy_default_target_items_migration(
+    saved_fingerprint: str | None,
+    cfg: dict,
+) -> bool:
+    if not saved_fingerprint or _normalize_target_items(cfg.get("target_items")) is not None:
+        return False
+
+    legacy_cfg = dict(cfg)
+    legacy_cfg["target_items"] = 300
+    return saved_fingerprint == _build_config_fingerprint(legacy_cfg)
 
 
 def _save_progress(
@@ -1197,7 +1219,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
     """
     cfg = state["run_config"]
     max_prs_per_repo = cfg.get("max_prs_per_repo", 100)
-    target_items     = cfg.get("target_items", 300)
+    target_items     = _normalize_target_items(cfg.get("target_items"))
     min_diff_lines   = cfg.get("min_diff_lines", 50)
     max_diff_lines   = cfg.get("max_diff_lines", 2000)
     input_path       = cfg["input_path"]
@@ -1208,10 +1230,16 @@ def fetch_prs(state: BenchmarkState) -> dict:
     progress = _load_progress(progress_path)
     saved_fingerprint = progress.get("config_fingerprint")
     if saved_fingerprint not in (None, config_fingerprint):
-        raise RuntimeError(
-            "当前 fetch-prs 参数与 progress 文件不一致。"
-            "请删除旧 progress，或换新的 output 路径重新扫描。"
-        )
+        if _allows_legacy_default_target_items_migration(saved_fingerprint, cfg):
+            logger.info(
+                "检测到旧默认 target_items=300 的 progress 指纹，"
+                "自动迁移为新的默认无上限模式"
+            )
+        else:
+            raise RuntimeError(
+                "当前 fetch-prs 参数与 progress 文件不一致。"
+                "请删除旧 progress，或换新的 output 路径重新扫描。"
+            )
 
     completed_repos = list(progress.get("completed_repos", []))
     completed_repo_set = set(completed_repos)
@@ -1229,7 +1257,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
         if repo["full_name"] not in completed_repo_set
     ]
 
-    if len(persisted_prs) >= target_items:
+    if target_items is not None and len(persisted_prs) >= target_items:
         logger.info(f"已有 {len(persisted_prs)} 个 PR，已达到目标 {target_items}")
         return {"prs": []}
 
@@ -1240,7 +1268,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
 
     for repo_info in remaining_repos:
         # 目标驱动：当前累计结果已满则停止
-        if len(persisted_prs) >= target_items:
+        if target_items is not None and len(persisted_prs) >= target_items:
             logger.info(f"候选池已达目标 {target_items}，停止扫描")
             break
 
@@ -1723,7 +1751,7 @@ BASE_RUN_CONFIG = {
                            "ruby_cext", "v8_cpp", "wasm"],
     "min_stars":          50,
     "max_prs_per_repo":   100,
-    "target_items":       300,
+    "target_items":       None,   # 默认无上限；仅显式传 --target-items 时提前停止
     "target_repo_count":  100,
     "per_repo_cap":       None,
     "skip_review":        True,   # 默认关闭人工审核
@@ -1774,7 +1802,7 @@ def load_json_array(path_str: str) -> list[dict]:
 def build_config_fingerprint(run_config: dict) -> str:
     relevant = {
         "max_prs_per_repo": run_config["max_prs_per_repo"],
-        "target_items": run_config["target_items"],
+        "target_items": _normalize_target_items(run_config.get("target_items")),
         "min_diff_lines": run_config["min_diff_lines"],
         "max_diff_lines": run_config["max_diff_lines"],
     }
@@ -1868,6 +1896,8 @@ def run_fetch_prs(args):
     # 允许命令行覆盖部分参数
     if args.max_prs_per_repo:
         run_config["max_prs_per_repo"] = args.max_prs_per_repo
+    if getattr(args, "target_items", None) is not None:
+        run_config["target_items"] = _normalize_target_items(args.target_items)
     run_config["config_fingerprint"] = build_config_fingerprint(run_config)
 
     app    = build_stage1_pr_graph(db_path=db_path)
@@ -1918,6 +1948,7 @@ if __name__ == "__main__":
     parser.add_argument("--interop-types",default=None)
     parser.add_argument("--min-stars",    type=int, default=None)
     parser.add_argument("--max-prs-per-repo", type=int, default=None)
+    parser.add_argument("--target-items", type=int, default=None)
     parser.add_argument("--review",       action="store_true")
     parser.add_argument("--db",           default="benchmark_runs.db")
     args = parser.parse_args()
