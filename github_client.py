@@ -36,6 +36,26 @@ LOCAL_PROXY_HOSTS = {"127.0.0.1", "localhost", "::1"}
 GITHUB_NO_PROXY_HOSTS = ("api.github.com", "github.com")
 
 
+def _is_pr_diff_not_available_error(exc: GithubException) -> bool:
+    if exc.status != 422 or not isinstance(exc.data, dict):
+        return False
+
+    message = str(exc.data.get("message", "")).lower()
+    errors = exc.data.get("errors")
+    if isinstance(errors, list):
+        for error in errors:
+            if not isinstance(error, dict):
+                continue
+            if (
+                error.get("resource") == "PullRequest"
+                and error.get("field") == "diff"
+                and error.get("code") == "not_available"
+            ):
+                return True
+
+    return "diff is taking too long to generate" in message
+
+
 def load_project_env(env_path: str | os.PathLike[str] | None = None) -> dict[str, str]:
     """Load key=value pairs from the repo .env file into missing os.environ slots."""
     path = (
@@ -407,6 +427,14 @@ class GitHubClient:
                 )
         except GithubException as e:
             if e.status == 404:
+                return []
+            if _is_pr_diff_not_available_error(e):
+                logger.warning(
+                    "Skipping PR files for %s#%s because GitHub could not generate "
+                    "the diff in time (422 not_available)",
+                    repo_full_name,
+                    pr_number,
+                )
                 return []
             raise
 

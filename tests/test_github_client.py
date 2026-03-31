@@ -8,6 +8,7 @@ Results are cached after first run.
 import os, sys
 from types import SimpleNamespace
 import pytest
+from github import GithubException
 from requests.exceptions import ProxyError
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -269,6 +270,38 @@ def test_list_prs_scans_past_unmerged_closed_prs():
 
     prs = client.list_prs("owner/repo", max_n=2)
     assert [pr["number"] for pr in prs] == [2, 3]
+
+
+def test_get_pr_files_skips_when_github_diff_is_not_available():
+    client = object.__new__(GitHubClient)
+    client._cache_get = lambda key: None
+    client._cache_set = lambda key, value, ttl_hours=24.0: None
+    client._api_call = lambda func, *args, **kwargs: func()
+
+    diff_error = GithubException(
+        422,
+        {
+            "message": "Server Error: Sorry, this diff is taking too long to generate.",
+            "errors": [
+                {
+                    "resource": "PullRequest",
+                    "field": "diff",
+                    "code": "not_available",
+                }
+            ],
+        },
+        None,
+    )
+
+    class UnavailableDiffFiles:
+        def __iter__(self):
+            raise diff_error
+
+    pr = SimpleNamespace(get_files=lambda: UnavailableDiffFiles())
+    repo = SimpleNamespace(get_pull=lambda pr_number: pr)
+    client._client = lambda: SimpleNamespace(get_repo=lambda repo_full_name: repo)
+
+    assert client.get_pr_files("owner/repo", 123) == []
 
 
 def test_api_call_wraps_proxy_errors_with_actionable_message(monkeypatch):
