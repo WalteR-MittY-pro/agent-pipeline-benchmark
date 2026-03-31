@@ -141,6 +141,18 @@ def _has_reached_target_items(candidate_count: int, target_items: int | None) ->
     return target_items is not None and candidate_count >= target_items
 
 
+def _allows_legacy_default_target_items_migration(
+    saved_fingerprint: str | None,
+    cfg: dict,
+) -> bool:
+    if not saved_fingerprint or _normalize_target_items(cfg.get("target_items")) is not None:
+        return False
+
+    legacy_cfg = dict(cfg)
+    legacy_cfg["target_items"] = 300
+    return saved_fingerprint == _build_config_fingerprint(legacy_cfg)
+
+
 def _save_progress(
     progress_path: str | None,
     input_path: str | None,
@@ -238,10 +250,16 @@ def fetch_prs(state: BenchmarkState) -> dict:
     progress = _load_progress(progress_path)
     saved_fingerprint = progress.get("config_fingerprint")
     if saved_fingerprint not in (None, config_fingerprint):
-        raise RuntimeError(
-            "Current fetch-prs parameters do not match the existing progress file. "
-            "Remove the old progress file or choose a new output path."
-        )
+        if _allows_legacy_default_target_items_migration(saved_fingerprint, cfg):
+            logger.info(
+                "Upgrading fetch-prs progress file from the legacy default "
+                "target_items=300 fingerprint to the new unbounded default"
+            )
+        else:
+            raise RuntimeError(
+                "Current fetch-prs parameters do not match the existing progress file. "
+                "Remove the old progress file or choose a new output path."
+            )
 
     saved_input_path = progress.get("input_path")
     if saved_input_path not in (None, "", input_path):
