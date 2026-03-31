@@ -42,7 +42,7 @@ BASE_RUN_CONFIG = {
     ],
     "min_stars": 50,
     "max_prs_per_repo": 100,
-    "target_items": 300,
+    "target_items": None,
     "target_repo_count": 200,
     "per_repo_cap": None,
     "skip_review": True,
@@ -53,6 +53,14 @@ BASE_RUN_CONFIG = {
     "max_diff_lines": 2000,
     "max_concurrent_docker": 4,
 }
+
+
+def _normalize_target_items(value: int | None) -> int | None:
+    if value is None:
+        return None
+    return value if value > 0 else None
+
+
 def _atomic_write_json(path: str, payload: object) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -91,7 +99,7 @@ def load_json_array(path_str: str) -> list[dict]:
 def build_config_fingerprint(run_config: dict) -> str:
     relevant = {
         "max_prs_per_repo": run_config["max_prs_per_repo"],
-        "target_items": run_config["target_items"],
+        "target_items": _normalize_target_items(run_config.get("target_items")),
         "min_diff_lines": run_config["min_diff_lines"],
         "max_diff_lines": run_config["max_diff_lines"],
     }
@@ -205,6 +213,8 @@ def run_fetch_prs(args):
 
     if getattr(args, "max_prs_per_repo", None) is not None:
         run_config["max_prs_per_repo"] = args.max_prs_per_repo
+    if getattr(args, "target_items", None) is not None:
+        run_config["target_items"] = _normalize_target_items(args.target_items)
     if args.min_stars is not None:
         run_config["min_stars"] = args.min_stars
     run_config["config_fingerprint"] = build_config_fingerprint(run_config)
@@ -296,6 +306,11 @@ def main():
         "--max-prs-per-repo",
         type=int,
         help="Maximum merged PRs to inspect per repo in fetch-prs mode",
+    )
+    parser.add_argument(
+        "--target-items",
+        type=int,
+        help="Stop fetch-prs after collecting this many candidate PRs (omit or use 0 for no cap)",
     )
     parser.add_argument(
         "--review",
