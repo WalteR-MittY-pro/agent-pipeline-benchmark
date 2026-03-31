@@ -1,4 +1,6 @@
 # github_client.py
+from __future__ import annotations
+
 import os
 import json
 import sqlite3
@@ -12,7 +14,10 @@ from typing import Optional, Any
 from urllib.parse import urlparse
 
 from github import Github, GithubException, RateLimitExceededException
-from requests.exceptions import ProxyError as RequestsProxyError
+from requests.exceptions import (
+    ConnectionError as RequestsConnectionError,
+    ProxyError as RequestsProxyError,
+)
 
 from state import RepoInfo, DiffFile
 
@@ -249,6 +254,23 @@ class GitHubClient:
                     f"unavailable ({hint}). Start the proxy, unset the proxy env vars, "
                     "set NO_PROXY=api.github.com,github.com, or export "
                     "GITHUB_BYPASS_PROXY=1."
+                ) from e
+            except RequestsConnectionError as e:
+                proxies = ", ".join(
+                    f"{key}={value}" for key, value in _iter_proxy_env_vars()
+                )
+                proxy_hint = (
+                    f" Current proxy env: {proxies}."
+                    if proxies
+                    else " No proxy env vars are set."
+                )
+                raise RuntimeError(
+                    "GitHub API request failed because api.github.com could not be "
+                    "reached. Check your network connection and DNS resolution. "
+                    "If you are behind a proxy, verify the proxy is running; if the "
+                    "proxy should be bypassed for GitHub, set "
+                    "GITHUB_BYPASS_PROXY=1 or NO_PROXY=api.github.com,github.com."
+                    + proxy_hint
                 ) from e
             except RateLimitExceededException:
                 logger.warning(
