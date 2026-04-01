@@ -155,6 +155,7 @@ Stage 1 改为两个显式步骤执行，而不是一次 `fetch` 把 repo 召回
     - `completed_repos` 中的 repo 直接跳过
     - 未完成 repo 会重新取一次 `list_prs(repo)`，但已存在于 `scanned_pr_keys` 的 `repo@head_sha` 直接跳过
     - 已存在于 `prs_snapshot.json` 的 `repo@head_sha` 也必须参与去重，避免“快照已写、进度未写”导致重复追加
+    - 若 `config_fingerprint` 仅因历史默认值从 `target_items=300` 升级为“默认无上限”而不同，允许自动兼容迁移并继续扫描
 
 ### 1.8 新方案与上一版方案对比
 
@@ -182,7 +183,8 @@ Stage 1 改为两个显式步骤执行，而不是一次 `fetch` 把 repo 召回
 
 **代价：**
 - 文档、CLI 和进度文件管理会更复杂。
-- 若更改了 `fetch-prs` 的筛选参数，必须基于 `config_fingerprint` 拒绝错误续跑或要求用户清理旧 progress。
+- 若更改了 `fetch-prs` 的筛选参数，通常必须基于 `config_fingerprint` 拒绝错误续跑或要求用户清理旧 progress。
+- 当前仅对一条历史兼容路径做特判：保存的 progress 若来自旧默认 `target_items=300`，而当前运行使用新的“默认无上限”，则允许自动迁移。
 
 ---
 
@@ -756,7 +758,7 @@ state.py
 输入（从 state 读取）：
   state["repos"]                          list[RepoInfo]
   state["run_config"]["max_prs_per_repo"] int   — 每仓库最多扫描数，默认 100
-  state["run_config"]["target_items"]     int   — 候选池目标总数，默认 300
+  state["run_config"]["target_items"]     int | None — 候选池目标总数；默认 None（无上限）
   state["run_config"]["min_diff_lines"]   int   — diff 最少行数，默认 50
   state["run_config"]["max_diff_lines"]   int   — diff 最多行数，默认 2000
   state["run_config"]["input_path"]       str   — `repos_snapshot.json` 路径
@@ -813,7 +815,7 @@ Stage 1 宿主/目标语言对（用于轻量信号判断）：
   wasm      → Rust/C + JavaScript/TypeScript
 
 目标驱动停止逻辑：
-  全局候选池 >= target_items 时停止扫描，剩余仓库跳过
+  仅当 target_items is not None 且全局候选池 >= target_items 时停止扫描，剩余仓库跳过
   每个仓库达到 per_repo_cap（待定，暂不限制）时跳过该仓库
 
 断点续扫逻辑：
@@ -822,7 +824,8 @@ Stage 1 宿主/目标语言对（用于轻量信号判断）：
   fetch_prs 启动时读取 progress_path.completed_repos 和 progress_path.scanned_pr_keys
   completed_repos 中的 repo 直接跳过
   未完成 repo 中，命中 `repo@head_sha` 的 PR 直接跳过
-  若 progress_path.config_fingerprint 与当前参数不一致，必须拒绝续跑并提示清理或重建 progress
+  若 progress_path.config_fingerprint 与当前参数不一致，通常必须拒绝续跑并提示清理或重建 progress
+  唯一兼容例外：若保存的 fingerprint 对应旧默认 `target_items=300`，而当前运行使用新的默认无上限模式，则允许自动继续，并在下一次保存 progress 时升级到新 fingerprint
   build 模式只读取 `prs_snapshot.json`；progress sidecar 仅供 `fetch-prs` 使用
 
 职责边界：
@@ -1704,7 +1707,7 @@ parse 实现逻辑：
     "interop_types":      list[str]  — 目标类型，默认全部 10 种
     "min_stars":          int        — 默认 50
     "max_prs_per_repo":   int        — 默认 100
-    "target_items":       int        — 候选池目标，默认 300
+    "target_items":       int | None — 候选池目标；默认 None（无上限）
     "per_repo_cap":       int | None — 默认 None（待定）
     "skip_review":        bool       — 默认 True（默认关闭人工审核）
     "task_strategy":      str        — "completion"，默认
@@ -1741,6 +1744,7 @@ parse 实现逻辑：
 | `--pr-json` | str | `test_pr.json` | `single-pr` 模式的单条 PR 文件 |
 | `--interop-types` | str | 全部 | 逗号分隔，如 `"cgo,jni"` |
 | `--min-stars` | int | 50 | 覆盖 BASE_RUN_CONFIG |
+| `--target-items` | int | None | 仅在需要提前停止时设置候选 PR 上限；省略或传 `0` 表示无上限 |
 | `--review` | flag | False | 开启一次性人工审核；默认不审核 |
 | `--target-llm` | str | 见配置 | 被测模型 |
 | `--db` | str | `benchmark_runs.db` | Checkpoint 数据库路径 |

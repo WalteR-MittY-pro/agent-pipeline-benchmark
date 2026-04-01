@@ -192,7 +192,7 @@ class GitHubClient:
         self,
         tokens: list[str],
         cache_db: str = "benchmark_runs.db",
-        min_request_interval: float = 2.0,
+        min_request_interval: float = 0.4,
     ):
         if not tokens:
             raise ValueError("At least 1 GitHub token required")
