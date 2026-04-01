@@ -53,7 +53,10 @@ def _is_pr_diff_not_available_error(exc: GithubException) -> bool:
             ):
                 return True
 
-    return "diff is taking too long to generate" in message
+    return (
+        "diff is taking too long to generate" in message
+        or "problem generating this diff" in message
+    )
 
 
 def load_project_env(env_path: str | os.PathLike[str] | None = None) -> dict[str, str]:
@@ -430,8 +433,8 @@ class GitHubClient:
                 return []
             if _is_pr_diff_not_available_error(e):
                 logger.warning(
-                    "Skipping PR files for %s#%s because GitHub could not generate "
-                    "the diff in time (422 not_available)",
+                    "Skipping PR files for %s#%s because GitHub reported the diff "
+                    "as unavailable (422 not_available)",
                     repo_full_name,
                     pr_number,
                 )

@@ -304,6 +304,38 @@ def test_get_pr_files_skips_when_github_diff_is_not_available():
     assert client.get_pr_files("owner/repo", 123) == []
 
 
+def test_get_pr_files_skips_when_github_reports_missing_diff_data():
+    client = object.__new__(GitHubClient)
+    client._cache_get = lambda key: None
+    client._cache_set = lambda key, value, ttl_hours=24.0: None
+    client._api_call = lambda func, *args, **kwargs: func()
+
+    diff_error = GithubException(
+        422,
+        {
+            "message": "Sorry, there was a problem generating this diff. The repository may be missing relevant data.",
+            "errors": [
+                {
+                    "resource": "PullRequest",
+                    "field": "diff",
+                    "code": "not_available",
+                }
+            ],
+        },
+        None,
+    )
+
+    class UnavailableDiffFiles:
+        def __iter__(self):
+            raise diff_error
+
+    pr = SimpleNamespace(get_files=lambda: UnavailableDiffFiles())
+    repo = SimpleNamespace(get_pull=lambda pr_number: pr)
+    client._client = lambda: SimpleNamespace(get_repo=lambda repo_full_name: repo)
+
+    assert client.get_pr_files("owner/repo", 456) == []
+
+
 def test_api_call_wraps_proxy_errors_with_actionable_message(monkeypatch):
     client = object.__new__(GitHubClient)
     client._throttle = lambda: None

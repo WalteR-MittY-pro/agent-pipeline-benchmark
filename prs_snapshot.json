@@ -107102,5 +107102,243 @@
     "diff_total_lines": 308,
     "test_commands": null,
     "merged_at": "2025-01-27T21:05:16+00:00"
+  },
+  {
+    "repo": "libretro/libretro-lutro",
+    "clone_url": "https://github.com/libretro/libretro-lutro.git",
+    "pr_id": 175,
+    "pr_title": "Add lutro.window.showMessageBox",
+    "interop_type": "lua_c",
+    "interop_layer": "runtime_embedding",
+    "base_sha": "77a05136d402dc3132e12f8ea196297755e5ef93",
+    "head_sha": "83afb04b542d13dc542322afb78e9cd0f61f1fd3",
+    "diff_files": [
+      {
+        "path": "graphics.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 0,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "libretro.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 0,
+        "status": "modified"
+      },
+      {
+        "path": "lutro.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "lutro.h",
+        "lang": "C",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 0,
+        "status": "modified"
+      },
+      {
+        "path": "lutro_window.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 26,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "lutro_window.h",
+        "lang": "C",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 0,
+        "status": "renamed"
+      },
+      {
+        "path": "test/unit/modules/graphics.lua",
+        "lang": "Lua",
+        "is_test": false,
+        "additions": 22,
+        "deletions": 0,
+        "status": "added"
+      },
+      {
+        "path": "test/unit/modules/window.lua",
+        "lang": "Lua",
+        "is_test": false,
+        "additions": 7,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "test/unit/tests.lua",
+        "lang": "Lua",
+        "is_test": true,
+        "additions": 1,
+        "deletions": 0,
+        "status": "modified"
+      }
+    ],
+    "diff_total_lines": 64,
+    "test_commands": null,
+    "merged_at": "2021-03-25T05:33:00+00:00"
+  },
+  {
+    "repo": "kubo/ruby-oci8",
+    "clone_url": "https://github.com/kubo/ruby-oci8.git",
+    "pr_id": 145,
+    "pr_title": "Integer Unification in Ruby 2.4.0+",
+    "interop_type": "ruby_cext",
+    "interop_layer": "runtime_embedding",
+    "base_sha": "c2582a6c24412882a2e1a87c2475122d7107e3e8",
+    "head_sha": "11847b0841dd83ed69e57db62c43b3073e5a6a45",
+    "diff_files": [
+      {
+        "path": "ext/oci8/encoding.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 5,
+        "deletions": 5,
+        "status": "modified"
+      },
+      {
+        "path": "ext/oci8/oci8.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 5,
+        "deletions": 5,
+        "status": "modified"
+      },
+      {
+        "path": "ext/oci8/ocihandle.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 34,
+        "deletions": 34,
+        "status": "modified"
+      },
+      {
+        "path": "ext/oci8/oraconf.rb",
+        "lang": "Ruby",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "ext/oci8/oradate.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 18,
+        "deletions": 18,
+        "status": "modified"
+      },
+      {
+        "path": "ext/oci8/stmt.c",
+        "lang": "C",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "lib/oci8/bindtype.rb",
+        "lang": "Ruby",
+        "is_test": false,
+        "additions": 25,
+        "deletions": 19,
+        "status": "modified"
+      },
+      {
+        "path": "lib/oci8/compat.rb",
+        "lang": "Ruby",
+        "is_test": false,
+        "additions": 10,
+        "deletions": 7,
+        "status": "modified"
+      },
+      {
+        "path": "lib/oci8/cursor.rb",
+        "lang": "Ruby",
+        "is_test": false,
+        "additions": 5,
+        "deletions": 5,
+        "status": "modified"
+      },
+      {
+        "path": "lib/oci8/oci8.rb",
+        "lang": "Ruby",
+        "is_test": false,
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "spec/oranumber_spec.rb",
+        "lang": "Ruby",
+        "is_test": false,
+        "additions": 12,
+        "deletions": 12,
+        "status": "modified"
+      },
+      {
+        "path": "test/test_array_dml.rb",
+        "lang": "Ruby",
+        "is_test": true,
+        "additions": 10,
+        "deletions": 10,
+        "status": "modified"
+      },
+      {
+        "path": "test/test_bind_array.rb",
+        "lang": "Ruby",
+        "is_test": true,
+        "additions": 2,
+        "deletions": 2,
+        "status": "modified"
+      },
+      {
+        "path": "test/test_bind_time.rb",
+        "lang": "Ruby",
+        "is_test": true,
+        "additions": 12,
+        "deletions": 12,
+        "status": "modified"
+      },
+      {
+        "path": "test/test_dbi.rb",
+        "lang": "Ruby",
+        "is_test": true,
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "path": "test/test_oci8.rb",
+        "lang": "Ruby",
+        "is_test": true,
+        "additions": 7,
+        "deletions": 7,
+        "status": "modified"
+      },
+      {
+        "path": "test/test_oradate.rb",
+        "lang": "Ruby",
+        "is_test": true,
+        "additions": 12,
+        "deletions": 12,
+        "status": "modified"
+      }
+    ],
+    "diff_total_lines": 313,
+    "test_commands": null,
+    "merged_at": "2016-12-29T14:55:04+00:00"
   }
 ]
