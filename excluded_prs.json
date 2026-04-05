@@ -1,0 +1,32 @@
+[
+  {
+    "repo": "bytecodealliance/wasmtime-go",
+    "pr_id": 93,
+    "status": "excluded_not_self_contained",
+    "reason": "Generated Docker image builds, but baseline compilation still fails on Wasmtime C API compatibility and cannot directly run in-container."
+  },
+  {
+    "repo": "php/frankenphp",
+    "pr_id": 2282,
+    "status": "excluded_not_self_contained",
+    "reason": "Generated Docker image builds, but baseline compilation still requires watcher C headers that are not provisioned by the image."
+  },
+  {
+    "repo": "deeptools/pyBigWig",
+    "pr_id": 94,
+    "status": "baseline_failed",
+    "reason": "Generated Docker image builds, but baseline tests fail at runtime."
+  },
+  {
+    "repo": "madonoharu/tsify",
+    "pr_id": 82,
+    "status": "baseline_failed",
+    "reason": "Generated Docker image builds, but baseline tests fail at runtime."
+  },
+  {
+    "repo": "shorepine/amy",
+    "pr_id": 658,
+    "status": "baseline_failed",
+    "reason": "Generated Docker image builds, but baseline tests fail at runtime."
+  }
+]

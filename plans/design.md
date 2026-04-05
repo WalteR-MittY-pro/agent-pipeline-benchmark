@@ -186,6 +186,45 @@ Stage 1 改为两个显式步骤执行，而不是一次 `fetch` 把 repo 召回
 - 若更改了 `fetch-prs` 的筛选参数，通常必须基于 `config_fingerprint` 拒绝错误续跑或要求用户清理旧 progress。
 - 当前仅对一条历史兼容路径做特判：保存的 progress 若来自旧默认 `target_items=300`，而当前运行使用新的“默认无上限”，则允许自动迁移。
 
+### 1.9 Stage 2 候选治理：硬排除列表与可运行集合
+
+Stage 2 不再仅凭“PR 看起来像跨语言样本”进入验证，还必须满足更严格的**自包含运行**标准：
+
+- 生成的 Dockerfile 必须能够直接 `docker build`
+- baseline 必须能够在容器内直接运行
+- 不允许依赖额外的人工环境配置、手工下载、手工安装头文件或临时修补命令
+
+为保证这一点，项目维护两份显式清单：
+
+- `excluded_prs.json`
+  - 语义：**硬排除列表**
+  - 记录已经确认“不适合作为自包含测试用例”的 PR
+  - 这些 PR 即使未来再次出现在 Stage 1 输出中，也默认不会进入 Stage 2
+  - 当前代码中，`fetch_prs`、`main.py --mode build`、`main.py --mode single-pr` 都必须尊重该列表
+
+- `output/runnable_baseline_10.json`
+  - 语义：**当前已验证通过的 runnable baseline 集合**
+  - 其中每个 PR 都已经完成过“镜像构建 + 容器内 baseline 运行”的确认
+  - 这是当前最适合作为第一轮正式 Stage 2 验证输入的样本集
+
+实现约束：
+
+- `fetch_prs` 在 repo 扫描阶段，一旦发现 `repo#pr_id` 命中 `excluded_prs.json`，必须直接跳过该 PR，不再写入 `prs_snapshot.json`
+- `main.py --mode build` 读取输入 JSON 时，必须过滤 `excluded_prs.json`
+- `main.py --mode single-pr` 若目标 PR 命中排除列表，应直接拒绝运行并报错
+
+推荐的 Stage 2 执行方式：
+
+```bash
+python main.py \
+  --mode build \
+  --input output/runnable_baseline_10.json \
+  --output output/stage2_results_runnable_10.jsonl \
+  --thread-id stage2-runnable-10
+```
+
+这条命令的含义是：只对已经验证为“自包含可运行”的 PR 集合执行 Stage 2，而不是再次对未经治理的候选池做盲跑。
+
 ---
 
 ## 二、数据类型规范

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import hashlib
 import json
 import logging
@@ -11,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 from github_client import get_github_tokens_from_env
+from pr_registry import load_pr_key_set, make_pr_key
 
 try:
     from langgraph.types import Command
@@ -52,6 +54,8 @@ BASE_RUN_CONFIG = {
     "min_diff_lines": 50,
     "max_diff_lines": 2000,
     "max_concurrent_docker": 4,
+    "enable_compile_repair": False,
+    "excluded_prs_path": "excluded_prs.json",
 }
 
 
@@ -107,6 +111,25 @@ def build_config_fingerprint(run_config: dict) -> str:
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()
 
 
+def filter_excluded_prs(
+    prs: list[dict], excluded_prs_path: str | None
+) -> tuple[list[dict], list[dict]]:
+    excluded_keys = load_pr_key_set(excluded_prs_path)
+    if not excluded_keys:
+        return list(prs), []
+
+    kept: list[dict] = []
+    skipped: list[dict] = []
+    for pr in prs:
+        pr_key = make_pr_key(pr["repo"], pr["pr_id"])
+        if pr_key in excluded_keys:
+            skipped.append(pr)
+        else:
+            kept.append(pr)
+
+    return kept, skipped
+
+
 def make_initial_state(
     run_config: dict,
     repos: list[dict] | None = None,
@@ -117,6 +140,29 @@ def make_initial_state(
         "repos": list(repos or []),
         "prs": list(existing_prs or []),
         "benchmark_items": [],
+        "errors": [],
+    }
+
+
+def make_initial_pr_state(pr: dict, run_config: dict) -> dict:
+    return {
+        "pr": pr,
+        "run_config": run_config,
+        "env_spec": None,
+        "dockerfile_path": None,
+        "dockerfile_content": None,
+        "image_tag": None,
+        "build_status": None,
+        "build_retries": 0,
+        "build_log": None,
+        "compile_status": None,
+        "compile_repair_rounds": 0,
+        "compile_repair_log": None,
+        "baseline_test_result": None,
+        "task": None,
+        "generated_code": None,
+        "llm_tokens_used": 0,
+        "test_result": None,
         "errors": [],
     }
 
@@ -209,6 +255,8 @@ def run_fetch_prs(args):
         "output_path": output_path,
         "progress_path": progress_path,
         "thread_id": thread_id,
+        "excluded_prs_path": getattr(args, "excluded_prs", None)
+        or BASE_RUN_CONFIG["excluded_prs_path"],
     }
 
     if getattr(args, "max_prs_per_repo", None) is not None:
@@ -233,6 +281,14 @@ def run_fetch_prs(args):
         app.invoke(Command(resume=resume_payload), config)
 
     prs = load_json_array(output_path)
+    prs, skipped_prs = filter_excluded_prs(prs, run_config["excluded_prs_path"])
+    if skipped_prs:
+        _atomic_write_json(output_path, prs)
+        logging.info(
+            "fetch-prs removed %s excluded PRs from %s",
+            len(skipped_prs),
+            output_path,
+        )
     if getattr(args, "review", False):
         if approved_keys is not None:
             approved_set = set(approved_keys)
@@ -260,6 +316,99 @@ def run_resume(args):
     app = build_stage1_pr_graph(db_path=args.db)
     config = {"configurable": {"thread_id": args.thread_id}}
     return app.invoke(None, config)
+
+
+def run_single_pr(args):
+    from graph import build_pr_subgraph
+    from nodes.stage2_utils import summarize_stage2_state
+
+    if not args.pr_json:
+        raise SystemExit("--pr-json is required for single-pr mode")
+
+    pr_path = Path(args.pr_json)
+    if not pr_path.exists():
+        raise SystemExit(f"PR JSON file not found: {args.pr_json}")
+
+    pr = json.loads(pr_path.read_text(encoding="utf-8"))
+    excluded_prs_path = getattr(args, "excluded_prs", None) or BASE_RUN_CONFIG["excluded_prs_path"]
+    if make_pr_key(pr["repo"], pr["pr_id"]) in load_pr_key_set(excluded_prs_path):
+        raise SystemExit(
+            f"PR {pr['repo']}#{pr['pr_id']} is marked excluded in {excluded_prs_path}"
+        )
+    run_config = {
+        **BASE_RUN_CONFIG,
+        "db_path": args.db,
+        "thread_id": args.thread_id or f"single-pr-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+        "stage2_only": True,
+        "enable_compile_repair": False,
+        "excluded_prs_path": excluded_prs_path,
+    }
+
+    app = build_pr_subgraph(db_path=args.db, stage2_only=True)
+    result = asyncio.run(
+        app.ainvoke(
+            make_initial_pr_state(pr, run_config),
+            {"configurable": {"thread_id": run_config["thread_id"]}},
+        )
+    )
+    summary = summarize_stage2_state(result)
+    logging.info(
+        "single-pr complete: repo=%s pr=%s status=%s reason=%s",
+        pr.get("repo"),
+        pr.get("pr_id"),
+        summary["coarse_status"],
+        summary["reason_code"],
+    )
+    return result
+
+
+def run_build(args):
+    from graph import build_pr_subgraph
+    from nodes.stage2_utils import summarize_stage2_state
+
+    input_path = args.input or "prs_snapshot.json"
+    output_path = args.output or "output/stage2_results.jsonl"
+    prs = load_json_array(input_path)
+    excluded_prs_path = getattr(args, "excluded_prs", None) or BASE_RUN_CONFIG["excluded_prs_path"]
+    prs, skipped_prs = filter_excluded_prs(prs, excluded_prs_path)
+    if skipped_prs:
+        logging.info(
+            "build skipped %s excluded PRs based on %s",
+            len(skipped_prs),
+            excluded_prs_path,
+        )
+    run_config = {
+        **BASE_RUN_CONFIG,
+        "db_path": args.db,
+        "thread_id": args.thread_id or f"build-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+        "stage2_only": True,
+        "enable_compile_repair": False,
+        "excluded_prs_path": excluded_prs_path,
+    }
+
+    app = build_pr_subgraph(db_path=args.db, stage2_only=True)
+    output_file = Path(output_path)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+
+    summaries: list[dict] = []
+    with output_file.open("w", encoding="utf-8") as handle:
+        for pr in prs:
+            result = asyncio.run(
+                app.ainvoke(
+                    make_initial_pr_state(pr, run_config),
+                    {
+                        "configurable": {
+                            "thread_id": f"{run_config['thread_id']}-pr{pr['pr_id']}"
+                        }
+                    },
+                )
+            )
+            summary = summarize_stage2_state(result)
+            summaries.append(summary)
+            handle.write(json.dumps(summary, ensure_ascii=False, default=str) + "\n")
+
+    logging.info("build complete: %s PRs processed into %s", len(summaries), output_path)
+    return summaries
 
 
 def main():
@@ -317,12 +466,22 @@ def main():
         action="store_true",
         help="Enable a one-shot in-process human review step",
     )
+    parser.add_argument(
+        "--pr-json",
+        help="Single PR metadata JSON file for single-pr mode",
+    )
+    parser.add_argument(
+        "--excluded-prs",
+        help="JSON array file of PRs to permanently exclude; defaults to excluded_prs.json",
+    )
 
     args = parser.parse_args()
 
     dispatch = {
         "fetch-repos": run_fetch_repos,
         "fetch-prs": run_fetch_prs,
+        "build": run_build,
+        "single-pr": run_single_pr,
         "resume": run_resume,
     }
 

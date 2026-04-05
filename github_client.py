@@ -314,6 +314,8 @@ class GitHubClient:
             except GithubException as e:
                 if e.status == 422:
                     raise ValueError(f"GitHub API query syntax error: {e.data}") from e
+                if e.status == 404:
+                    raise
                 if attempt == max_retries - 1:
                     raise
                 logger.warning(f"GitHub API error {e.status}, retrying...")

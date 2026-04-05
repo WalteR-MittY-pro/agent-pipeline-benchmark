@@ -399,6 +399,91 @@ def test_fetch_prs_dedupes_against_existing_snapshot_when_progress_lags(tmp_path
     assert [pr["head_sha"] for pr in persisted_prs] == ["sha-1", "sha-2"]
 
 
+def test_fetch_prs_skips_excluded_prs(tmp_path):
+    repo_info = {
+        "full_name": "test/repo",
+        "clone_url": "https://github.com/test/repo.git",
+        "interop_type": "cgo",
+        "interop_layer": "ffi",
+        "stars": 1000,
+        "default_branch": "main",
+    }
+    excluded_path = tmp_path / "excluded_prs.json"
+    excluded_path.write_text(
+        json.dumps([{"repo": "test/repo", "pr_id": 7}]), encoding="utf-8"
+    )
+
+    good_pr_files = [
+        {
+            "path": "bridge.go",
+            "lang": "Go",
+            "is_test": False,
+            "additions": 30,
+            "deletions": 5,
+            "status": "modified",
+        },
+        {
+            "path": "bridge_test.go",
+            "lang": "Go",
+            "is_test": True,
+            "additions": 15,
+            "deletions": 0,
+            "status": "added",
+        },
+        {
+            "path": "bridge.c",
+            "lang": "C",
+            "is_test": False,
+            "additions": 20,
+            "deletions": 4,
+            "status": "modified",
+        },
+    ]
+
+    mock_client = MagicMock()
+    mock_client.list_prs.return_value = [
+        {
+            "number": 7,
+            "title": "Excluded",
+            "merged_at": "2024-01-01T00:00:00",
+            "base_sha": "abc",
+            "head_sha": "sha-1",
+        },
+        {
+            "number": 8,
+            "title": "Keep",
+            "merged_at": "2024-01-02T00:00:00",
+            "base_sha": "def",
+            "head_sha": "sha-2",
+        },
+    ]
+    mock_client.get_pr_files.return_value = good_pr_files
+
+    with (
+        patch("nodes.fetch_prs.get_github_tokens_from_env", return_value=["token"]),
+        patch("nodes.fetch_prs.GitHubClient", return_value=mock_client),
+    ):
+        result = fetch_prs(
+            {
+                "repos": [repo_info],
+                "prs": [],
+                "benchmark_items": [],
+                "errors": [],
+                "run_config": {
+                    "max_prs_per_repo": 10,
+                    "target_items": 5,
+                    "min_diff_lines": 10,
+                    "max_diff_lines": 500,
+                    "db_path": ":memory:",
+                    "excluded_prs_path": str(excluded_path),
+                },
+            }
+        )
+
+    assert [pr["pr_id"] for pr in result["prs"]] == [8]
+    mock_client.get_pr_files.assert_called_once_with("test/repo", 8)
+
+
 def test_fetch_prs_rejects_progress_with_mismatched_fingerprint(tmp_path):
     repo_info = {
         "full_name": "test/repo",

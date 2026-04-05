@@ -1,0 +1,31 @@
+{
+  "repo": "example/wasm-demo",
+  "clone_url": "https://github.com/example/wasm-demo.git",
+  "pr_id": 103,
+  "pr_title": "Add wasm host bridge",
+  "interop_type": "wasm",
+  "interop_layer": "wasm",
+  "base_sha": "base-wasm-001",
+  "head_sha": "head-wasm-001",
+  "diff_files": [
+    {
+      "path": "src/lib.rs",
+      "lang": "Rust",
+      "is_test": false,
+      "additions": 25,
+      "deletions": 3,
+      "status": "modified"
+    },
+    {
+      "path": "tests/bridge.test.ts",
+      "lang": "TypeScript",
+      "is_test": true,
+      "additions": 19,
+      "deletions": 0,
+      "status": "added"
+    }
+  ],
+  "diff_total_lines": 47,
+  "test_commands": null,
+  "merged_at": "2026-04-04T00:00:00Z"
+}

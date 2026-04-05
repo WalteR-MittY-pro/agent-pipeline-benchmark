@@ -1,0 +1,17 @@
+FROM {{ base_image }}
+
+SHELL ["/bin/sh", "-lc"]
+ENV GOROOT="/usr/local/go"
+ENV GOPATH="/go"
+ENV PATH="/usr/local/go/bin:/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    {% for dep in system_deps %}{{ dep }} {% endfor %} \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN git init /app \
+    && git -C /app remote add origin {{ clone_url }} \
+    && git -C /app fetch --depth 1 origin {{ head_sha }} \
+    && git -C /app checkout FETCH_HEAD

@@ -1,0 +1,31 @@
+{
+  "repo": "example/python-cext-demo",
+  "clone_url": "https://github.com/example/python-cext-demo.git",
+  "pr_id": 102,
+  "pr_title": "Expose module through CPython extension",
+  "interop_type": "python_cext",
+  "interop_layer": "runtime_embedding",
+  "base_sha": "base-py-001",
+  "head_sha": "head-py-001",
+  "diff_files": [
+    {
+      "path": "src/module.c",
+      "lang": "C",
+      "is_test": false,
+      "additions": 32,
+      "deletions": 0,
+      "status": "modified"
+    },
+    {
+      "path": "tests/test_module.py",
+      "lang": "Python",
+      "is_test": true,
+      "additions": 14,
+      "deletions": 0,
+      "status": "added"
+    }
+  ],
+  "diff_total_lines": 46,
+  "test_commands": null,
+  "merged_at": "2026-04-04T00:00:00Z"
+}

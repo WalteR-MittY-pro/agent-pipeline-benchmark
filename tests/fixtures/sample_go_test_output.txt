@@ -1,0 +1,5 @@
+{"Time":"2026-04-04T10:00:00Z","Action":"run","Package":"example.com/demo","Test":"TestAdd"}
+{"Time":"2026-04-04T10:00:00Z","Action":"pass","Package":"example.com/demo","Test":"TestAdd","Elapsed":0}
+{"Time":"2026-04-04T10:00:01Z","Action":"run","Package":"example.com/demo","Test":"TestSub"}
+{"Time":"2026-04-04T10:00:01Z","Action":"fail","Package":"example.com/demo","Test":"TestSub","Elapsed":0}
+{"Time":"2026-04-04T10:00:01Z","Action":"output","Package":"example.com/demo","Output":"FAIL\n"}

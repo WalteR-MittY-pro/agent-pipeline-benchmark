@@ -1,0 +1,39 @@
+{
+  "repo": "example/cgo-demo",
+  "clone_url": "https://github.com/example/cgo-demo.git",
+  "pr_id": 101,
+  "pr_title": "Add CGo bridge layer",
+  "interop_type": "cgo",
+  "interop_layer": "ffi",
+  "base_sha": "base-cgo-001",
+  "head_sha": "head-cgo-001",
+  "diff_files": [
+    {
+      "path": "bridge/bridge.go",
+      "lang": "Go",
+      "is_test": false,
+      "additions": 20,
+      "deletions": 2,
+      "status": "modified"
+    },
+    {
+      "path": "bridge/native.c",
+      "lang": "C",
+      "is_test": false,
+      "additions": 18,
+      "deletions": 0,
+      "status": "modified"
+    },
+    {
+      "path": "bridge/bridge_test.go",
+      "lang": "Go",
+      "is_test": true,
+      "additions": 16,
+      "deletions": 0,
+      "status": "added"
+    }
+  ],
+  "diff_total_lines": 56,
+  "test_commands": null,
+  "merged_at": "2026-04-04T00:00:00Z"
+}

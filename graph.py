@@ -8,9 +8,14 @@ from typing import Optional
 sys.path.insert(0, os.path.dirname(__file__))
 
 from state import BenchmarkState
+from state import PRSubState
 from nodes.fetch_repos import fetch_repos
 from nodes.fetch_prs import fetch_prs
 from nodes.human_review import human_review
+from nodes.infer_env import infer_env
+from nodes.build_dockerfile import build_dockerfile
+from nodes.docker_build import docker_build
+from nodes.compile_verify import compile_verify
 
 from langgraph.graph import StateGraph
 from langgraph.constants import START, END
@@ -72,3 +77,80 @@ def build_stage1_pr_graph(db_path: str = "benchmark_runs.db"):
     g.add_edge("human_review", END)
 
     return g.compile(checkpointer=_build_checkpointer(db_path))
+
+
+def route_after_build(state: PRSubState):
+    env_spec = state.get("env_spec") or {}
+    if env_spec.get("source") == "failed":
+        return END
+    if state.get("build_status") == "success":
+        return "compile_verify"
+    if state.get("dockerfile_path") and int(state.get("build_retries", 0)) < 3:
+        return "docker_build"
+    return END
+
+
+def route_after_dockerfile(state: PRSubState):
+    env_spec = state.get("env_spec") or {}
+    if env_spec.get("source") == "failed":
+        return END
+    if state.get("dockerfile_path"):
+        return "docker_build"
+    return END
+
+
+def route_after_compile(state: PRSubState, *, stage2_only: bool = True):
+    if state.get("compile_status") in {"success", "repaired"}:
+        return END if stage2_only else "construct_task"
+    if state.get("compile_status") == "retryable" and state["run_config"].get(
+        "enable_compile_repair"
+    ) and int(
+        state.get("compile_repair_rounds", 0)
+    ) < 2:
+        return "compile_verify"
+    return END
+
+
+def build_pr_subgraph(
+    db_path: str = "benchmark_runs.db",
+    *,
+    stage2_only: bool = True,
+):
+    g = StateGraph(PRSubState)
+
+    g.add_node("infer_env", infer_env)
+    g.add_node("build_dockerfile", build_dockerfile)
+    g.add_node("docker_build", docker_build)
+    g.add_node("compile_verify", compile_verify)
+
+    g.add_edge(START, "infer_env")
+    g.add_edge("infer_env", "build_dockerfile")
+    g.add_conditional_edges(
+        "build_dockerfile",
+        route_after_dockerfile,
+        {
+            "docker_build": "docker_build",
+            END: END,
+        },
+    )
+    g.add_conditional_edges(
+        "docker_build",
+        route_after_build,
+        {
+            "compile_verify": "compile_verify",
+            "docker_build": "docker_build",
+            END: END,
+        },
+    )
+    g.add_conditional_edges(
+        "compile_verify",
+        lambda state: route_after_compile(state, stage2_only=stage2_only),
+        {
+            "compile_verify": "compile_verify",
+            END: END,
+        },
+    )
+
+    # Stage 2 single-pr/build currently rely on async node execution.
+    # MemorySaver supports the async graph path without requiring AsyncSqliteSaver.
+    return g.compile(checkpointer=MemorySaver())

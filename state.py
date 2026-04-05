@@ -125,6 +125,7 @@ class PRSubState(TypedDict):
     generated_code: object  # str | None
     llm_tokens_used: int
     test_result: object  # TestResult | None
+    errors: list
 
 
 # ─── interop_type 参考枚举（非强制，供查阅）─────────────────

@@ -193,6 +193,22 @@ def test_search_repos_dedups_code_search_matches():
     assert [repo["full_name"] for repo in repos] == ["owner/repo-a"]
 
 
+def test_api_call_does_not_retry_404():
+    client = object.__new__(GitHubClient)
+    client._throttle = lambda: None
+
+    calls = {"count": 0}
+
+    def always_404():
+        calls["count"] += 1
+        raise GithubException(404, {"message": "Not Found"}, None)
+
+    with pytest.raises(GithubException):
+        client._api_call(always_404, max_retries=3)
+
+    assert calls["count"] == 1
+
+
 def test_search_repos_cache_key_includes_max_results():
     client = object.__new__(GitHubClient)
     cache_store = {}

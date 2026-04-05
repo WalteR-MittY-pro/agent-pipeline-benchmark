@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from state import PRMetadata, DiffFile, BenchmarkState
 from github_client import GitHubClient, get_github_tokens_from_env
+from pr_registry import load_pr_key_set, make_pr_key
 
 logger = logging.getLogger(__name__)
 PROGRESS_LOG_INTERVAL = 10
@@ -245,6 +246,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
     input_path = cfg.get("input_path")
     output_path = cfg.get("output_path")
     progress_path = cfg.get("progress_path")
+    excluded_prs_path = cfg.get("excluded_prs_path")
     config_fingerprint = cfg.get("config_fingerprint") or _build_config_fingerprint(cfg)
 
     progress = _load_progress(progress_path)
@@ -282,6 +284,7 @@ def fetch_prs(state: BenchmarkState) -> dict:
     persisted_pr_keys = {
         _scan_key(pr["repo"], pr["head_sha"]) for pr in persisted_prs
     }
+    excluded_pr_keys = load_pr_key_set(excluded_prs_path)
     total_repos = len(state["repos"])
 
     logger.info(
@@ -358,6 +361,20 @@ def fetch_prs(state: BenchmarkState) -> dict:
 
         for raw_pr in raw_prs:
             repo_pr_done += 1
+            pr_key = make_pr_key(repo_name, raw_pr["number"])
+            if pr_key in excluded_pr_keys:
+                if _should_log_repo_progress(repo_pr_done, repo_pr_total):
+                    _log_scan_progress(
+                        repo_name,
+                        total_repos,
+                        len(completed_repo_set),
+                        repo_pr_done,
+                        repo_pr_total,
+                        len(persisted_prs),
+                        target_items,
+                    )
+                continue
+
             scan_key = _scan_key(repo_name, raw_pr["head_sha"])
             if scan_key in scanned_pr_key_set or scan_key in persisted_pr_keys:
                 if _should_log_repo_progress(repo_pr_done, repo_pr_total):
