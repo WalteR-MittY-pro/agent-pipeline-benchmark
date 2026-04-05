@@ -460,6 +460,99 @@ def test_run_build_skips_excluded_prs(tmp_path):
     assert summaries[0]["pr"]["pr_id"] == pr2["pr_id"]
 
 
+def test_run_build_resolves_summary_records_to_full_metadata(tmp_path, monkeypatch):
+    input_path = tmp_path / "runnable.json"
+    output_path = tmp_path / "stage2_results.jsonl"
+    snapshot_path = tmp_path / "prs_snapshot.json"
+    full_pr = _load_pr("sample_pr_cgo.json")
+    summary_pr = {
+        "repo": full_pr["repo"],
+        "pr_id": full_pr["pr_id"],
+        "interop_type": full_pr["interop_type"],
+        "status": "baseline_passed",
+    }
+    input_path.write_text(json.dumps([summary_pr]), encoding="utf-8")
+    snapshot_path.write_text(json.dumps([full_pr]), encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+
+    class FakeApp:
+        async def ainvoke(self, payload, config=None):
+            return {
+                **payload,
+                "compile_status": "success",
+                "baseline_test_result": {
+                    "passed": 1,
+                    "failed": 0,
+                    "errors": 0,
+                    "total": 1,
+                    "compile_success": True,
+                    "exit_code": 0,
+                    "stdout_tail": "ok",
+                },
+                "errors": [],
+            }
+
+    args = Namespace(
+        input=str(input_path),
+        output=str(output_path),
+        db=":memory:",
+        thread_id="build-test",
+    )
+
+    with patch("graph.build_pr_subgraph", return_value=FakeApp()):
+        summaries = main.run_build(args)
+
+    assert summaries[0]["pr"]["head_sha"] == full_pr["head_sha"]
+
+
+def test_run_single_pr_resolves_summary_record_to_full_metadata(tmp_path, monkeypatch):
+    pr_path = tmp_path / "pr.json"
+    snapshot_path = tmp_path / "prs_snapshot.json"
+    full_pr = _load_pr("sample_pr_cgo.json")
+    summary_pr = {
+        "repo": full_pr["repo"],
+        "pr_id": full_pr["pr_id"],
+        "interop_type": full_pr["interop_type"],
+        "status": "baseline_passed",
+    }
+    pr_path.write_text(json.dumps(summary_pr), encoding="utf-8")
+    snapshot_path.write_text(json.dumps([full_pr]), encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+
+    class FakeApp:
+        def __init__(self):
+            self.last_payload = None
+
+        async def ainvoke(self, payload, config=None):
+            self.last_payload = payload
+            return {
+                **payload,
+                "compile_status": "success",
+                "baseline_test_result": {
+                    "passed": 1,
+                    "failed": 0,
+                    "errors": 0,
+                    "total": 1,
+                    "compile_success": True,
+                    "exit_code": 0,
+                    "stdout_tail": "ok",
+                },
+                "errors": [],
+            }
+
+    fake_app = FakeApp()
+    args = Namespace(
+        pr_json=str(pr_path),
+        db=":memory:",
+        thread_id="single-pr-test",
+    )
+
+    with patch("graph.build_pr_subgraph", return_value=fake_app):
+        main.run_single_pr(args)
+
+    assert fake_app.last_payload["pr"]["head_sha"] == full_pr["head_sha"]
+
+
 def test_real_build_pr_subgraph_preserves_errors_and_short_circuits_failed_env():
     pr = _load_pr("sample_pr_cgo.json")
 

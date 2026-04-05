@@ -100,6 +100,52 @@ def load_json_array(path_str: str) -> list[dict]:
     return data
 
 
+def _looks_like_pr_metadata(pr: dict) -> bool:
+    required = {"repo", "pr_id", "head_sha", "base_sha", "clone_url", "interop_type"}
+    return required.issubset(pr.keys())
+
+
+def _resolve_pr_metadata_records(
+    prs: list[dict], metadata_paths: list[str] | None = None
+) -> list[dict]:
+    if all(_looks_like_pr_metadata(pr) for pr in prs):
+        return prs
+
+    candidate_paths = metadata_paths or [
+        "prs_snapshot.json",
+        "output/feasibility_candidates_6.json",
+        "output/feasibility_candidates_runnable_4.json",
+    ]
+    lookup: dict[str, dict] = {}
+    for path_str in candidate_paths:
+        for pr in load_json_array(path_str):
+            if not isinstance(pr, dict) or not _looks_like_pr_metadata(pr):
+                continue
+            lookup[make_pr_key(pr["repo"], pr["pr_id"])] = pr
+
+    resolved: list[dict] = []
+    unresolved: list[str] = []
+    for pr in prs:
+        if _looks_like_pr_metadata(pr):
+            resolved.append(pr)
+            continue
+
+        pr_key = make_pr_key(pr["repo"], pr["pr_id"])
+        match = lookup.get(pr_key)
+        if match is None:
+            unresolved.append(pr_key)
+            continue
+        resolved.append(match)
+
+    if unresolved:
+        raise SystemExit(
+            "Input PR records are missing full metadata (for example head_sha) and "
+            f"could not be resolved from local snapshots: {', '.join(unresolved)}"
+        )
+
+    return resolved
+
+
 def build_config_fingerprint(run_config: dict) -> str:
     relevant = {
         "max_prs_per_repo": run_config["max_prs_per_repo"],
@@ -330,6 +376,7 @@ def run_single_pr(args):
         raise SystemExit(f"PR JSON file not found: {args.pr_json}")
 
     pr = json.loads(pr_path.read_text(encoding="utf-8"))
+    pr = _resolve_pr_metadata_records([pr])[0]
     excluded_prs_path = getattr(args, "excluded_prs", None) or BASE_RUN_CONFIG["excluded_prs_path"]
     if make_pr_key(pr["repo"], pr["pr_id"]) in load_pr_key_set(excluded_prs_path):
         raise SystemExit(
@@ -377,6 +424,7 @@ def run_build(args):
             len(skipped_prs),
             excluded_prs_path,
         )
+    prs = _resolve_pr_metadata_records(prs)
     run_config = {
         **BASE_RUN_CONFIG,
         "db_path": args.db,
