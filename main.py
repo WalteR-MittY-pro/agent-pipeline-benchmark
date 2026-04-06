@@ -113,6 +113,8 @@ def _resolve_pr_metadata_records(
 
     candidate_paths = metadata_paths or [
         "prs_snapshot.json",
+        "prs_snapshot_filter.json",
+        "output/runnable_baseline_10.json",
         "output/feasibility_candidates_6.json",
         "output/feasibility_candidates_runnable_4.json",
     ]
@@ -209,8 +211,37 @@ def make_initial_pr_state(pr: dict, run_config: dict) -> dict:
         "generated_code": None,
         "llm_tokens_used": 0,
         "test_result": None,
+        "benchmark_item": None,
+        "benchmark_items": [],
         "errors": [],
     }
+
+
+def load_image_manifest(path_str: str | None) -> dict[str, str]:
+    if not path_str:
+        return {}
+    path = Path(path_str)
+    if not path.exists():
+        raise SystemExit(f"Image manifest not found: {path_str}")
+    raw = path.read_text(encoding="utf-8").strip()
+    if not raw:
+        return {}
+    data = json.loads(raw)
+    mapping: dict[str, str] = {}
+    if isinstance(data, list):
+        for item in data:
+            if not isinstance(item, dict):
+                continue
+            image_tag = item.get("image_tag")
+            if image_tag:
+                mapping[make_pr_key(item["repo"], item["pr_id"])] = image_tag
+    elif isinstance(data, dict):
+        for key, value in data.items():
+            if isinstance(value, str):
+                mapping[key] = value
+    else:
+        raise SystemExit(f"{path_str} must be a JSON array or object")
+    return mapping
 
 
 def prompt_review(prs_summary: list[dict]) -> list[str] | None:
@@ -386,15 +417,23 @@ def run_single_pr(args):
         **BASE_RUN_CONFIG,
         "db_path": args.db,
         "thread_id": args.thread_id or f"single-pr-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
-        "stage2_only": True,
+        "stage2_only": bool(getattr(args, "stage2_only", True)),
         "enable_compile_repair": False,
         "excluded_prs_path": excluded_prs_path,
+        "task_strategy": getattr(args, "task_strategy", None) or BASE_RUN_CONFIG["task_strategy"],
+        "target_llm": getattr(args, "target_llm", None) or BASE_RUN_CONFIG["target_llm"],
+        "judge_llm": getattr(args, "judge_llm", None) or BASE_RUN_CONFIG["judge_llm"],
     }
 
-    app = build_pr_subgraph(db_path=args.db, stage2_only=True)
+    initial_state = make_initial_pr_state(pr, run_config)
+    if getattr(args, "image_tag", None):
+        initial_state["image_tag"] = args.image_tag
+        initial_state["build_status"] = "success"
+
+    app = build_pr_subgraph(db_path=args.db, stage2_only=run_config["stage2_only"])
     result = asyncio.run(
         app.ainvoke(
-            make_initial_pr_state(pr, run_config),
+            initial_state,
             {"configurable": {"thread_id": run_config["thread_id"]}},
         )
     )
@@ -411,10 +450,14 @@ def run_single_pr(args):
 
 def run_build(args):
     from graph import build_pr_subgraph
+    from nodes.aggregate import aggregate_results
+    from nodes.stage2_utils import make_error
     from nodes.stage2_utils import summarize_stage2_state
 
     input_path = args.input or "prs_snapshot.json"
-    output_path = args.output or "output/stage2_results.jsonl"
+    output_path = args.output or (
+        "output/stage2_results.jsonl" if getattr(args, "stage2_only", True) else "output/stage3_results.jsonl"
+    )
     prs = load_json_array(input_path)
     excluded_prs_path = getattr(args, "excluded_prs", None) or BASE_RUN_CONFIG["excluded_prs_path"]
     prs, skipped_prs = filter_excluded_prs(prs, excluded_prs_path)
@@ -429,21 +472,60 @@ def run_build(args):
         **BASE_RUN_CONFIG,
         "db_path": args.db,
         "thread_id": args.thread_id or f"build-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
-        "stage2_only": True,
+        "stage2_only": bool(getattr(args, "stage2_only", True)),
         "enable_compile_repair": False,
         "excluded_prs_path": excluded_prs_path,
+        "task_strategy": getattr(args, "task_strategy", None) or BASE_RUN_CONFIG["task_strategy"],
+        "target_llm": getattr(args, "target_llm", None) or BASE_RUN_CONFIG["target_llm"],
+        "judge_llm": getattr(args, "judge_llm", None) or BASE_RUN_CONFIG["judge_llm"],
     }
 
-    app = build_pr_subgraph(db_path=args.db, stage2_only=True)
+    image_manifest = load_image_manifest(getattr(args, "image_manifest", None))
+    app = build_pr_subgraph(db_path=args.db, stage2_only=run_config["stage2_only"])
     output_file = Path(output_path)
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
     summaries: list[dict] = []
+    benchmark_items: list[dict] = []
+    errors: list[dict] = []
     with output_file.open("w", encoding="utf-8") as handle:
         for pr in prs:
+            pr_key = make_pr_key(pr["repo"], pr["pr_id"])
+            image_tag = image_manifest.get(pr_key)
+            if getattr(args, "image_manifest", None) and not image_tag:
+                error = make_error(
+                    pr,
+                    stage="build",
+                    reason="missing_image_tag",
+                    message=f"No image tag found in {args.image_manifest} for {pr_key}.",
+                )
+                summary = {
+                    "pr": pr,
+                    "image_tag": None,
+                    "coarse_status": "failed",
+                    "reason_code": "missing_image_tag",
+                    "env_spec": None,
+                    "build_status": None,
+                    "compile_status": None,
+                    "baseline_test_result": None,
+                    "task": None,
+                    "generated_code": None,
+                    "test_result": None,
+                    "benchmark_items": [],
+                    "errors": [error],
+                }
+                summaries.append(summary)
+                errors.append(error)
+                handle.write(json.dumps(summary, ensure_ascii=False, default=str) + "\n")
+                continue
+
+            initial_state = make_initial_pr_state(pr, run_config)
+            if image_tag:
+                initial_state["image_tag"] = image_tag
+                initial_state["build_status"] = "success"
             result = asyncio.run(
                 app.ainvoke(
-                    make_initial_pr_state(pr, run_config),
+                    initial_state,
                     {
                         "configurable": {
                             "thread_id": f"{run_config['thread_id']}-pr{pr['pr_id']}"
@@ -453,10 +535,60 @@ def run_build(args):
             )
             summary = summarize_stage2_state(result)
             summaries.append(summary)
+            benchmark_items.extend(result.get("benchmark_items") or [])
+            errors.extend(result.get("errors") or [])
             handle.write(json.dumps(summary, ensure_ascii=False, default=str) + "\n")
+
+    if not run_config["stage2_only"]:
+        aggregate_results(
+            {
+                "run_config": run_config,
+                "benchmark_items": benchmark_items,
+                "errors": errors,
+                "prs": prs,
+            }
+        )
 
     logging.info("build complete: %s PRs processed into %s", len(summaries), output_path)
     return summaries
+
+
+def run_full(args):
+    fetch_repos_args = argparse.Namespace(
+        db=args.db,
+        output="repos_snapshot.json",
+        interop_types=args.interop_types,
+        min_stars=args.min_stars,
+        target_repo_count=args.target_repo_count,
+    )
+    run_fetch_repos(fetch_repos_args)
+
+    fetch_prs_args = argparse.Namespace(
+        db=args.db,
+        input="repos_snapshot.json",
+        output="prs_snapshot.json",
+        thread_id=args.thread_id,
+        review=args.review,
+        max_prs_per_repo=args.max_prs_per_repo,
+        target_items=args.target_items,
+        min_stars=args.min_stars,
+        excluded_prs=args.excluded_prs,
+    )
+    run_fetch_prs(fetch_prs_args)
+
+    build_args = argparse.Namespace(
+        db=args.db,
+        input="prs_snapshot.json",
+        output=args.output or "output/stage3_results.jsonl",
+        thread_id=args.thread_id,
+        excluded_prs=args.excluded_prs,
+        stage2_only=args.stage2_only,
+        image_manifest=args.image_manifest,
+        target_llm=args.target_llm,
+        judge_llm=args.judge_llm,
+        task_strategy=args.task_strategy,
+    )
+    return run_build(build_args)
 
 
 def main():
@@ -522,6 +654,32 @@ def main():
         "--excluded-prs",
         help="JSON array file of PRs to permanently exclude; defaults to excluded_prs.json",
     )
+    parser.add_argument(
+        "--stage2-only",
+        action="store_true",
+        help="Only run baseline environment/image/compile verification without Stage 3 generation.",
+    )
+    parser.add_argument(
+        "--image-manifest",
+        help="JSON file mapping repo#pr_id to a reusable image_tag for Stage 3-only execution.",
+    )
+    parser.add_argument(
+        "--image-tag",
+        help="Reusable Docker image tag for single-pr Stage 3-only execution.",
+    )
+    parser.add_argument(
+        "--task-strategy",
+        choices=["completion", "generation"],
+        help="Task strategy used when constructing benchmark tasks.",
+    )
+    parser.add_argument(
+        "--target-llm",
+        help="Model identifier for the target generation model.",
+    )
+    parser.add_argument(
+        "--judge-llm",
+        help="Model identifier for the judge model.",
+    )
 
     args = parser.parse_args()
 
@@ -531,14 +689,12 @@ def main():
         "build": run_build,
         "single-pr": run_single_pr,
         "resume": run_resume,
+        "full": run_full,
     }
 
     if args.mode in dispatch:
         dispatch[args.mode](args)
         return
-
-    logging.error("Mode %s not yet implemented (Phase 2+)", args.mode)
-    raise SystemExit(1)
 
 
 if __name__ == "__main__":

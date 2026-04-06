@@ -125,6 +125,7 @@ class PRSubState(TypedDict):
     generated_code: object  # str | None
     llm_tokens_used: int
     test_result: object  # TestResult | None
+    benchmark_items: list  # list[BenchmarkItem]
     errors: list
 
 

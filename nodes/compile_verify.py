@@ -1,51 +1,31 @@
 from __future__ import annotations
 
-import asyncio
 from typing import Any
 
+from nodes.docker_runtime import docker_stop, run_command, runtime_build_cmds, wrap_shell_command
 from nodes.stage2_utils import make_error, tail_text
 from parsers import get_parser
 
 
-async def _run_command(cmd: list[str], timeout: int) -> tuple[int, str]:
-    process = await asyncio.create_subprocess_exec(
-        *cmd,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.STDOUT,
-    )
-    try:
-        stdout, _ = await asyncio.wait_for(process.communicate(), timeout=timeout)
-        return process.returncode or 0, stdout.decode("utf-8", errors="ignore")
-    except asyncio.TimeoutError:
-        process.kill()
-        await process.communicate()
-        return -1, "command timed out"
-
-
 async def _docker_run(image_tag: str) -> tuple[int, str]:
-    return await _run_command(["docker", "run", "-d", "--rm", image_tag, "sleep", "infinity"], timeout=60)
+    return await _run_command(
+        ["docker", "run", "-d", "--rm", image_tag, "sleep", "infinity"],
+        timeout=60,
+    )
 
 
 async def _docker_exec(container_id: str, command: str) -> tuple[int, str]:
-    wrapped = (
-        "if [ -x /usr/local/go/bin/go ]; then "
-        'export GOROOT="${GOROOT:-/usr/local/go}"; '
-        'export GOPATH="${GOPATH:-/go}"; '
-        'export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"; '
-        "fi; "
-        "if [ -d /app/static-build/install/lib/pkgconfig ]; then "
-        "export PKG_CONFIG_PATH=/app/static-build/install/lib/pkgconfig:${PKG_CONFIG_PATH}; "
-        "fi; "
-        f"{command}"
-    )
     return await _run_command(
-        ["docker", "exec", container_id, "sh", "-lc", wrapped],
+        ["docker", "exec", container_id, "sh", "-lc", wrap_shell_command(command)],
         timeout=600,
     )
 
 
 async def _docker_stop(container_id: str) -> None:
-    await _run_command(["docker", "stop", container_id], timeout=60)
+    await docker_stop(container_id)
+
+
+_run_command = run_command
 
 
 async def compile_verify(state: dict[str, Any]) -> dict[str, Any]:
@@ -55,7 +35,7 @@ async def compile_verify(state: dict[str, Any]) -> dict[str, Any]:
     env_spec = state["env_spec"]
     repair_rounds = int(state.get("compile_repair_rounds", 0))
     repair_enabled = bool(state["run_config"].get("enable_compile_repair"))
-    build_cmds = list(env_spec.get("build_cmds") or [])
+    build_cmds = runtime_build_cmds(env_spec)
     test_cmds = list(env_spec.get("test_cmds") or [])
 
     if not test_cmds:
@@ -121,7 +101,7 @@ async def compile_verify(state: dict[str, Any]) -> dict[str, Any]:
             parser = get_parser(env_spec.get("test_framework"))
             baseline_test_result = parser.parse(combined_test_output, last_exit_code)
 
-            if baseline_test_result["total"] == -1:
+            if baseline_test_result["total"] <= 0:
                 return {
                     "compile_status": "failed",
                     "baseline_test_result": baseline_test_result,
@@ -150,7 +130,11 @@ async def compile_verify(state: dict[str, Any]) -> dict[str, Any]:
                     ],
                 }
 
-            if not baseline_test_result["compile_success"] or baseline_test_result["failed"] > 0:
+            if (
+                last_exit_code != 0
+                or not baseline_test_result["compile_success"]
+                or baseline_test_result["failed"] > 0
+            ):
                 return {
                     "compile_status": "failed",
                     "compile_repair_rounds": repair_rounds,

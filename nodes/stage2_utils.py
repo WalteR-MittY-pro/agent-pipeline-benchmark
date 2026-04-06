@@ -38,9 +38,20 @@ def summarize_stage2_state(state: dict[str, Any]) -> dict[str, Any]:
     last_error = errors[-1] if errors else {}
     baseline = state.get("baseline_test_result") or {}
     env_spec = state.get("env_spec") or {}
+    benchmark_items = list(state.get("benchmark_items") or [])
+    task = state.get("task") or {}
+    test_result = state.get("test_result") or {}
 
     coarse_status = "failed"
-    if state.get("compile_status") in {"success", "repaired"}:
+    if benchmark_items:
+        coarse_status = "scored"
+    elif test_result:
+        coarse_status = "tested"
+    elif state.get("generated_code"):
+        coarse_status = "generated"
+    elif task:
+        coarse_status = "task_constructed"
+    elif state.get("compile_status") in {"success", "repaired"}:
         if baseline.get("failed", -1) == 0 and baseline.get("compile_success") is True:
             coarse_status = "baseline_test_passed"
         else:
@@ -61,5 +72,9 @@ def summarize_stage2_state(state: dict[str, Any]) -> dict[str, Any]:
         "build_status": state.get("build_status"),
         "compile_status": state.get("compile_status"),
         "baseline_test_result": baseline or None,
+        "task": task or None,
+        "generated_code": state.get("generated_code"),
+        "test_result": test_result or None,
+        "benchmark_items": benchmark_items,
         "errors": errors,
     }

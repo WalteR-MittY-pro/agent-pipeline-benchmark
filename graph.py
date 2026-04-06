@@ -16,6 +16,10 @@ from nodes.infer_env import infer_env
 from nodes.build_dockerfile import build_dockerfile
 from nodes.docker_build import docker_build
 from nodes.compile_verify import compile_verify
+from nodes.construct_task import construct_task
+from nodes.llm_generate import llm_generate
+from nodes.run_tests import run_tests
+from nodes.score import score
 
 from langgraph.graph import StateGraph
 from langgraph.constants import START, END
@@ -90,6 +94,15 @@ def route_after_build(state: PRSubState):
     return END
 
 
+def route_after_infer_env(state: PRSubState):
+    env_spec = state.get("env_spec") or {}
+    if env_spec.get("source") == "failed":
+        return END
+    if state.get("image_tag"):
+        return "compile_verify"
+    return "build_dockerfile"
+
+
 def route_after_dockerfile(state: PRSubState):
     env_spec = state.get("env_spec") or {}
     if env_spec.get("source") == "failed":
@@ -111,6 +124,18 @@ def route_after_compile(state: PRSubState, *, stage2_only: bool = True):
     return END
 
 
+def route_after_construct_task(state: PRSubState):
+    return "llm_generate" if state.get("task") else END
+
+
+def route_after_llm_generate(state: PRSubState):
+    return "run_tests" if state.get("generated_code") else END
+
+
+def route_after_run_tests(state: PRSubState):
+    return "score" if state.get("test_result") else END
+
+
 def build_pr_subgraph(
     db_path: str = "benchmark_runs.db",
     *,
@@ -122,9 +147,21 @@ def build_pr_subgraph(
     g.add_node("build_dockerfile", build_dockerfile)
     g.add_node("docker_build", docker_build)
     g.add_node("compile_verify", compile_verify)
+    g.add_node("construct_task", construct_task)
+    g.add_node("llm_generate", llm_generate)
+    g.add_node("run_tests", run_tests)
+    g.add_node("score", score)
 
     g.add_edge(START, "infer_env")
-    g.add_edge("infer_env", "build_dockerfile")
+    g.add_conditional_edges(
+        "infer_env",
+        route_after_infer_env,
+        {
+            "build_dockerfile": "build_dockerfile",
+            "compile_verify": "compile_verify",
+            END: END,
+        },
+    )
     g.add_conditional_edges(
         "build_dockerfile",
         route_after_dockerfile,
@@ -147,9 +184,35 @@ def build_pr_subgraph(
         lambda state: route_after_compile(state, stage2_only=stage2_only),
         {
             "compile_verify": "compile_verify",
+            "construct_task": "construct_task",
             END: END,
         },
     )
+    g.add_conditional_edges(
+        "construct_task",
+        route_after_construct_task,
+        {
+            "llm_generate": "llm_generate",
+            END: END,
+        },
+    )
+    g.add_conditional_edges(
+        "llm_generate",
+        route_after_llm_generate,
+        {
+            "run_tests": "run_tests",
+            END: END,
+        },
+    )
+    g.add_conditional_edges(
+        "run_tests",
+        route_after_run_tests,
+        {
+            "score": "score",
+            END: END,
+        },
+    )
+    g.add_edge("score", END)
 
     # Stage 2 single-pr/build currently rely on async node execution.
     # MemorySaver supports the async graph path without requiring AsyncSqliteSaver.

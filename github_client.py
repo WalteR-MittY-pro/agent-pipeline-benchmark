@@ -172,7 +172,7 @@ def get_github_tokens_from_env(
     prepare_github_network_env(env_path)
     tokens = [
         t
-        for key in ("GITHUB_TOKEN_1", "GITHUB_TOKEN_2", "GITHUB_TOKEN_3")
+        for key in ("GITHUB_TOKEN_1", "GITHUB_TOKEN_2")
         if (t := os.environ.get(key))
     ]
 
@@ -445,6 +445,48 @@ class GitHubClient:
 
         self._cache_set(cache_key, files, ttl_hours=-1)
         return files
+
+    def get_pr_file_details(
+        self,
+        repo_full_name: str,
+        pr_number: int,
+    ) -> list[dict[str, Any]]:
+        cache_key = f"pr_file_details:{repo_full_name}:{pr_number}"
+        cached = self._cache_get(cache_key)
+        if cached is not None:
+            return cached
+
+        details: list[dict[str, Any]] = []
+        try:
+            repo = self._api_call(lambda: self._client().get_repo(repo_full_name))
+            pr = self._api_call(lambda: repo.get_pull(pr_number))
+            for f in self._api_call(lambda: pr.get_files()):
+                details.append(
+                    {
+                        "path": f.filename,
+                        "lang": self._detect_lang(f.filename),
+                        "is_test": self._is_test_file(f.filename),
+                        "additions": f.additions,
+                        "deletions": f.deletions,
+                        "status": f.status,
+                        "patch": getattr(f, "patch", None),
+                    }
+                )
+        except GithubException as e:
+            if e.status == 404:
+                return []
+            if _is_pr_diff_not_available_error(e):
+                logger.warning(
+                    "Skipping PR file details for %s#%s because GitHub reported the "
+                    "diff as unavailable (422 not_available)",
+                    repo_full_name,
+                    pr_number,
+                )
+                return []
+            raise
+
+        self._cache_set(cache_key, details, ttl_hours=-1)
+        return details
 
     def get_file_content(
         self,

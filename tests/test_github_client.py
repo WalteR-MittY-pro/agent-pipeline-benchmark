@@ -352,6 +352,40 @@ def test_get_pr_files_skips_when_github_reports_missing_diff_data():
     assert client.get_pr_files("owner/repo", 456) == []
 
 
+def test_get_pr_file_details_includes_patch_data():
+    client = object.__new__(GitHubClient)
+    client._cache_get = lambda key: None
+    client._cache_set = lambda key, value, ttl_hours=24.0: None
+    client._api_call = lambda func, *args, **kwargs: func()
+
+    files = [
+        SimpleNamespace(
+            filename="pycosat.c",
+            additions=10,
+            deletions=4,
+            status="modified",
+            patch="@@ -1,2 +1,3 @@\n-old\n+new\n",
+        )
+    ]
+    pr = SimpleNamespace(get_files=lambda: files)
+    repo = SimpleNamespace(get_pull=lambda pr_number: pr)
+    client._client = lambda: SimpleNamespace(get_repo=lambda repo_full_name: repo)
+
+    details = client.get_pr_file_details("owner/repo", 7)
+
+    assert details == [
+        {
+            "path": "pycosat.c",
+            "lang": "C",
+            "is_test": False,
+            "additions": 10,
+            "deletions": 4,
+            "status": "modified",
+            "patch": "@@ -1,2 +1,3 @@\n-old\n+new\n",
+        }
+    ]
+
+
 def test_api_call_wraps_proxy_errors_with_actionable_message(monkeypatch):
     client = object.__new__(GitHubClient)
     client._throttle = lambda: None
